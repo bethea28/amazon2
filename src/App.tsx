@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-
+import Signup from './authComponents/signUp';
 function App() {
   return (
     <div className="App">
@@ -16,6 +16,9 @@ function App() {
         >
         </a>
       </header>
+      <div>
+        <Signup />
+      </div>
     </div>
   );
 }
