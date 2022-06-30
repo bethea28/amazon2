@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Signup from './authComponents/signUp';
+import SignIn from './authComponents/signIn';
 function App() {
   return (
     <div className="App">
@@ -18,6 +19,9 @@ function App() {
       </header>
       <div>
         <Signup />
+      </div>
+      <div>
+        <SignIn />
       </div>
     </div>
   );
