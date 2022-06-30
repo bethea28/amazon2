@@ -1,12 +1,12 @@
 import React, { FormEventHandler, useState } from "react";
 import userPool from "../userPool";
 const Signup = () => {
-const[email, setEmail]= useState("")
+const[user, setUser]= useState("")
 const [password,setPassword] = useState("")
 
     const onSubmit: FormEventHandler = (event) => {
         event.preventDefault()
-        userPool.signUp(email, password, [], [], (err,data)=> {
+        userPool.signUp(user, password, [], [], (err,data)=> {
             if(err){
                 console.log(err)
             }console.log(data)
@@ -15,10 +15,10 @@ const [password,setPassword] = useState("")
     return(
         <div>
             <form onSubmit={onSubmit}>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="user">User Name</label>
                 <input 
-                value={email}
-                 onChange={(event)=> setEmail(event.target.value)}>
+                value={user}
+                 onChange={(event)=> setUser(event.target.value)}>
                  </input>
                  <label htmlFor="password">Password</label>
                  <input 
