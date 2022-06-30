@@ -1,6 +1,10 @@
 # amazon-2-frontend
 
-# Getting Started with Create React App
+This project was started with create react app. After cloning you should download node modules. To do so, in your terminal type:
+
+npm install
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

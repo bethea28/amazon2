@@ -17,12 +17,7 @@ function App() {
         >
         </a>
       </header>
-      <div>
-        <Signup />
-      </div>
-      <div>
-        <SignIn />
-      </div>
+     
     </div>
   );
 }
