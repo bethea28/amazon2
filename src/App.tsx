@@ -1,10 +1,12 @@
 import React, { useState, Fragment } from 'react'
 // import './App.css';
 
-import Signup from './authComponents/signUp';
-import SignIn from './authComponents/signIn';
-import AutoDismissAlert, { AutoDismissAlertProps } from './AutoDismissAlert/AutoDismissAlert';
+import Signup from './Components/Auth/signUp';
+import SignIn from './Components/Auth/signIn';
+import AutoDismissAlert, { AutoDismissAlertProps } from './Components/core/AutoDismissAlert';
 import { v4 as uuid } from 'uuid'
+import { Box, Typography } from '@mui/material';
+import { Link } from 'react-bootstrap/lib/Navbar';
 
 
 function App() {
@@ -18,37 +20,30 @@ function App() {
     setMsgAlerts(msgAlerts => [...msgAlerts, { heading, message, variant, id }])
   }
   return (
-    <div className="App">
+    <Box>
       <header className="App-header">
       {msgAlerts.map(msgAlert => (
         <AutoDismissAlert
           key={msgAlert.id}
-          heading={msgAlert.heading}
-          variant={msgAlert.variant}
-          message={msgAlert.message}
-          // id={msgAlert.id}
+          {...msgAlert}
         />
       ))}
-        <p>
-        <Fragment>
-   
-   
-  </Fragment>
+        <Typography>
           Hello World! 
           <SignIn msgAlert={msgAlert} setUser={setUser} />
           <Signup msgAlert={msgAlert} setUser={setUser} />
-        </p>
-        <a
+        </Typography>
+        <Link
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
         >
-        </a>
+        </Link>
       
      
     </header>
-    </div>
+    </Box>
   );
 }
 
