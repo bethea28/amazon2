@@ -1,2 +1,3 @@
-export default Example;
+import React from 'react';
+
 
