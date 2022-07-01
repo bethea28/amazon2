@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './Components/App/App';
+import App from './ComponentsExample/App/App';
+import Profile from './components/Profile';
+import ProfileForm from './components/Profile/ProfileForm'
 import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter,
@@ -15,6 +17,10 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
+      </Route>
+      <Route path='/profile' element={<Profile />}>
+      </Route>
+      <Route path='/editprofile' element={<ProfileForm />}>
       </Route>
     </Routes>
   </BrowserRouter>
