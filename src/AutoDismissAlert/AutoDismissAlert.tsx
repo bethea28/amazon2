@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useState } from 'react'
 
 import Alert from 'react-bootstrap/Alert'
 
-interface AutoDismissAlertProps {
+export interface AutoDismissAlertProps {
     variant: string,
     heading: string,
     message: string
