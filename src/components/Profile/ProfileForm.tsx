@@ -1,5 +1,7 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {
+    Container,
+    Paper,
     Grid,
     TextField,
     Checkbox,
@@ -9,43 +11,65 @@ import {
 } from "@mui/material"
 
 export default function ProfileForm() {
+
+    const [name, setName] = useState("")
+    const [bio, setBio] = useState("")
+    const [interests, setInterests] = useState([{"name": "Art", "hasInterest": true}, 
+                                                {"name": "Comics and Illustrations", "hasInterest": false}, 
+                                                {"name": "Film", "hasInterest": false}, 
+                                                {"name": "Fashion", "hasInterest": true}, 
+                                                {"name": "Games", "hasInterest": true}, 
+                                                {"name": "Tech", "hasInterest": true}, 
+                                                {"name": "Music", "hasInterest": false}, 
+                                                {"name": "Publishing", "hasInterest": true}])
+
+    // const handleChange = (event) => {
+    //     setInterests({...interests, [event.target.name]: event.target.checked})
+    //     // if (event.target.checked !== true) {
+    //     //     console.log("set interest to false")
+    //     // } else {
+    //     //     console.log("set interest to true")
+    //     // }
+    // }
+
     return (
-        <Grid container direction="column">
-            <Grid item>
-                <TextField
-                    variant="outlined"
-                    label="Name"
-                    name="name"
-                    size="small"
-                    margin="dense"
-                    required
-                />
+        <Container maxWidth="xs">
+        <Paper elevation={3} style={{padding: 20}}>
+            <Grid container direction="column">
+                <Grid item>
+                    <TextField
+                        variant="outlined"
+                        label="Name"
+                        name="name"
+                        size="small"
+                        margin="dense"
+                        value={name}
+                        required
+                    />
+                </Grid>
+                <Grid item>
+                    <TextField
+                        variant="outlined"
+                        label="Bio"
+                        name="bio"
+                        value={bio}
+                        margin="dense"
+                    />
+                </Grid>
+                <Grid item>
+                    <FormGroup>
+                    {interests.map((interest) => {
+                    return <FormControlLabel control={<Checkbox defaultChecked={interest.hasInterest} name={interest.name} />} label={interest.name} key={interest.name}/>
+                    })}
+                    </FormGroup>
+                </Grid>
+                <Grid item>
+                    <Button variant="contained">Save Changes</Button>
+                </Grid>
+                
             </Grid>
-            <Grid item>
-                <TextField
-                    variant="outlined"
-                    label="Bio"
-                    name="bio"
-                    margin="dense"
-                />
-            </Grid>
-            <Grid item>
-                <FormGroup>
-                    <FormControlLabel control={<Checkbox />} label="Art" />
-                    <FormControlLabel control={<Checkbox />} label="Comics and Illustrations " />
-                    <FormControlLabel control={<Checkbox />} label="Fashion" />
-                    <FormControlLabel control={<Checkbox />} label="Film" />
-                    <FormControlLabel control={<Checkbox />} label="Games" />
-                    <FormControlLabel control={<Checkbox />} label="Tech" />
-                    <FormControlLabel control={<Checkbox />} label="Music" />
-                    <FormControlLabel control={<Checkbox />} label="Publishing" />
-                </FormGroup>
-            </Grid>
-            <Grid item>
-                <Button variant="contained">Save Changes</Button>
-            </Grid>
-            
-        </Grid>
+        </Paper>
+        </Container>
         
     )
 }

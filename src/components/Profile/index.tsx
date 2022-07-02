@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState} from "react";
 import {
     Container,
     Grid,
@@ -10,6 +10,17 @@ import {
 
 
 export default function Profile() {
+
+    const [interests, setInterests] = useState([{"name": "Art", "hasInterest": true}, 
+                                                {"name": "Comics and Illustrations", "hasInterest": false}, 
+                                                {"name": "Film", "hasInterest": false}, 
+                                                {"name": "Fashion", "hasInterest": true}, 
+                                                {"name": "Games", "hasInterest": true}, 
+                                                {"name": "Tech", "hasInterest": true}, 
+                                                {"name": "Music", "hasInterest": false}, 
+                                                {"name": "Publishing", "hasInterest": true}])
+
+    let userInterests = interests.filter(interest => interest.hasInterest)
 
     return (
         <Container maxWidth="xs">
@@ -33,9 +44,9 @@ export default function Profile() {
                     <Typography variant="h6">
                         Interests
                     </Typography>
-                    <Typography variant="body2"> 
-                        Art, Comics and Illustrations, Film
-                    </Typography>                   
+                        {userInterests.map((interest) => {
+                        return <Typography display="inline" variant="body2" key={interest.name}> {interest.name}, </Typography>
+                        })}                  
                 </Grid>
 
                 <Grid>
