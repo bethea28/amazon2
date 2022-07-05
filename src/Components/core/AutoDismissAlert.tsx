@@ -1,53 +1,38 @@
+import { Box, Typography } from '@mui/material'
 import React, { ReactNode, useEffect, useState } from 'react'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
-import Alert from 'react-bootstrap/Alert'
+// make alert const to make custom messages and colors for snackbar
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref,
+  ) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 export interface AutoDismissAlertProps {
-    variant: string,
-    heading: string,
+    variant: 'success' | 'info' | 'warning' | 'error' | undefined,
     message: string
 }
 
-function AutoDismissAlert({ variant, heading, message }: AutoDismissAlertProps) {
-    // create `show` state. When this is false, the Alert will be hidden from the screen.
-    const [show, setShow] = useState(true)
-    // a timer that will stop showing the alert after 5 seconds
-    // We store the timeoutId, incase we need to cancel the timer early (because the AutoDismissAlert was unmounted)
-    const [timeoutId, setTimeoutId] = useState<null | NodeJS.Timeout>(null)
-    console.log(timeoutId)
+function AutoDismissAlert({ variant, message }: AutoDismissAlertProps) {
 
 
-    useEffect(() => {
-        // timer, that closes the alert after 5 seconds
-        const id = setTimeout(() => setShow(false), 5000)
-        // Keep track of the timeoutId
-        setTimeoutId(id)
+  // const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
 
-        // clean up the timer. run whenever the component is unmounted
-        // and its also run before an effect is re-created
-        return function cleanup() {
-            if (timeoutId !== null) {
-                clearTimeout(timeoutId)
-            }
-        }
-    }, [])
+  // };
 
     return (
-        <Alert
-            /* This is the color, make it the bootstrap passed down as a prop */
-            variant={variant}
-            /* This function sets the show state to false, whenever the x in the top right is clicked. */
-            onClose={() => setShow(false)}
-            /* This adds a close button to our alert */
-            dismissible
-            /* The show property will display the alert if true, and hide it if false. */
-            show={show}
+        <Snackbar autoHideDuration={6000} >
+        <Alert severity= {variant}  sx={{ width: '100%' }}
         >
-            <div className='container' >
-                <Alert.Heading>{heading}</Alert.Heading>
-                <p className='alert-body'>{message}</p>
-            </div>
+            {message}
         </Alert>
+        </Snackbar>
     )
 }
 

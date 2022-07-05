@@ -1,18 +1,18 @@
-import apiUrl from '../../apiConfig'
-import axios from 'axios'
+import axiosInstance from '../../../apiConfig'
+
 
 export const signUp = (userName: string, password: string, passwordConfirmation: string) => {
-  return axios.post(apiUrl + '/signup/', {
+  return axiosInstance.post('/signup/', {
     credentials: {
       userName,
       password,
-      password_confirmation: passwordConfirmation
+      passwordConfirmation: passwordConfirmation
     }
   })
 }
 
 export const signIn = (userName: string, password: string) => {
-  return axios.post(apiUrl + '/signin/', {
+  return axiosInstance.post( '/signin/', {
     credentials: {
       userName,
       password

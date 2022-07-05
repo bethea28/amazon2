@@ -2,11 +2,12 @@ import React, { FormEvent, FormEventHandler, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { signUp, signIn } from './apiAuth/auth'
-import { signUpSuccess, signUpFailure } from '../AutoDismissAlert/messages'
+import { Message } from '../core/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import { Box, Typography } from '@mui/material';
 interface SignUpProps {
     msgAlert: (msg: any) => void,
     setUser: (user: string) => void
@@ -26,8 +27,8 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
       const res = await signIn(userName, password)
       setUser(res.data.user)
       msgAlert({
-        heading: 'Sign Up Success',
-        message: signUpSuccess,
+        // heading: 'Sign Up Success',
+        message: Message.Alert.SignUp.Success,
         variant: 'success'
       })
       setShouldNavigate(true)
@@ -36,9 +37,9 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
       setPassword('')
       setPasswordConfirmation('')
       msgAlert({
-        heading: 'Sign Up Failed with error: ' + error.message,
-        message: signUpFailure,
-        variant: 'danger'
+        // heading: 'Sign Up Failed with error: ' + error.message,
+        message: Message.Alert.SignUp.Failure,
+        variant: 'error'
       })
     }
   }
@@ -48,8 +49,8 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
   }
 
   return (
-    <div className='row'>
-      <div className='col-sm-10 col-md-8 mx-auto mt-5'>
+    <Box>
+      <Box>
         <h3>Sign Up</h3>
         <Form onSubmit={onSignUp}>
           <Form.Group controlId='userName'>
@@ -89,8 +90,8 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
             Submit
           </Button>
         </Form>
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 

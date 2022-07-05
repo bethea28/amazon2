@@ -7,32 +7,31 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import SignIn, { SignInProps } from './authComponents/signIn';
-import AutoDismissAlert, { AutoDismissAlertProps } from './AutoDismissAlert/AutoDismissAlert';
-import { v4 as uuid } from 'uuid'
+//  import SignIn, { SignInProps } from './Components/Auth/signIn';
+//  import AutoDismissAlert, { AutoDismissAlertProps } from './Components/core/AutoDismissAlert';
+//  import { v4 as uuid } from 'uuid'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
- const msgAlert = ({ heading, message, variant }: AutoDismissAlertProps) => {
-    const id = uuid()
-    setMsgAlerts(msgAlerts => [...msgAlerts, { heading, message, variant, id }])
-  }
-
-const [user, setUser] = useState<string | null>(null)
-  const [msgAlerts, setMsgAlerts] = useState<(AutoDismissAlertProps & {id: string})[]>([])
+//  const msgAlert = ({ message, variant }: AutoDismissAlertProps) => {
+//     const id = uuid()
+//     setMsgAlerts(msgAlerts => [...msgAlerts, {  message, variant, id }])
+//    }
+//   const [user, setUser] = useState<string | null>(null)
+//   const [msgAlerts, setMsgAlerts] = useState<(AutoDismissAlertProps & {id: string})[]>([])
 
 
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />}>
+      <Route path="*" element={<App />}>
       </Route>
-      <Route
+      {/* <Route
             path='/signin'
-            element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
-          />
+            element={<SignIn({msgAlert=msgAlert, setUser}: SignInProps) />}
+/> */}
     </Routes>
   </BrowserRouter>
 );

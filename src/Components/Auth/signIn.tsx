@@ -2,14 +2,17 @@ import React, { FormEvent, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { signIn } from './apiAuth/auth'
-import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
+import { Message } from '../core/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { Box, Typography } from '@mui/material'
+import { FormControl } from '@mui/material';
 
-interface SignInProps {
+export interface SignInProps {
     msgAlert: (msg: any) => void,
-    setUser: (user: string) => void
+    setUser: (user: string) => void,
+
 }
 
 const SignIn = ({ msgAlert, setUser }: SignInProps) => {
@@ -25,8 +28,8 @@ const SignIn = ({ msgAlert, setUser }: SignInProps) => {
       setUser(res.data.user)
 
       msgAlert({
-        heading: 'Sign In Success',
-        message: signInSuccess,
+         heading: 'Sign In Success',
+        message: Message.Alert.SignIn.Success,
         variant: 'success'
       })
       setShouldNavigate(true)
@@ -34,9 +37,9 @@ const SignIn = ({ msgAlert, setUser }: SignInProps) => {
       setUserName('')
       setPassword('')
       msgAlert({
-        heading: 'Sign In Failed with error: ' + error.message,
-        message: signInFailure,
-        variant: 'danger'
+        // heading: 'Sign In Failed with error: ' + error.message,
+        message: Message.Alert.SignIn.Failure,
+        variant: 'error'
       })
     }
   }
@@ -46,9 +49,9 @@ const SignIn = ({ msgAlert, setUser }: SignInProps) => {
   }
 
   return (
-    <div className='row'>
-      <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-        <h3>Sign In</h3>
+    <Box>
+      <Box>
+        <Typography>Sign In</Typography>
         <Form onSubmit={onSignIn}>
           <Form.Group controlId='userName'>
             <Form.Label className='label'>User Name</Form.Label>
@@ -77,8 +80,8 @@ const SignIn = ({ msgAlert, setUser }: SignInProps) => {
             Submit
           </Button>
         </Form>
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 

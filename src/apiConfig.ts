@@ -1,11 +1,8 @@
-type ApiUrl = '' | 'http://localhost:8000'
+import axios from "axios"
 
-let apiUrl: ApiUrl
 
-if (window.location.hostname === 'localhost') {
-  apiUrl = ''
-} else {
-  apiUrl = 'http://localhost:8000'
-}
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:8000'
+});
 
-export default apiUrl 
+export default axiosInstance 
