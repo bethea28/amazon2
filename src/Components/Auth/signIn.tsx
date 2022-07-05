@@ -28,7 +28,7 @@ const SignIn = ({ msgAlert, setUser }: SignInProps) => {
       setUser(res.data.user)
 
       msgAlert({
-         heading: 'Sign In Success',
+         
         message: Message.Alert.SignIn.Success,
         variant: 'success'
       })
@@ -37,7 +37,7 @@ const SignIn = ({ msgAlert, setUser }: SignInProps) => {
       setUserName('')
       setPassword('')
       msgAlert({
-        // heading: 'Sign In Failed with error: ' + error.message,
+        
         message: Message.Alert.SignIn.Failure,
         variant: 'error'
       })

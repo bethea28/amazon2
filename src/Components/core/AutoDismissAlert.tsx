@@ -17,14 +17,9 @@ export interface AutoDismissAlertProps {
 }
 
 function AutoDismissAlert({ variant, message }: AutoDismissAlertProps) {
+console.log(message)
 
 
-  // const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-  //   if (reason === 'clickaway') {
-  //     return;
-  //   }
-
-  // };
 
     return (
         <Snackbar autoHideDuration={6000} >
