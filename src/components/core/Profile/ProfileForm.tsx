@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import axiosInstance from '../../apiConfig'
+import axiosInstance from '../../../apiConfig'
 import { useForm } from 'react-hook-form';
-
 import {
     Container,
     Paper,
@@ -13,9 +12,11 @@ import {
     Button
 } from "@mui/material"
 
+
 type FormData = {
     name: string,
     bio: string,
+    interests: Array<{field: string, isInterested: boolean}>
 }
 
 export default function ProfileForm() {
@@ -36,11 +37,19 @@ export default function ProfileForm() {
 
     console.log("Errors:", errors)
 
-    const onSubmit = handleSubmit(data => {
+    const onSubmit = handleSubmit((data: FormData) => {
+
+        data['interests'] = interests
         console.log(data)
-        // return axiosInstance.post('/profile', {
-        //     credentials: data
-        // })
+
+        try {
+            return axiosInstance.post('/profile', {
+                data
+            })
+        } catch(e) {
+            console.log(e)
+        }
+
     })
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,14 +98,14 @@ export default function ProfileForm() {
                 </Grid>
                 <Grid item>
                     <FormGroup>
-                    {/* {...register("interests")} */}
+                    
                     {interests.map((interest) => {
                     return <FormControlLabel control={<Checkbox defaultChecked={interest.isInterested} name={interest.field} onChange={handleChange} />} label={interest.field} key={interest.field}/>
                     })}
                     </FormGroup>
                 </Grid>
                 <Grid item>
-                    <Button variant="contained" onClick={onSubmit} >Save Changes</Button>
+                    <Button variant="contained" onClick={onSubmit} > Save Changes</Button>
                 </Grid>
                 
             </Grid>
