@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { useForm } from 'react-hook-form'
+import axiosInstance from '../../apiConfig'
+import { useForm } from 'react-hook-form';
 
 import {
     Container,
@@ -11,7 +12,6 @@ import {
     FormControlLabel,
     Button
 } from "@mui/material"
-
 
 type FormData = {
     name: string,
@@ -25,8 +25,6 @@ export default function ProfileForm() {
         formState: {errors} 
     } = useForm<FormData>()
 
-    const onSubmit = handleSubmit(data => console.log(data))
-
     const [interests, setInterests] = useState([{"name": "Art", "hasInterest": true}, 
                                                 {"name": "Comics and Illustrations", "hasInterest": false}, 
                                                 {"name": "Film", "hasInterest": false}, 
@@ -36,7 +34,14 @@ export default function ProfileForm() {
                                                 {"name": "Music", "hasInterest": false}, 
                                                 {"name": "Publishing", "hasInterest": true}])
 
-    console.log(errors)
+    console.log("Errors:", errors)
+
+    const onSubmit = handleSubmit(data => {
+        console.log(data)
+        // return axiosInstance.post('/profile', {
+        //     credentials: data
+        // })
+    })
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         
