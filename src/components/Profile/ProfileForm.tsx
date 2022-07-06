@@ -23,14 +23,14 @@ export default function ProfileForm() {
                                                 {"name": "Music", "hasInterest": false}, 
                                                 {"name": "Publishing", "hasInterest": true}])
 
-    // const handleChange = (event) => {
-    //     setInterests({...interests, [event.target.name]: event.target.checked})
-    //     // if (event.target.checked !== true) {
-    //     //     console.log("set interest to false")
-    //     // } else {
-    //     //     console.log("set interest to true")
-    //     // }
-    // }
+    const handleChange = (event) => {
+        
+        if (event.target.checked !== true) {
+            setInterests({...interests, [event.target.name]: event.target.checked})
+        } else {
+            setInterests({...interests, [event.target.name]: event.target.checked})
+        }
+    }
 
     return (
         <Container maxWidth="xs">
