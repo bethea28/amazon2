@@ -25,14 +25,14 @@ export default function ProfileForm() {
         formState: {errors} 
     } = useForm<FormData>()
 
-    const [interests, setInterests] = useState([{"name": "Art", "hasInterest": true}, 
-                                                {"name": "Comics and Illustrations", "hasInterest": false}, 
-                                                {"name": "Film", "hasInterest": false}, 
-                                                {"name": "Fashion", "hasInterest": true}, 
-                                                {"name": "Games", "hasInterest": true}, 
-                                                {"name": "Tech", "hasInterest": true}, 
-                                                {"name": "Music", "hasInterest": false}, 
-                                                {"name": "Publishing", "hasInterest": true}])
+    const [interests, setInterests] = useState([{"field": "Art", "isInterested": true}, 
+                                                {"field": "Comics and Illustrations", "isInterested": false}, 
+                                                {"field": "Film", "isInterested": false}, 
+                                                {"field": "Fashion", "isInterested": true}, 
+                                                {"field": "Games", "isInterested": true}, 
+                                                {"field": "Tech", "isInterested": true}, 
+                                                {"field": "Music", "isInterested": false}, 
+                                                {"field": "Publishing", "isInterested": true}])
 
     console.log("Errors:", errors)
 
@@ -46,17 +46,17 @@ export default function ProfileForm() {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         
         // find index of matched object using the name
-        const idx = interests.findIndex((interest => interest.name === event.target.name));
+        const idx = interests.findIndex((interest => interest.field === event.target.name));
         
         // unselect -> mark it false
         if (event.target.checked !== true) {
             
-            interests[idx]['hasInterest'] = false;
+            interests[idx]['isInterested'] = false;
             console.log(interests[idx])
         }
         // select -> mark it true
         else {
-            interests[idx]['hasInterest'] = true;
+            interests[idx]['isInterested'] = true;
             console.log(interests[idx])
         }
         event.target.defaultChecked = !event.target.defaultChecked;
@@ -91,7 +91,7 @@ export default function ProfileForm() {
                     <FormGroup>
                     {/* {...register("interests")} */}
                     {interests.map((interest) => {
-                    return <FormControlLabel control={<Checkbox defaultChecked={interest.hasInterest} name={interest.name} onChange={handleChange} />} label={interest.name} key={interest.name}/>
+                    return <FormControlLabel control={<Checkbox defaultChecked={interest.isInterested} name={interest.field} onChange={handleChange} />} label={interest.field} key={interest.field}/>
                     })}
                     </FormGroup>
                 </Grid>
