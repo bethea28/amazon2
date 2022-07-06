@@ -8,10 +8,11 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Box, Typography } from '@mui/material'
 import { FormControl } from '@mui/material';
+import { AutoDismissAlertProps } from '../core/AutoDismissAlert'
 
 export interface SignInProps {
-    msgAlert: (msg: any) => void,
-    setUser: (user: string) => void,
+  msgAlert: (msg: AutoDismissAlertProps) => void,
+  setUser: (user: string) => void,
 
 }
 
@@ -33,7 +34,7 @@ const SignIn = ({ msgAlert, setUser }: SignInProps) => {
         variant: 'success'
       })
       setShouldNavigate(true)
-    } catch (error: any) {
+    } catch (error: unknown) {
       setUserName('')
       setPassword('')
       msgAlert({
@@ -67,7 +68,7 @@ const SignIn = ({ msgAlert, setUser }: SignInProps) => {
           <Form.Group controlId='password'>
             <Form.Label className='label'>Password</Form.Label>
             <Form.Control
-              className= 'input'
+              className='input'
               required
               name='password'
               value={password}

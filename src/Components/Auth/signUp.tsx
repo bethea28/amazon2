@@ -8,9 +8,10 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 import { Box, Typography } from '@mui/material';
+import { AutoDismissAlertProps } from '../core/AutoDismissAlert'
 interface SignUpProps {
-    msgAlert: (msg: any) => void,
-    setUser: (user: string) => void
+  msgAlert: (msg: AutoDismissAlertProps) => void,
+  setUser: (user: string) => void
 }
 
 const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
@@ -32,7 +33,7 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
         variant: 'success'
       })
       setShouldNavigate(true)
-    } catch (error: any) {
+    } catch (error: unknown) {
       setUserName('')
       setPassword('')
       setPasswordConfirmation('')
