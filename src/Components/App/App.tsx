@@ -1,8 +1,14 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from "react";
+import Home from "./Home";
+import Nav from "./Nav";
 
 function App() {
-  return <Button variant="contained">Hello World</Button>;
+  return (
+    <>
+      <Nav />
+      <Home />
+    </>
+  );
 }
 
 export default App;

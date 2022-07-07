@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Titan+One&display=swap");
+
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.nav-project-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-account-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-logo {
+  font-family: "Titan One", cursive;
+  font-size: 32px;
+  color: #004cba;
+  padding: 0px 16px;
+}
+
+.nav-project-copy-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-project-copy {
+  font-family: Roboto, sans-serif;
+  font-size: 20px;
+  color: #004cba;
+  padding: 0px 16px;
+}
+
+.nav-account-copy {
+  font-family: Roboto, sans-serif;
+  font-size: 20px;
+  color: #004cba;
+  padding: 0px 16px;
+}
