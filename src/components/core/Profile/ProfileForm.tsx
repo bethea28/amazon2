@@ -35,12 +35,9 @@ export default function ProfileForm() {
                                                 {"field": "Music", "isInterested": false}, 
                                                 {"field": "Publishing", "isInterested": true}])
 
-    console.log("Errors:", errors)
-
     const onSubmit = handleSubmit((data: FormData) => {
 
         data['interests'] = interests
-        console.log(data)
 
         try {
             return axiosInstance.post('/profile', {
@@ -61,12 +58,10 @@ export default function ProfileForm() {
         if (event.target.checked !== true) {
             
             interests[idx]['isInterested'] = false;
-            console.log(interests[idx])
         }
         // select -> mark it true
         else {
             interests[idx]['isInterested'] = true;
-            console.log(interests[idx])
         }
         event.target.defaultChecked = !event.target.defaultChecked;
         setInterests(interests);
