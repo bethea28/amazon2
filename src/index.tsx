@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './Components/App/App'; 
+import App from './ComponentsExample/App/App'; 
+import Project from './Components/Project';
+import CreateProjectForm from './Components/Project/CreateProjectForm';
 import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter,
@@ -15,6 +17,10 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
+      </Route>
+      <Route path='/project' element={<Project />}>
+      </Route>
+      <Route path='/createProject' element={<CreateProjectForm />}>
       </Route>
     </Routes>
   </BrowserRouter>
