@@ -1,5 +1,4 @@
 import React, { useState, Fragment } from 'react'
-// import './App.css';
 
 import Signup from './Components/Auth/signUp';
 import SignIn from './Components/Auth/signIn';
