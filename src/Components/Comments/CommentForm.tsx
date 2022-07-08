@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { createComment } from "./api/apiComments";
-import { Grid, TextField, Button } from "@mui/material";
+import { Typography, Grid, TextField, Button } from "@mui/material";
 
 type FormData = {
   headline: string;
@@ -28,9 +28,16 @@ const Comment = () => {
       paddingTop={20}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid item xs={6} md={20} marginBottom={2}>
+        <Grid item sx={{ width: 300 }} marginBottom={2}>
+          <Typography variant='h6' component='h5'>
+            Leave a Comment
+          </Typography>
+        </Grid>
+
+        <Grid item sx={{ width: 300 }} marginBottom={2}>
           <TextField
             {...register("headline")}
+            sx={{ width: 300 }}
             id='outlined-basic'
             label='Headline'
             variant='outlined'
@@ -40,6 +47,7 @@ const Comment = () => {
         <Grid item xs={6} md={20} marginBottom={2}>
           <TextField
             {...register("comment")}
+            sx={{ width: 300 }}
             id='outlined-basic'
             label='Comment'
             variant='outlined'
@@ -48,7 +56,7 @@ const Comment = () => {
 
         <Grid>
           {" "}
-          <Button variant='contained'>Submit</Button>
+          <Button variant='contained'>Post Comment</Button>
         </Grid>
       </form>
     </Grid>

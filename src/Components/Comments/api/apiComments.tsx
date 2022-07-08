@@ -3,7 +3,6 @@ import axiosInstance from "../../../apiConfig";
 type commentData = {
   userId: string;
   projectId: string;
-  creationDate: string;
   commentId: string;
   headline: string;
   username: string;
