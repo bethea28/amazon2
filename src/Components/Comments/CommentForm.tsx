@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import axiosInstance from "../../apiConfig";
-import { TextField, Button } from "@mui/material";
+import { createComment } from "./api/apiComments";
+import { Grid, TextField, Button } from "@mui/material";
 
 type FormData = {
   headline: string;
@@ -15,38 +15,43 @@ const Comment = () => {
     watch,
     formState: { errors },
   } = useForm<FormData>();
-  const onSubmit = (data: FormData) => console.log(FormData);
+  const onSubmit = async (data: FormData) => {
+    // return await createComment(data);
+  };
 
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
+    <Grid
+      container
+      spacing={0}
+      justifyContent='center'
+      alignItems='center'
+      paddingTop={20}
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid item xs={6} md={20} marginBottom={2}>
+          <TextField
+            {...register("headline")}
+            id='outlined-basic'
+            label='Headline'
+            variant='outlined'
+          />
+        </Grid>
 
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/* register your input into the hook by invoking the "register" function */}
-      <div className='comment-form-container'>
-        <div className='comment-form-content'>
-          <div className='form-between-spacing'>
-            <TextField
-              {...register("headline")}
-              id='outlined-basic'
-              label='Headline'
-              variant='outlined'
-            />
-          </div>
+        <Grid item xs={6} md={20} marginBottom={2}>
+          <TextField
+            {...register("comment")}
+            id='outlined-basic'
+            label='Comment'
+            variant='outlined'
+          />
+        </Grid>
 
-          {/* include validation with required or other standard HTML validation rules */}
-          <div className='form-between-spacing'>
-            <TextField
-              {...register("comment")}
-              id='outlined-basic'
-              label='Comment'
-              variant='outlined'
-            />
-          </div>
-
+        <Grid>
+          {" "}
           <Button variant='contained'>Submit</Button>
-        </div>
-      </div>
-    </form>
+        </Grid>
+      </form>
+    </Grid>
   );
 };
 
