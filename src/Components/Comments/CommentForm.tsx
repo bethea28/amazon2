@@ -2,7 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import axiosInstance from "../../apiConfig";
 import { TextField, Button } from "@mui/material";
-import "../Style/Comments.css";
 
 type FormData = {
   headline: string;
