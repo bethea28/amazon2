@@ -1,12 +1,10 @@
 import React from "react";
-import Home from "./Home";
-import Nav from "./Nav";
+import Comment from "../Comments/CommentForm";
 
 function App() {
   return (
     <>
-      <Nav />
-      <Home />
+      <Comment />
     </>
   );
 }
