@@ -1,12 +1,6 @@
 import React from "react";
 import Comment from "../Comments/CommentForm";
 
-function App() {
-  return (
-    <>
-      <Comment />
-    </>
-  );
-}
+function App() {}
 
 export default App;

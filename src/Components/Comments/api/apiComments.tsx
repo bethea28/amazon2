@@ -70,7 +70,7 @@ export const updateComment = async (
       },
       {
         headers: {
-          // Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`, (commented out until api token is determined)
         },
       }
     );
@@ -86,7 +86,7 @@ export const deleteComment = async (/*token,*/ commentId: string) => {
       `${axiosInstance}/comments/${commentId}`,
       {
         headers: {
-          // Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`, (commented out until api token is determined)
         },
       }
     );
