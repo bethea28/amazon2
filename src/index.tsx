@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './ComponentsExample/App/App';
 import Profile from './components/Profile';
 import ProfileForm from './components/Profile/ProfileForm'
+import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter,
