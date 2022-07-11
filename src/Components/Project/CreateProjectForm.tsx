@@ -1,8 +1,9 @@
-import React from 'react';
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import React, {useState} from 'react';
+import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
-import 'react-datepicker/dist/react-datepicker.css';
+import "react-datepicker/dist/react-datepicker.css";
 import axiosInstance from '../../apiConfig';
+import ProjectData from '../../types/Project';
 import {
     TextField,
     Button,
@@ -12,23 +13,31 @@ import {
     Typography
 } from "@mui/material"
 
-type FormData = {
-    name: string;
-    description: string;
-    targetFund: number;
-    deadline: Date;
-}
-
 export default function ProjectForm() {
+
+    // const [projectData, setProjectData] = useState<ProjectData>();
+
     const {
         register,
         handleSubmit,
         control
-    } = useForm<FormData>();
+    } = useForm<ProjectData>();
 
-    const formSubmitHandler: SubmitHandler<FormData> = (data: FormData) => {
-        console.log(data);
-    }
+    const onSubmit = async (data: ProjectData) => {
+        try {
+            return await axiosInstance.post<ProjectData>(
+                `${axiosInstance}/projects`, data,
+                {
+                    //waiting on auth token
+                    // headers: {
+                    //     Authorization: `Bearer ${token}`,
+                    // }
+                }
+            );
+        } catch (error) {
+            throw error;
+        }
+    };
   
     return (
         <Container maxWidth="xs">
@@ -37,7 +46,7 @@ export default function ProjectForm() {
                     Create New Project 
                 </Typography>
                 <Grid container direction="column">
-                    <form onSubmit={handleSubmit(formSubmitHandler)}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <Typography variant='h6' align='left' margin='dense'>
                         Project Name 
                         </Typography>
@@ -65,12 +74,12 @@ export default function ProjectForm() {
                         <Grid item>
                             <TextField
                                 margin="dense"
-                                {...register('targetFund', {required: true})}
+                                {...register('targetFundingAmount', {required: true})}
                             />
                         </Grid>
                         <Grid item>
                             <Controller
-                                name="deadline"
+                                name="targetFundingDate"
                                 control={control}
                                 render={({field}) => (
                                     <DatePicker onChange={(e) => field.onChange(e)}

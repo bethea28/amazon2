@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './ComponentsExample/App/App'; 
-import Project from './Components/Project';
+// import Project from './Components/Project';
 import CreateProjectForm from './Components/Project/CreateProjectForm';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter,
@@ -10,18 +10,22 @@ import {
   Route,
 } from "react-router-dom";
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />}>
+      <Route path="*" element={<App />}>
       </Route>
-      <Route path='/project' element={<Project />}>
-      </Route>
+      {/* <Route path='/project' element={<Project />}>
+      </Route> */}
       <Route path='/createProject' element={<CreateProjectForm />}>
       </Route>
+     
     </Routes>
   </BrowserRouter>
 );
