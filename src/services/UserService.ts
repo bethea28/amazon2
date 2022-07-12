@@ -1,13 +1,8 @@
 import axiosInstance from '../apiConfig'
+import UserData from '../types/User'
 
-type FormData = {
-    name: string,
-    bio: string,
-    // interests: Object<{string: boolean}>
-}
-
-export function getProfile(userId: String) {
-    // return axiosInstance.get(`/users/${userId}`)
+function getProfile(userId: String) {
+    // return axiosInstance.get<UserData>(`/users/${userId}`)
     return {
     "name": "Kevin Abdul", 
     "username": "kevinabdul",
@@ -16,8 +11,13 @@ export function getProfile(userId: String) {
     "projects": []}
 }
 
-export async function updateProfile(data: FormData, userId: String) {
-    return axiosInstance.put(`/users/${userId}`, {
-        data
-    })
+function updateProfile(data: UserData, userId: String) {
+    return axiosInstance.put<any>(`/users/${userId}`, data)
 }
+
+const UserService = {
+    getProfile,
+    updateProfile
+}
+
+export default UserService;

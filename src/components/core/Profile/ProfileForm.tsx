@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import UserData from '../../../types/User'
+
 import {
     Container,
     Paper,
@@ -10,33 +12,27 @@ import {
     FormControlLabel,
     Button
 } from "@mui/material"
-import { getProfile, updateProfile } from "../../../services/UserService";
-
-type FormData = {
-    name: string,
-    bio: string,
-    interests: {[key: string]: boolean}
-}
+import UserServices from "../../../services/UserService";
 
 export default function ProfileForm() {
 
-    const userProfile = getProfile("1")
+    const userProfile = UserServices.getProfile("1")
 
     const {register,
         handleSubmit,
         formState: {errors}
-    } = useForm<FormData>({
+    } = useForm<UserData>({
         // defaultValues: userProfile
     })
 
 
    /** handles the submission of the changes on user's profile */
-    const onSubmit = handleSubmit((data: FormData) => {
+    const onSubmit = handleSubmit((data: UserData) => {
         console.log(data, "DATAA")
 
-        
+
         // try {
-        //     updateProfile(data, "1234")
+        //     UserServices.updateProfile(data, "1234")
         // } catch(e) {
         //     console.log(e)
         // }
