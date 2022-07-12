@@ -12,9 +12,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/profile/:userId' element={<Profile />}>
+        <Route path='/profile/' element={<Profile />}>
         </Route>
-        <Route path='/profile/:userId/edit' element={<ProfileForm />}>
+        <Route path='/profile/edit' element={<ProfileForm />}>
         </Route>
       </Routes>
   </BrowserRouter>

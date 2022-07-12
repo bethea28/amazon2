@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import axiosInstance from '../../../apiConfig'
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import {
     Container,
@@ -11,60 +10,54 @@ import {
     FormControlLabel,
     Button
 } from "@mui/material"
-
+import { getProfile, updateProfile } from "../../../services/UserService";
 
 type FormData = {
     name: string,
     bio: string,
-    interests: Array<{field: string, isInterested: boolean}>
+    interests: {[key: string]: boolean}
 }
 
 export default function ProfileForm() {
 
+    const userProfile = getProfile("1")
+
     const {register,
         handleSubmit,
-        formState: {errors} 
-    } = useForm<FormData>()
+        formState: {errors}
+    } = useForm<FormData>({
+        // defaultValues: userProfile
+    })
 
-    const [interests, setInterests] = useState([{"field": "Art", "isInterested": true}, 
-                                                {"field": "Comics and Illustrations", "isInterested": false}, 
-                                                {"field": "Film", "isInterested": false}, 
-                                                {"field": "Fashion", "isInterested": true}, 
-                                                {"field": "Games", "isInterested": true}, 
-                                                {"field": "Tech", "isInterested": true}, 
-                                                {"field": "Music", "isInterested": false}, 
-                                                {"field": "Publishing", "isInterested": true}])
 
+   /** handles the submission of the changes on user's profile */
     const onSubmit = handleSubmit((data: FormData) => {
+        console.log(data, "DATAA")
 
-        data['interests'] = interests
-
-        try {
-            return axiosInstance.post('/profile', {
-                data
-            })
-        } catch(e) {
-            console.log(e)
-        }
+        
+        // try {
+        //     updateProfile(data, "1234")
+        // } catch(e) {
+        //     console.log(e)
+        // }
 
     })
 
+    /** handles the checkbox changes of the user's interests */
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         
-        // find index of matched object using the name
-        const idx = interests.findIndex((interest => interest.field === event.target.name));
-        
+        let interestChanged = event.target.name
+
         // unselect -> mark it false
-        if (event.target.checked !== true) {
-            
-            interests[idx]['isInterested'] = false;
-        }
-        // select -> mark it true
-        else {
-            interests[idx]['isInterested'] = true;
-        }
+        // if (event.target.checked !== true) {
+        //     userProfile.interests[interestChanged] = false;
+        // }
+        // // select -> mark it true
+        // else {
+        //     userProfile.interests[interestChanged] = true;
+        // }
         event.target.defaultChecked = !event.target.defaultChecked;
-        setInterests(interests);
+        // setInterests(userProfile.interests);
     }
 
 
@@ -94,8 +87,8 @@ export default function ProfileForm() {
                 <Grid item>
                     <FormGroup>
                     
-                    {interests.map((interest) => {
-                    return <FormControlLabel control={<Checkbox defaultChecked={interest.isInterested} name={interest.field} onChange={handleChange} />} label={interest.field} key={interest.field}/>
+                    {Object.entries(userProfile.interests).map(([key, value]) => {
+                    return <FormControlLabel control={<Checkbox defaultChecked={value} {...register("interests")} name={key} value={key} onChange={handleChange} />} label={key} key={key}/>
                     })}
                     </FormGroup>
                 </Grid>
