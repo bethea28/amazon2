@@ -1,8 +1,6 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from "react";
+import Comment from "../Comments/CommentForm";
 
-function App() {
-  
-}
+function App() {}
 
 export default App;
