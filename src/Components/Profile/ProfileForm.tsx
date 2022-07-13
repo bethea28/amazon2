@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import UserData from '../../../types/User'
+import UserData, { Interests } from '../../types/User'
 
 import {
     Container,
@@ -12,30 +12,39 @@ import {
     FormControlLabel,
     Button
 } from "@mui/material"
-import UserServices from "../../../services/UserService";
+import UserService from "../../services/UserService";
 
 export default function ProfileForm() {
 
-    const userProfile = UserServices.getProfile("1")
+    const [userProfile, setUserProfile] = useState<UserData>()
+    const [interests, setInterests] = useState<Interests>({})
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await UserService.getProfile("ffsdfsf")
+            console.log(response, "RESPOSNSEEEE")
+            setUserProfile(response.data)
+            setInterests(response.data.interests)
+        }
+        fetchData()
+    }, [])
 
     const {register,
         handleSubmit,
         formState: {errors}
     } = useForm<UserData>({
-        // defaultValues: userProfile
+        defaultValues: userProfile
     })
-
 
    /** handles the submission of the changes on user's profile */
     const onSubmit = handleSubmit((data: UserData) => {
-        console.log(data, "DATAA")
+        data['interests'] = interests
 
-
-        // try {
-        //     UserServices.updateProfile(data, "1234")
-        // } catch(e) {
-        //     console.log(e)
-        // }
+        try {
+           return UserService.updateProfile(data, "ffsdfsf")
+        } catch(e) {
+            throw e
+        }
 
     })
 
@@ -43,17 +52,19 @@ export default function ProfileForm() {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         
         let interestChanged = event.target.name
+        let interestsObject;
 
         // unselect -> mark it false
-        // if (event.target.checked !== true) {
-        //     userProfile.interests[interestChanged] = false;
-        // }
-        // // select -> mark it true
-        // else {
-        //     userProfile.interests[interestChanged] = true;
-        // }
+        if (event.target.checked !== true) {
+            interestsObject = {...interests, [interestChanged]: false}
+        }
+        // select -> mark it true
+        else {
+            interestsObject = {...interests, [interestChanged]: true}
+        }
+
+        setInterests(interestsObject)
         event.target.defaultChecked = !event.target.defaultChecked;
-        // setInterests(userProfile.interests);
     }
 
 
@@ -83,8 +94,8 @@ export default function ProfileForm() {
                 <Grid item>
                     <FormGroup>
                     
-                    {Object.entries(userProfile.interests).map(([key, value]) => {
-                    return <FormControlLabel control={<Checkbox defaultChecked={value} {...register("interests")} name={key} value={key} onChange={handleChange} />} label={key} key={key}/>
+                    {userProfile && Object.entries(userProfile!.interests).map(([key, value]) => {
+                    return <FormControlLabel control={<Checkbox defaultChecked={value} {...register("interests")} name={key}  value={key} onChange={handleChange} />} label={key} key={key}/>
                     })}
                     </FormGroup>
                 </Grid>

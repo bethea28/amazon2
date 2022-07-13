@@ -1,7 +1,11 @@
+
+export type Interests = {[key: string]: boolean}
+
 export default interface UserData {
     id?: string,
     name: string,
     username: string,
     bio: string,
-    interests: {[key: string] : boolean}
+    interests: Interests,
+    projects: Array<String>
   }

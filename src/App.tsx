@@ -4,8 +4,8 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Profile from './components/core/Profile';
-import ProfileForm from './components/core/Profile/ProfileForm'
+import Profile from './components/Profile';
+import ProfileForm from './components/Profile/ProfileForm'
 
 
 function App() {
