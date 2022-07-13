@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom'
 import UserData, { Interests } from '../../types/User'
 
 import {
@@ -14,7 +15,10 @@ import {
 } from "@mui/material"
 import UserService from "../../services/UserService";
 
+
 export default function ProfileForm() {
+
+    let navigate = useNavigate()
 
     const [userProfile, setUserProfile] = useState<UserData>()
     const [interests, setInterests] = useState<Interests>({})
@@ -22,7 +26,6 @@ export default function ProfileForm() {
     useEffect(() => {
         const fetchData = async () => {
             const response = await UserService.getProfile("ffsdfsf")
-            console.log(response, "RESPOSNSEEEE")
             setUserProfile(response.data)
             setInterests(response.data.interests)
         }
@@ -38,10 +41,13 @@ export default function ProfileForm() {
 
    /** handles the submission of the changes on user's profile */
     const onSubmit = handleSubmit((data: UserData) => {
+
         data['interests'] = interests
 
         try {
-           return UserService.updateProfile(data, "ffsdfsf")
+            return UserService.updateProfile(data, "ffsdfsf")
+                .then(() => navigate("/profile"))
+        
         } catch(e) {
             throw e
         }
@@ -94,8 +100,8 @@ export default function ProfileForm() {
                 <Grid item>
                     <FormGroup>
                     
-                    {userProfile && Object.entries(userProfile!.interests).map(([key, value]) => {
-                    return <FormControlLabel control={<Checkbox defaultChecked={value} {...register("interests")} name={key}  value={key} onChange={handleChange} />} label={key} key={key}/>
+                    {userProfile && Object.entries(userProfile!.interests).map(([field, isInterested]) => {
+                    return <FormControlLabel control={<Checkbox defaultChecked={isInterested} {...register("interests")} name={field} key={field} value={field} onChange={handleChange} />} label={field} key={field}/>
                     })}
                     </FormGroup>
                 </Grid>

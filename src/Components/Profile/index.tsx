@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -13,15 +13,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import UserService from "../../services/UserService";
 import UserData from '../../types/User'
 
+
 export default function Profile() {
 
     // const [userProfile, setUserProfile] = useState<UserData>()
 
-
     useEffect(() => {
         const fetchData = async () => {
             const response = await UserService.getProfile("ffsdfsf")
-            console.log(response.data)
             // setUserProfile(response.data)
         }
         fetchData()
@@ -32,13 +31,10 @@ export default function Profile() {
     "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 
     "interests": {"Art": true, "Comics and Illustrations": true, "Fashion": false, "Film": false, "Games": true, "Tech": true, "Music": false, "Publishing": false },
     "projects": []}
-    
 
-    // let userInterests = Object.entries(userProfile.interests).map(function([key, value]) {
-    //     if (value) {
-    //         return key
-    //     }
-    // });
+    const navigateToProfileForm = () => {
+        return <Navigate to={`/profile/edit`} />
+    }
 
     return (
         <Container maxWidth="xs">
@@ -50,7 +46,7 @@ export default function Profile() {
                     </Typography>
                     <IconButton aria-label="edit" size="large">
                         <Link to = {`/profile/edit`} >
-                            <EditIcon />
+                            <EditIcon onClick={navigateToProfileForm}/>
                         </Link>
                     </IconButton>
                 </Grid>
@@ -68,15 +64,10 @@ export default function Profile() {
                     <Typography variant="h6">
                         Interests
                     </Typography>
-                        {/* {userInterests.map((interest) => {
-                        return <Typography display="inline" variant="body2" > {interest}, </Typography>
-                        })}                   */}
-
-                        {Object.entries(userProfile!.interests).map(function([key, value]) {
-                            if (value == true) {
-                                return <Typography display="inline" variant="body2" > {key}, </Typography>
-                            }
-                        
+                        {Object.entries(userProfile!.interests).map(function([field, isInterested]) {
+                            if (isInterested == true) {
+                                return <Typography display="inline" variant="body2" key={field} > {field}, </Typography>
+                        }
                         })}                  
                 </Grid>
 
@@ -86,7 +77,7 @@ export default function Profile() {
                         {userProfile!.projects.length == 0 && (<Typography variant="body2"> No projects yet! </Typography>)}
 
                         {userProfile!.projects.length > 0 && userProfile!.projects.map((project) => {
-                        return <Typography display="inline" variant="body2" > {project}, </Typography>
+                        return <Typography display="inline" variant="body2"> {project}, </Typography>
                         })}
                     </Typography>
                 </Grid>

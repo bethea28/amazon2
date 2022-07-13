@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/profile/' element={<Profile />}>
+        <Route path='/profile' element={<Profile />}>
         </Route>
         <Route path='/profile/edit' element={<ProfileForm />}>
         </Route>
