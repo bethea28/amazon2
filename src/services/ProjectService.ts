@@ -1,35 +1,61 @@
 import axiosInstance from '../apiConfig'
 import ProjectData from "../types/Project"
 
-const getAll = () => {
-  return axiosInstance.get<Array<ProjectData>>("/projects");
+const createProject = async (data: ProjectData) => {
+  try {
+    return await axiosInstance.post<ProjectData>('/projects', data,);
+  } catch (error) {
+    throw error;
+  }
 };
-const get = (id: any) => {
-  return axiosInstance.get<ProjectData>(`/projects/${id}`);
+
+const getProject = async (projectId: any) => {
+  try {
+    return await axiosInstance.get<ProjectData>(`/projects/${projectId}`);
+  } catch (error) {
+    throw error;
+  }
 };
-const create = (data: ProjectData) => {
-  return axiosInstance.post<ProjectData>("/projects", data);
+
+const getAllProjects = async () => {
+  try {
+    return await axiosInstance.get<ProjectData>('/projects');
+  } catch (error) {
+    throw error;
+  }
 };
-const update = (id: any, data: ProjectData) => {
-  return axiosInstance.put<any>(`/projects/${id}`, data);
+
+const updateProject = async (projectId: any, data: ProjectData) => {
+  try {
+    return await axiosInstance.put<any>(`/projects/${projectId}`, data);
+  } catch (error) {
+    throw error;
+  }
 };
-const remove = (id: any) => {
-  return axiosInstance.delete<any>(`/projects/${id}`);
+
+const removeProject = async (projectId: any) => {
+  try {
+    return await axiosInstance.delete<any>(`/projects/${projectId}`);
+  } catch (error) {
+    throw error;
+  }
 };
-const removeAll = () => {
-  return axiosInstance.delete<any>(`/projects`);
+
+const findProjectByName = async (name: string) => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>(`/projects?name=${name}`);
+  } catch (error) {
+    throw error;
+  }
 };
-const findByName = (name: string) => {
-  return axiosInstance.get<Array<ProjectData>>(`/projects?name=${name}`);
-};
+
 const ProjectService = {
-  getAll,
-  get,
-  create,
-  update,
-  remove,
-  removeAll,
-  findByName,
+  createProject,
+  getProject,
+  getAllProjects,
+  updateProject,
+  removeProject,
+  findProjectByName
 };
 
 export default ProjectService;

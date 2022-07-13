@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axiosInstance from '../../apiConfig';
 import ProjectData from '../../types/Project';
+import createProject from '../../services/ProjectService';
 import {
     TextField,
     Button,
@@ -23,65 +23,49 @@ export default function ProjectForm() {
         control
     } = useForm<ProjectData>();
 
-    const onSubmit = async (data: ProjectData) => {
-        try {
-            return await axiosInstance.post<ProjectData>(
-                `${axiosInstance}/projects`, data,
-                {
-                    //waiting on auth token
-                    // headers: {
-                    //     Authorization: `Bearer ${token}`,
-                    // }
-                }
-            );
-        } catch (error) {
-            throw error;
-        }
-    };
-  
     return (
         <Container maxWidth="xs">
-            <Paper elevation={3} style={{padding: 20}}>
+            <Paper elevation={3} style={{ padding: 20 }}>
                 <Typography variant='h4' align='left' margin='dense'>
-                    Create New Project 
+                    Create New Project
                 </Typography>
                 <Grid container direction="column">
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(createProject)}>
                         <Typography variant='h6' align='left' margin='dense'>
-                        Project Name 
+                            Project Name
                         </Typography>
                         <Grid item>
                             <TextField
                                 variant="outlined"
                                 size="small"
                                 margin="dense"
-                                {...register('name', {required: true})}
+                                {...register('name', { required: true })}
                             />
                         </Grid>
                         <Typography variant='h6' align='left' margin='dense'>
-                        Project Description
+                            Project Description
                         </Typography>
                         <Grid item>
                             <TextField
                                 variant="outlined"
                                 margin="dense"
-                                {...register('description', {required: true})}
+                                {...register('description', { required: true })}
                             />
                         </Grid>
                         <Typography variant='h6' align='left' margin='dense'>
-                        Target Fund 
+                            Target Fund
                         </Typography>
                         <Grid item>
                             <TextField
                                 margin="dense"
-                                {...register('targetFundingAmount', {required: true})}
+                                {...register('targetFundingAmount', { required: true })}
                             />
                         </Grid>
                         <Grid item>
                             <Controller
                                 name="targetFundingDate"
                                 control={control}
-                                render={({field}) => (
+                                render={({ field }) => (
                                     <DatePicker onChange={(e) => field.onChange(e)}
                                         selected={field.value}
                                         placeholderText="Enter funding deadline"
