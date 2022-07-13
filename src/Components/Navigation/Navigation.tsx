@@ -8,7 +8,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-// import MenuIcon from "@mui/icons-material/Menu"; (need to fix type issue)
+import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -40,7 +40,7 @@ export default function NavigationBar(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant='h1' sx={{ my: 2 }}>
-        KickStarter
+        JumpStarter
       </Typography>
       <Divider />
       <List>
@@ -69,14 +69,14 @@ export default function NavigationBar(props: Props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            {/* <MenuIcon /> */}
+            <MenuIcon />
           </IconButton>
           <Typography
             variant='h4'
             component='div'
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            KickStarter
+            JumpStarter
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
