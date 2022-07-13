@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import Project from './Components/Project';
-import CreateProjectForm from './Components/Project/CreateProjectForm';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -21,11 +19,6 @@ root.render(
     <Routes>
       <Route path="*" element={<App />}>
       </Route>
-      {/* <Route path='/project' element={<Project />}>
-      </Route> */}
-      <Route path='/createProject' element={<CreateProjectForm />}>
-      </Route>
-     
     </Routes>
   </BrowserRouter>
 );

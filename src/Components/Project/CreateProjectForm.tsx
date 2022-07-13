@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ProjectData from '../../types/Project';
-import createProject from '../../services/ProjectService';
+import projectService from '../../services/ProjectService';
 import {
     TextField,
     Button,
@@ -23,6 +23,10 @@ export default function ProjectForm() {
         control
     } = useForm<ProjectData>();
 
+    const onSubmit = async (data: ProjectData) => {
+        return await projectService.createProject(data);
+    }
+
     return (
         <Container maxWidth="xs">
             <Paper elevation={3} style={{ padding: 20 }}>
@@ -30,7 +34,7 @@ export default function ProjectForm() {
                     Create New Project
                 </Typography>
                 <Grid container direction="column">
-                    <form onSubmit={handleSubmit(createProject)}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <Typography variant='h6' align='left' margin='dense'>
                             Project Name
                         </Typography>

@@ -8,6 +8,7 @@ import AutoDismissAlert, {
 import { v4 as uuid } from "uuid";
 import { Box, Typography, Link } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
+import CreateProjectForm from "./Components/Project/CreateProjectForm"
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -36,6 +37,10 @@ function App() {
             <Route
               path='/signin'
               element={<SignIn setUser={setUser} msgAlert={msgAlert} />}
+            />
+            <Route
+              path='/createProject'
+              element={<CreateProjectForm />}
             />
           </Routes>
           <SignIn msgAlert={msgAlert} setUser={setUser} />
