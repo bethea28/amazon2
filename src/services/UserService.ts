@@ -7,7 +7,7 @@ async function getProfile(userId: String) {
 }
 
 async function updateProfile(data: UserData, userId: String) {
-    return await axiosInstance.put<UserData, String>(`/users/${userId}/`, data)
+    return await axiosInstance.put<any>(`/users/${userId}/`, data)
 }
 
 const UserService = {
