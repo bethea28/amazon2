@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
 import Comment from "./Components/Comments/CommentForm";
+import NavigationBar from "./Components/Navigation/Navigation";
 import Signup from "./Components/Auth/signUp";
 import SignIn from "./Components/Auth/signIn";
 import AutoDismissAlert, {
@@ -23,6 +24,7 @@ function App() {
   };
   return (
     <>
+      <NavigationBar />
       <Box>
         <header className='App-header'>
           {msgAlerts.map((msgAlert) => (
