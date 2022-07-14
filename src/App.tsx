@@ -9,6 +9,7 @@ import { v4 as uuid } from "uuid";
 import { Box, Typography, Link } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import CreateProjectForm from "./Components/Project/CreateProjectForm"
+import ProjectDetails from "./Components/Project/ProjectDetails";
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -41,6 +42,10 @@ function App() {
             <Route
               path='/createProject'
               element={<CreateProjectForm />}
+            />
+            <Route
+              path='/projectDetails'
+              element={<ProjectDetails />}
             />
           </Routes>
           <SignIn msgAlert={msgAlert} setUser={setUser} />

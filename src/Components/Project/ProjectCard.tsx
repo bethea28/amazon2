@@ -23,7 +23,9 @@ const ProjectCard = () => {
             <Paper>
                 <Card variant='outlined'>
                     <CardActionArea>
+                        {/* place holder */}
                         <img alt='project img' src='https://picsum.photos/400/300' />
+                        {/* props.image */}
                         <CardContent>
                             <Typography gutterBottom variant="h4">
                                 Project Name

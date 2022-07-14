@@ -21,7 +21,9 @@ const ProjectDetails = () => {
             <Grid container spacing={6} justifyItems={"center"}>
                 <Grid item>
                     <Paper style={{ padding: 20 }}>
+                        {/* image is a place holder */}
                         <img alt='project img' src='https://picsum.photos/400/300' />
+                        {/* props.image */}
                     </Paper>
                 </Grid>
                 <Grid item>
@@ -59,6 +61,7 @@ const ProjectDetails = () => {
                             </CardActionArea>
                             <CardActions>
                                 <Button variant='outlined' size="small" color="primary">
+                                    {/* need to import Sornam's component */}
                                     Back this project
                                 </Button>
                                 <IconButton>
