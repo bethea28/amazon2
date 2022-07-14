@@ -4,7 +4,7 @@ import NavigationBar from "./Components/Navigation/Navigation";
 import Homepage from "./Components/Homepage/Homepage";
 import { Box, Typography, Link, Grid } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
-import LogInOrSignUp from "./Components/Auth/LogInOrSignUp";
+import LogInOrSignUpRoutes from "./Components/Auth/LogInOrSignUpRoutes";
 import Footer from "./Components/Navigation/Footer";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
       <Grid container spacing={0} justifyContent='center' alignItems='center'>
         <NavigationBar />
         <Homepage />
-        <LogInOrSignUp />
+        <LogInOrSignUpRoutes />
         <Comment />
       </Grid>
       <Footer />

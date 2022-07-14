@@ -13,7 +13,9 @@ const Homepage = () => {
         flexDirection='column'
       >
         <Grid marginTop={8}>
-          <Typography variant='h2'>Making Creative Ideas a Reality</Typography>
+          <Typography sx={{ fontWeight: "bold" }} variant='h2'>
+            Making Creative Ideas a Reality
+          </Typography>
         </Grid>
         <Grid marginTop={4}>
           <Button variant='contained'>Explore Projects</Button>
@@ -21,14 +23,18 @@ const Homepage = () => {
       </Grid>
       <Grid>
         <Grid marginTop={16} marginBottom={2}>
-          <Typography variant='caption'>THE LATEST</Typography>
+          <Typography sx={{ fontWeight: "bold" }} variant='caption'>
+            THE LATEST
+          </Typography>
         </Grid>
         <ProjectCard />
       </Grid>
 
       <Grid>
         <Grid marginTop={16} marginBottom={2}>
-          <Typography variant='caption'>TRENDING</Typography>
+          <Typography sx={{ fontWeight: "bold" }} variant='caption'>
+            TRENDING
+          </Typography>
         </Grid>
         <ProjectCard />
       </Grid>
