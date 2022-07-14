@@ -24,10 +24,11 @@ export default function Profile() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await UserService.getProfile(userId)
+            await UserService.getProfile(userId).then((response) => {
             setUserProfile(response.data)
-        }
-        fetchData()
+        })
+    }
+    fetchData()
     }, [])
 
     return (
