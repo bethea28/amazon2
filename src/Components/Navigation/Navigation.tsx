@@ -23,10 +23,11 @@ interface Props {
 
 const drawerWidth = 240;
 const navItems = [
-  "Discover Projects",
+  "Discover",
   "Create a New Project",
   "Sign In",
   "Register",
+  "Account Settings",
 ];
 
 export default function NavigationBar(props: Props) {
@@ -109,7 +110,6 @@ export default function NavigationBar(props: Props) {
       </Box>
       <Box component='main' sx={{ p: 4 }}>
         <Toolbar />
-        <Typography variant='h2'>Making Creative Ideas a Reality</Typography>
       </Box>
     </Box>
   );
