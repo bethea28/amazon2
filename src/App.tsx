@@ -11,6 +11,7 @@ import AutoDismissAlert, {
 } from "./Components/core/AutoDismissAlert";
 import { v4 as uuid } from "uuid";
 import { Box, Typography, Link } from "@mui/material";
+import CreateProjectForm from "./Components/Project/CreateProjectForm"
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -51,6 +52,10 @@ function App() {
                 element={<ProfileForm />}
               />
             </Routes>
+             <Route
+              path='/createProject'
+              element={<CreateProjectForm />}
+            />
           </BrowserRouter>
           <SignIn msgAlert={msgAlert} setUser={setUser} />
           <Signup msgAlert={msgAlert} setUser={setUser} />

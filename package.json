@@ -20,6 +20,8 @@
     "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.4.0",
+    "react-date-picker": "^8.4.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.33.1",
     "react-router-dom": "^6.3.0",
@@ -53,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-datepicker": "^4.4.2",
     "@types/uuid": "^8.3.4"
   }
 }
