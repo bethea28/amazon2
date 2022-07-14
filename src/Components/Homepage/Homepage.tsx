@@ -12,7 +12,7 @@ const Homepage = () => {
         alignItems='center'
         flexDirection='column'
       >
-        <Grid marginTop={4}>
+        <Grid marginTop={8}>
           <Typography variant='h2'>Making Creative Ideas a Reality</Typography>
         </Grid>
         <Grid marginTop={4}>
@@ -25,6 +25,7 @@ const Homepage = () => {
         </Grid>
         <ProjectCard />
       </Grid>
+
       <Grid>
         <Grid marginTop={16} marginBottom={2}>
           <Typography variant='caption'>TRENDING</Typography>

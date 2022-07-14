@@ -5,6 +5,7 @@ import Homepage from "./Components/Homepage/Homepage";
 import { Box, Typography, Link, Grid } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import LogInOrSignUp from "./Components/Auth/LogInOrSignUp";
+import Footer from "./Components/Navigation/Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <LogInOrSignUp />
         <Comment />
       </Grid>
+      <Footer />
     </>
   );
 }
