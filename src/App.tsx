@@ -51,11 +51,11 @@ function App() {
                 path='/profile/:userId/edit' 
                 element={<ProfileForm />}
               />
-            </Routes>
-             <Route
+              <Route
               path='/createProject'
               element={<CreateProjectForm />}
             />
+            </Routes>
           </BrowserRouter>
           <SignIn msgAlert={msgAlert} setUser={setUser} />
           <Signup msgAlert={msgAlert} setUser={setUser} />
