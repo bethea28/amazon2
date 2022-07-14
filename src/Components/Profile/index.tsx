@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -7,34 +7,28 @@ import {
     Avatar,
     Paper,
     Box,
-    IconButton
+    IconButton,
+    List,
+    ListItem
 } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
 import UserService from "../../services/UserService";
 import UserData from '../../types/User'
 
-
 export default function Profile() {
 
-    // const [userProfile, setUserProfile] = useState<UserData>()
+    // To be updated once we have current user:
+    let userId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
+
+    const [userProfile, setUserProfile] = useState<UserData>()
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await UserService.getProfile("ffsdfsf")
-            // setUserProfile(response.data)
+            const response = await UserService.getProfile(userId)
+            setUserProfile(response.data)
         }
         fetchData()
     }, [])
-
-    let userProfile = {"name": "Kevin Abdul", 
-    "username": "kevinabdul",
-    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 
-    "interests": {"Art": true, "Comics and Illustrations": true, "Fashion": false, "Film": false, "Games": true, "Tech": true, "Music": false, "Publishing": false },
-    "projects": []}
-
-    const navigateToProfileForm = () => {
-        return <Navigate to={`/profile/edit`} />
-    }
 
     return (
         <Container maxWidth="xs">
@@ -44,9 +38,9 @@ export default function Profile() {
                     <Typography variant="h6">
                         Profile
                     </Typography>
-                    <IconButton aria-label="edit" size="large">
-                        <Link to = {`/profile/edit`} >
-                            <EditIcon onClick={navigateToProfileForm}/>
+                    <IconButton aria-label="edit" size="large" >
+                        <Link to={`/profile/${userId}/edit`}>
+                            <EditIcon />
                         </Link>
                     </IconButton>
                 </Grid>
@@ -54,9 +48,9 @@ export default function Profile() {
                 <Box sx= {{display: 'flex '}}>
                     <Avatar alt="user" src="blank-profile-picture.webp" variant="square" style={{ marginRight: "14px" }} />
                     <Grid>
-                        <Typography variant="body2"> {userProfile.name} </Typography>
-                        <Typography variant="body2"> {userProfile.username} </Typography>
-                        <Typography variant="body2"> {userProfile.bio}</Typography>
+                        <Typography variant="body2"> {userProfile && userProfile.name} </Typography>
+                        <Typography variant="body2"> {userProfile && userProfile.username} </Typography>
+                        <Typography variant="body2"> {userProfile && userProfile.bio}</Typography>
                     </Grid>
                 </Box>
 
@@ -64,19 +58,21 @@ export default function Profile() {
                     <Typography variant="h6">
                         Interests
                     </Typography>
-                        {Object.entries(userProfile!.interests).map(function([field, isInterested]) {
+                    <List>
+                        {userProfile && Object.entries(userProfile.interests).map(function([field, isInterested]) {
                             if (isInterested == true) {
-                                return <Typography display="inline" variant="body2" key={field} > {field}, </Typography>
+                                return <ListItem dense key={field} > {field} </ListItem>
                         }
                         })}                  
+                    </List>
                 </Grid>
 
                 <Grid>
                     <Typography variant="h6">
                         Projects Posted
-                        {userProfile!.projects.length == 0 && (<Typography variant="body2"> No projects yet! </Typography>)}
+                        {userProfile && !userProfile.projects.length && (<Typography variant="body2"> No projects yet! </Typography>)}
 
-                        {userProfile!.projects.length > 0 && userProfile!.projects.map((project) => {
+                        {userProfile && userProfile.projects.length > 0 && userProfile!.projects.map((project) => {
                         return <Typography display="inline" variant="body2"> {project}, </Typography>
                         })}
                     </Typography>
