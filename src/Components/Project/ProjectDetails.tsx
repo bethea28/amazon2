@@ -61,7 +61,7 @@ const ProjectDetails = () => {
                             </CardActionArea>
                             <CardActions>
                                 <Button variant='outlined' size="small" color="primary">
-                                    {/* need to import Sornam's component */}
+                                    {/* funding component to be imported */}
                                     Back this project
                                 </Button>
                                 <IconButton>

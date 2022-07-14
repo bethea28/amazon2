@@ -48,9 +48,11 @@ const ProjectCard = () => {
                             Back
                         </Button>
                         <IconButton>
+                            {/* funding component to be imported */}
                             <MonetizationOnOutlined />
                         </IconButton>
                         <IconButton>
+                            {/* like button component to be imported */}
                             <FavoriteBorderOutlined />
                         </IconButton>
                     </CardActions>
