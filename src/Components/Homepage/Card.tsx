@@ -6,18 +6,19 @@ import Typography from "@mui/material/Typography";
 import { Box, CardActionArea, Grid } from "@mui/material";
 import img1 from "./img/game.png";
 
-const ProjectCard = () => {
+export interface ProjectCardProps {
+  data: [{ projectName: string; projectDescription: string; userName: string }];
+}
+
+const ProjectCard = (props: ProjectCardProps) => {
+  console.log(props.data[0]);
+
   return (
     <>
       <Box sx={{ justifyContent: "center" }} marginTop={2}>
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 16 }}
-          sx={{ maxWidth: 1000 }}
-        >
-          {Array.from(Array(4)).map((_, index) => (
-            <Grid item xs={2} sm={4} md={4} key={index}>
+        <Grid container sx={{ maxWidth: 1000 }}>
+          {props.data.map((element) => (
+            <Grid>
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
                   <CardMedia
@@ -28,7 +29,7 @@ const ProjectCard = () => {
                   />
                   <CardContent>
                     <Typography gutterBottom variant='h6' component='div'>
-                      Project Name
+                      {element && element.projectName}
                     </Typography>
                     <Typography variant='body2' color='text.primary'>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.

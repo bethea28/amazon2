@@ -1,7 +1,10 @@
 import * as React from "react";
 import { Button, Grid, Typography } from "@mui/material";
-import ProjectCard from "./FourColCards";
-import FeaturedCard from "./TwoColCards";
+import ProjectCard from "./Card";
+
+const data = [
+  { projectName: "name", projectDescription: "name", userName: "name" },
+];
 
 const Homepage = () => {
   return (
@@ -29,25 +32,7 @@ const Homepage = () => {
             THE LATEST
           </Typography>
         </Grid>
-        <ProjectCard />
-      </Grid>
-
-      <Grid>
-        <Grid marginTop={16} marginBottom={2}>
-          <Typography sx={{ fontWeight: "bold" }} variant='caption'>
-            SPOTLIGHT
-          </Typography>
-        </Grid>
-        <FeaturedCard />
-      </Grid>
-
-      <Grid>
-        <Grid marginTop={16} marginBottom={2}>
-          <Typography sx={{ fontWeight: "bold" }} variant='caption'>
-            TRENDING
-          </Typography>
-        </Grid>
-        <ProjectCard />
+        <ProjectCard data={data} />
       </Grid>
     </>
   );
