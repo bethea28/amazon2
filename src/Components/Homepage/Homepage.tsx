@@ -1,10 +1,19 @@
-import * as React from "react";
-import { Button, Grid, Typography } from "@mui/material";
-import ProjectCard from "./Card";
+import * as React from 'react'
+import { Button, Grid, Typography } from '@mui/material'
+import ProjectCard from './Card'
 
 const data = [
-  { projectName: "name", projectDescription: "name", userName: "name" },
-];
+  {
+    projectName: 'nameOne',
+    projectDescription: 'descONe',
+    userName: 'nameOne',
+  },
+  {
+    projectName: 'nameTwo',
+    projectDescription: 'descTwo',
+    userName: 'nameTwo',
+  },
+]
 
 const Homepage = () => {
   return (
@@ -17,7 +26,7 @@ const Homepage = () => {
         flexDirection='column'
       >
         <Grid marginTop={8}>
-          <Typography sx={{ fontWeight: "bold" }} variant='h2'>
+          <Typography sx={{ fontWeight: 'bold' }} variant='h2'>
             Making Creative Ideas a Reality
           </Typography>
         </Grid>
@@ -28,14 +37,14 @@ const Homepage = () => {
 
       <Grid>
         <Grid marginTop={16} marginBottom={2}>
-          <Typography sx={{ fontWeight: "bold" }} variant='caption'>
+          <Typography sx={{ fontWeight: 'bold' }} variant='caption'>
             THE LATEST
           </Typography>
         </Grid>
         <ProjectCard data={data} />
       </Grid>
     </>
-  );
-};
+  )
+}
 
-export default Homepage;
+export default Homepage
