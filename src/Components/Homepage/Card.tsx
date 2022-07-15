@@ -17,32 +17,33 @@ const ProjectCard = ({ data }: ProjectCardProps) => {
     <>
       <Box sx={{ justifyContent: 'center' }} marginTop={2}>
         <Grid container sx={{ maxWidth: 1000 }}>
-          {data.map((element) => (
-            <Grid>
-              <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
-                  <CardMedia
-                    component='img'
-                    height='140'
-                    src={img1}
-                    alt='game'
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant='h6' component='div'>
-                      {element && element.projectName}
-                    </Typography>
-                    <Typography variant='body2' color='text.primary'>
-                      {element.projectDescription}
-                    </Typography>
-                    <Typography variant='caption' color='#707070'>
-                      <br></br>
-                      {element.userName}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
+          {data &&
+            data.map((element) => (
+              <Grid>
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardActionArea>
+                    <CardMedia
+                      component='img'
+                      height='140'
+                      src={img1}
+                      alt='game'
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant='h6' component='div'>
+                        {element.projectName}
+                      </Typography>
+                      <Typography variant='body2' color='text.primary'>
+                        {element.projectDescription}
+                      </Typography>
+                      <Typography variant='caption' color='#707070'>
+                        <br></br>
+                        {element.userName}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ))}
         </Grid>
       </Box>
     </>
