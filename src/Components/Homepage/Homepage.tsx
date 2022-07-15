@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Button, Grid, Typography } from "@mui/material";
-import ProjectCard from "./Cards";
+import ProjectCard from "./FourColCards";
+import FeaturedCard from "./TwoColCards";
 
 const Homepage = () => {
   return (
@@ -21,6 +22,7 @@ const Homepage = () => {
           <Button variant='contained'>Explore Projects</Button>
         </Grid>
       </Grid>
+
       <Grid>
         <Grid marginTop={16} marginBottom={2}>
           <Typography sx={{ fontWeight: "bold" }} variant='caption'>
@@ -28,6 +30,15 @@ const Homepage = () => {
           </Typography>
         </Grid>
         <ProjectCard />
+      </Grid>
+
+      <Grid>
+        <Grid marginTop={16} marginBottom={2}>
+          <Typography sx={{ fontWeight: "bold" }} variant='caption'>
+            SPOTLIGHT
+          </Typography>
+        </Grid>
+        <FeaturedCard />
       </Grid>
 
       <Grid>
