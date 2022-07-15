@@ -5,7 +5,7 @@ import Homepage from "./Components/Homepage/Homepage";
 import { Box, Typography, Link, Grid } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import LogInOrSignUpRoutes from "./Components/Auth/LogInOrSignUpRoutes";
-import Footer from "./Components/Navigation/Footer";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   return (
