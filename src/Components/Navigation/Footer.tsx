@@ -15,9 +15,6 @@ const Footer = () => {
             <Link to='/about' style={{ textDecoration: "none" }}>
               <div className='footer-link'>About</div>
             </Link>
-            <Link to='/contact' style={{ textDecoration: "none" }}>
-              <div className='footer-link'>Contact</div>
-            </Link>
           </div>
 
           <div className='footer-section-container'>
@@ -25,10 +22,7 @@ const Footer = () => {
             <Link to='/discover' style={{ textDecoration: "none" }}>
               <div className='footer-link'>Discover</div>
             </Link>
-            <Link
-              to='/categories/createnewproject'
-              style={{ textDecoration: "none" }}
-            >
+            <Link to='/createnewproject' style={{ textDecoration: "none" }}>
               <div className='footer-link'>Create a New Project</div>
             </Link>
           </div>
