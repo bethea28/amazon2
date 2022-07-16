@@ -7,7 +7,7 @@ import { Box, CardActionArea, Grid } from "@mui/material";
 import img1 from "./img/game.png";
 
 export interface ProjectCardProps {
-  data: { projectName: string; projectDescription: string; userName: string }[];
+  data: { projectName: string; projectDescription: string; userName: string }[]; // correct way to type an array of objects
 }
 
 const ProjectCard = ({ data }: ProjectCardProps) => {
