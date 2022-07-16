@@ -1,9 +1,23 @@
 import * as React from "react";
-import { Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import ProjectCard from "./Card";
 
 const data = [
-  { projectName: "name", projectDescription: "name", userName: "name" },
+  {
+    projectName: "nameOne",
+    projectDescription: "descONe",
+    userName: "nameOne",
+  },
+  {
+    projectName: "nameTwo",
+    projectDescription: "descTwo",
+    userName: "nameTwo",
+  },
+  {
+    projectName: "nameThree",
+    projectDescription: "descThree",
+    userName: "nameThree",
+  },
 ];
 
 const Homepage = () => {
@@ -32,7 +46,34 @@ const Homepage = () => {
             THE LATEST
           </Typography>
         </Grid>
-        <ProjectCard data={data} />
+
+        <Grid
+          container
+          sx={{
+            flexDirection: "row",
+          }}
+        >
+          <Grid>
+            <ProjectCard data={data} />
+          </Grid>
+        </Grid>
+
+        <Grid marginTop={16} marginBottom={2}>
+          <Typography sx={{ fontWeight: "bold" }} variant='caption'>
+            TRENDING
+          </Typography>
+        </Grid>
+
+        <Grid
+          container
+          sx={{
+            flexDirection: "row",
+          }}
+        >
+          <Grid>
+            <ProjectCard data={data} />
+          </Grid>
+        </Grid>
       </Grid>
     </>
   );
