@@ -4,14 +4,14 @@ import Comment from "./Components/Comments/CommentForm";
 import NavigationBar from "./Components/Navigation/Navigation";
 import Signup from "./Components/Auth/signUp";
 import SignIn from "./Components/Auth/signIn";
-import Profile from './Components/Profile';
-import ProfileForm from './Components/Profile/ProfileForm'
+import Profile from "./Components/Profile";
+import ProfileForm from "./Components/Profile/ProfileForm";
 import AutoDismissAlert, {
   AutoDismissAlertProps,
 } from "./Components/core/AutoDismissAlert";
 import { v4 as uuid } from "uuid";
 import { Box, Typography, Link } from "@mui/material";
-import CreateProjectForm from "./Components/Project/CreateProjectForm"
+import CreateProjectForm from "./Components/Project/CreateProjectForm";
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -43,18 +43,9 @@ function App() {
                 path='/signin'
                 element={<SignIn setUser={setUser} msgAlert={msgAlert} />}
               />
-              <Route 
-                path='/profile/:userId' 
-                element={<Profile />}
-              />
-              <Route 
-                path='/profile/:userId/edit' 
-                element={<ProfileForm />}
-              />
-              <Route
-              path='/createProject'
-              element={<CreateProjectForm />}
-            />
+              <Route path='/profile/:userId' element={<Profile />} />
+              <Route path='/profile/:userId/edit' element={<ProfileForm />} />
+              <Route path='/createProject' element={<CreateProjectForm />} />
             </Routes>
           </BrowserRouter>
           <SignIn msgAlert={msgAlert} setUser={setUser} />
