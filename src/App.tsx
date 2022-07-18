@@ -10,12 +10,24 @@ import Footer from "./Components/Footer/Footer";
 function App() {
   return (
     <>
+      <NavigationBar />
+      {/* <Routes> */}
       <Grid container spacing={0} justifyContent='center' alignItems='center'>
-        <NavigationBar />
+        {/* <Route
+            path='/'
+            element={
+              <>
+                <Homepage />
+              </>
+            }
+          /> */}
         <Homepage />
         <LogInOrSignUpRoutes />
+        {/* <Discover /> */}
+        {/* <CreateProject /> */}
         <Comment />
       </Grid>
+      {/* </Routes> */}
       <Footer />
     </>
   );
