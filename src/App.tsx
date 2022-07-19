@@ -4,6 +4,9 @@ import NavigationBar from "./Components/Navigation/Navigation";
 import CommentForm from "./Components/Comments/CommentForm";
 import Homepage from "./Components/Homepage/Homepage";
 import Footer from "./Components/Footer/Footer";
+import ProjectImageIndex from "./Components/Images_Pictures/ProjectImageIndex";
+import RegisterImageIndex from "./Components/Images_Pictures/RegisterImageIndex";
+import AdditionalImageIndex from "./Components/Images_Pictures/AdditionalImageIndex";
 import Signup from "./Components/Auth/signUp";
 import SignIn from "./Components/Auth/signIn";
 import Profile from "./Components/Profile";
@@ -15,7 +18,7 @@ import { v4 as uuid } from "uuid";
 import { Box, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
 import ProjectsByCategories from "./Components/Discover/ProjectsByCategories";
-import TrasactionForm from "./Components/Transactions/Transactions";
+import TransactionForm from "./Components/Transactions/Transactions";
 import AllProjects from "./Components/Discover/AllProjects";
 
 
@@ -64,7 +67,7 @@ function App() {
                   path='/categories/:projectCategory'
                   element={<ProjectsByCategories />}
                 />
-                <Route path='/transaction' element={<TrasactionForm />} />
+                <Route path='/transaction' element={<TransactionForm />} />
               </Routes>
             </header>
           </Box>
