@@ -13,6 +13,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import SignIn from "../Auth/signIn";
 
 interface Props {
   /**
@@ -23,13 +24,6 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = [
-  "Discover",
-  "Create a New Project",
-  "Sign In",
-  "Register",
-  "Account Settings",
-];
 
 export default function NavigationBar(props: Props) {
   const { window } = props;
@@ -45,15 +39,6 @@ export default function NavigationBar(props: Props) {
         JumpStarter
       </Typography>
       <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
     </Box>
   );
 
@@ -83,11 +68,24 @@ export default function NavigationBar(props: Props) {
             </Link>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
-              </Button>
-            ))}
+            <Typography
+              variant='body1'
+              component='div'
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            >
+              <Link
+                to='/signin'
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                Log In
+              </Link>
+              <Link
+                to='/signup'
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                Register
+              </Link>
+            </Typography>
           </Box>
         </Toolbar>
       </AppBar>
