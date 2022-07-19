@@ -71,8 +71,21 @@ export default function NavigationBar(props: Props) {
             <Typography
               variant='body1'
               component='div'
+              display='inline'
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
+              <Link
+                to='/discover'
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                Discover
+              </Link>
+              <Link
+                to='/createnewproject'
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                Create a New Project
+              </Link>
               <Link
                 to='/signin'
                 style={{ color: "#fff", textDecoration: "none" }}
