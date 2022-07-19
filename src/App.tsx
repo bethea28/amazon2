@@ -2,6 +2,9 @@ import React, { useState, Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Comment from "./Components/Comments/CommentForm";
 import NavigationBar from "./Components/Navigation/Navigation";
+import ProjectImageIndex from "./Components/Images_Pictures/ProjectImageIndex";
+import RegisterImageIndex from "./Components/Images_Pictures/RegisterImageIndex";
+import AdditionalImageIndex from "./Components/Images_Pictures/AdditionalImageIndex";
 import Signup from "./Components/Auth/signUp";
 import SignIn from "./Components/Auth/signIn";
 import Profile from './Components/Profile';
@@ -42,12 +45,12 @@ function App() {
                 path='/signin'
                 element={<SignIn setUser={setUser} msgAlert={msgAlert} />}
               />
-              <Route 
-                path='/profile/:userId' 
+              <Route
+                path='/profile/:userId'
                 element={<Profile />}
               />
-              <Route 
-                path='/profile/:userId/edit' 
+              <Route
+                path='/profile/:userId/edit'
                 element={<ProfileForm />}
               />
             </Routes>
@@ -63,6 +66,9 @@ function App() {
         </header>
       </Box>
       <Comment />
+      <ProjectImageIndex/>
+      <RegisterImageIndex/>
+      <AdditionalImageIndex/>
     </>
   );
 }
