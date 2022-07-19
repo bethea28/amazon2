@@ -26,6 +26,7 @@ const Comment = () => {
       justifyContent='center'
       alignItems='center'
       paddingTop={20}
+      paddingBottom={32}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid item sx={{ width: 300 }} marginBottom={2}>
@@ -55,7 +56,6 @@ const Comment = () => {
         </Grid>
 
         <Grid>
-
           <Button variant='contained'>Post Comment</Button>
         </Grid>
       </form>
