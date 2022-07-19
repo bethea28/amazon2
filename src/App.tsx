@@ -48,8 +48,6 @@ export function LogInOrSignUp() {
                 element={<SignIn setUser={setUser} msgAlert={msgAlert} />}
               />
             </Routes>
-            {/* <SignIn msgAlert={msgAlert} setUser={setUser} /> */}
-            {/* <Signup msgAlert={msgAlert} setUser={setUser} /> */}
             <Link
               className='App-link'
               href='https://reactjs.org'
