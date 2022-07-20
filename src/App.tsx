@@ -15,7 +15,6 @@ import AutoDismissAlert, {
 import { v4 as uuid } from "uuid";
 import { Box, Typography, Link, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
-import CommentForm from "./Components/Comments/CommentForm";
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
