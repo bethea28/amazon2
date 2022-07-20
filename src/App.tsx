@@ -14,27 +14,7 @@ import AutoDismissAlert, {
 import { v4 as uuid } from "uuid";
 import { Box, Typography, Link, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
-
-// function HomepageContent() {
-//   return (
-//     <>
-//       {/* <NavigationBar /> */}
-//       <Grid container spacing={0} justifyContent='center' alignItems='center'>
-//         <BrowserRouter>
-//           <Routes>
-//             <Route path='/' element={<Homepage />} />
-//             <Route path='/projects/projectId' element={<CommentForm />} />
-//             <Route
-//               path='/projects/projectId/commentId'
-//               element={<CommentForm />}
-//             />
-//           </Routes>
-//         </BrowserRouter>
-//       </Grid>
-//       <Footer />
-//     </>
-//   );
-// }
+import AllProjects from "./Components/Discover/AllProjects";
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -61,9 +41,10 @@ function App() {
 
               <Routes>
                 <Route path='/' element={<Homepage />} />
+                <Route path='/projects' element={<AllProjects />} />
                 <Route path='/projects/projectId' element={<CommentForm />} />
                 <Route
-                  path='/projects/projectId/commentId'
+                  path='/projects/:projectId/:commentId'
                   element={<CommentForm />}
                 />
                 <Route

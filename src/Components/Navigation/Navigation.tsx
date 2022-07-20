@@ -35,7 +35,7 @@ export default function NavigationBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant='h1' sx={{ my: 2 }}>
+      <Typography variant='h5' sx={{ my: 2 }}>
         JumpStarter
       </Typography>
       <Divider />
@@ -59,9 +59,13 @@ export default function NavigationBar(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography
-            variant='h4'
+            variant='h5'
             component='div'
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{
+              flexGrow: 1,
+              fontWeight: "bold",
+              display: { xs: "none", sm: "block" },
+            }}
           >
             <Link to='/' style={{ color: "#fff", textDecoration: "none" }}>
               JumpStarter
@@ -75,7 +79,7 @@ export default function NavigationBar(props: Props) {
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
               <Link
-                to='/discover'
+                to='/projects'
                 style={{ color: "#fff", textDecoration: "none" }}
               >
                 Discover

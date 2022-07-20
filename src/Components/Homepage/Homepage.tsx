@@ -30,8 +30,8 @@ const Homepage = () => {
         alignItems='center'
         flexDirection='column'
       >
-        <Grid marginTop={0}>
-          <Typography sx={{ fontWeight: "bold" }} variant='h2'>
+        <Grid marginTop={2}>
+          <Typography sx={{ fontWeight: "bold" }} variant='h3'>
             Making Creative Ideas a Reality
           </Typography>
         </Grid>
