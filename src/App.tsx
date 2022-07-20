@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Comment from "./Components/Comments/CommentForm";
 import NavigationBar from "./Components/Navigation/Navigation";
-import Comment from "./Components/Comments/CommentForm";
+import CommentForm from "./Components/Comments/CommentForm";
 import Homepage from "./Components/Homepage/Homepage";
 import Footer from "./Components/Footer/Footer";
 import Signup from "./Components/Auth/signUp";
@@ -15,6 +15,7 @@ import AutoDismissAlert, {
 import { v4 as uuid } from "uuid";
 import { Box, Typography, Link, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
+import CommentForm from "./Components/Comments/CommentForm";
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -35,7 +36,7 @@ function App() {
         <Grid container spacing={0} justifyContent='center' alignItems='center'>
           <Routes>
             <Route path='/' element={<Homepage />} />
-            <Route path='/projectId' element={<Comment />} />
+            <Route path='/projectId' element={<CommentForm />} />
           </Routes>
         </Grid>
         <Footer />

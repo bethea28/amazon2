@@ -8,7 +8,7 @@ type FormData = {
   comment: string;
 };
 
-const Comment = () => {
+const CommentForm = () => {
   const {
     register,
     handleSubmit,
@@ -55,7 +55,6 @@ const Comment = () => {
         </Grid>
 
         <Grid>
-
           <Button variant='contained'>Post Comment</Button>
         </Grid>
       </form>
@@ -63,4 +62,4 @@ const Comment = () => {
   );
 };
 
-export default Comment;
+export default CommentForm;
