@@ -61,7 +61,7 @@ export default function Profile() {
                     </Typography>
                     <List>
                         {userProfile && Object.entries(userProfile.interests).map(function([field, isInterested]) {
-                            if (isInterested == true) {
+                            if (isInterested) {
                                 return <ListItem dense key={field} > {field} </ListItem>
                         }
                         })}                  

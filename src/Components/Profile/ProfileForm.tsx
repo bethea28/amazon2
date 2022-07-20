@@ -86,7 +86,7 @@ export default function ProfileForm() {
                         render={({ message }) => <Typography> {message}</Typography>}
                     />
                     {userProfile && (<TextField
-                        {...register("name", {required: "Name is required", minLength: {value: 3, message: 'Name should be at least 3 letters'}})}
+                        {...register("name", {required: "Name is required", minLength: {value: 3, message: 'Name should be at least 3 characters'}})}
                         variant="outlined"
                         label="Name"
                         name="name"
@@ -101,6 +101,7 @@ export default function ProfileForm() {
                         variant="outlined"
                         label="Bio"
                         name="bio"
+                        multiline
                         margin="dense"
                         defaultValue={userProfile.bio}
                     />)}
