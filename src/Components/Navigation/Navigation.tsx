@@ -81,7 +81,7 @@ export default function NavigationBar(props: Props) {
                 Discover
               </Link>
               <Link
-                to='/createnewproject'
+                to='/createProject'
                 style={{ color: "#fff", textDecoration: "none" }}
               >
                 Create a New Project

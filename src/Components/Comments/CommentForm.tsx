@@ -12,7 +12,6 @@ const CommentForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FormData>();
   const onSubmit = async (data: FormData) => {
