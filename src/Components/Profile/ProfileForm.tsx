@@ -43,14 +43,20 @@ export default function ProfileForm() {
         formState: {errors}
     } = useForm<UserData>()
 
-   /** handles the submission of the changes on user's profile */
+   /** handles the submission of the changes on user's profile 
+    * @param data   The updated user's name, bio and interests from the form 
+                    which has been obtained by using "register" of the useForm hook
+    * @return       Sends HTTP request to Update the user's profile using the updated @param data and the @param userId to be updated
+                    Redirects to profile page on successful update
+   */
     const onSubmit = handleSubmit(async (data: UserData) => {
 
         data['interests'] = interests
 
         try {
-            await UserService.updateProfile(data, userId);
-            return navigate(`/profile/${userId}`);
+            return await UserService.updateProfile(data, userId).then(() => {
+                navigate(`/profile/${userId}`);
+            })
         
         } catch(e) {
             throw e
@@ -58,7 +64,10 @@ export default function ProfileForm() {
 
     })
 
-    /** handles the checkbox changes of the user's interests */
+    /** handles the checkbox changes of the user's interests 
+     * if the particular interest checkbox has now been unselected, to update the value of the interest in the interests object to false
+     * if the particular interest checkbox has now been selected, to update the value of the interest in the interests object to true
+    */
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let interestChanged = event.target.name
         let interestsObject;

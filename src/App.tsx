@@ -12,6 +12,7 @@ import AutoDismissAlert, {
 import { v4 as uuid } from "uuid";
 import { Box, Typography, Link } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm"
+import Discover from "./Components/Discover";
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -54,6 +55,10 @@ function App() {
               <Route
               path='/createProject'
               element={<CreateProjectForm />}
+            />
+            <Route
+              path='/discover'
+              element={<Discover />}
             />
             </Routes>
           </BrowserRouter>
