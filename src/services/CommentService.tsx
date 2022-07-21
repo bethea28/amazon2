@@ -1,24 +1,11 @@
-import axiosInstance from "../../../apiConfig";
+import axiosInstance from "../apiConfig";
+import CommentData from "../types/Comment";
 
-type commentData = {
-  projectId: string;
-  commentId: string;
-  userId: string;
-  userName: string;
-  commentText: string;
-  creationDate: string;
-};
-
-export const fetchComments = async () => {
-  try {
-    const { data: comments } = await axiosInstance.get(
-      "/projects/projectId/comments"
-    );
-    return comments;
-  } catch (err) {
-    console.error("Error at fetchComments", err);
-  }
-};
+export default async function getProject(projectId: string) {
+  return await axiosInstance.get<CommentData>(
+    `/projects/${projectId}/comments`
+  );
+}
 
 export const fetchCommentsById = async (id: string) => {
   try {
@@ -41,7 +28,7 @@ export const createComment = async (
     userName,
     commentText,
     creationDate,
-  }: commentData
+  }: CommentData
 ) => {
   try {
     const { data } = await axiosInstance.post(
@@ -63,7 +50,7 @@ export const createComment = async (
 
 export const updateComment = async (
   // token,
-  { commentId, commentText }: commentData
+  { commentId, commentText }: CommentData
 ) => {
   try {
     const { data } = await axiosInstance.patch(
@@ -90,4 +77,4 @@ export const deleteComment = async (/*token,*/ commentId: string) => {
   }
 };
 
-export default axiosInstance;
+export const CommentService = { getProject };

@@ -59,7 +59,6 @@ function App() {
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
               </Routes>
-
               <Link
                 className='App-link'
                 href='https://reactjs.org'
@@ -67,6 +66,7 @@ function App() {
                 rel='noopener noreferrer'
               ></Link>
             </header>
+            <CommentForm />
           </Box>
         </Grid>
         <Footer />
