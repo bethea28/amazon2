@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ProjectData from '../../types/Project';
 import projectService from '../../services/ProjectService';
+import { categories } from '../../types/Categories';
 import {
     TextField,
     Button,
@@ -11,12 +12,7 @@ import {
     Container,
     Paper,
     Typography,
-    FormControl,
-    Select,
-    InputLabel,
-    MenuItem
 } from "@mui/material"
-import { categories } from '../../types/Categories';
 
 export default function ProjectForm() {
 
@@ -26,9 +22,9 @@ export default function ProjectForm() {
         control
     } = useForm<ProjectData>();
 
+    /** handles the submission of general details for a project */
     const onSubmit = async (data: ProjectData) => {
-        // return await projectService.createProject(data);
-        console.log(data);
+        return await projectService.createProject(data);
     }
 
     return (
