@@ -10,12 +10,14 @@ import {
     Grid,
     Container,
     Paper,
-    Typography
+    Typography,
+    FormControl,
+    Select,
+    InputLabel,
+    MenuItem
 } from "@mui/material"
 
 export default function ProjectForm() {
-
-    // const [projectData, setProjectData] = useState<ProjectData>();
 
     const {
         register,
@@ -24,7 +26,8 @@ export default function ProjectForm() {
     } = useForm<ProjectData>();
 
     const onSubmit = async (data: ProjectData) => {
-        return await projectService.createProject(data);
+        // return await projectService.createProject(data);
+        console.log(data);
     }
 
     return (
@@ -43,9 +46,43 @@ export default function ProjectForm() {
                                 variant="outlined"
                                 size="small"
                                 margin="dense"
-                                {...register('name', { required: true })}
+                                {...register('projectName', { required: true })}
                             />
                         </Grid>
+                        <FormControl variant="outlined">
+                            <InputLabel id='category'>Category</InputLabel>
+                            <Select
+                                labelId="category"
+                                id='category'
+                                autoWidth
+                                {...register('category', { required: true })}
+                            >
+                                <MenuItem value="Arts">
+                                    <em>Arts</em>
+                                </MenuItem>
+                                <MenuItem value="Comics and Illustrations">
+                                    <em>Comics and Illustrations</em>
+                                </MenuItem>
+                                <MenuItem value="Fashion">
+                                    <em>Fashion</em>
+                                </MenuItem>
+                                <MenuItem value="Film">
+                                    <em>Film</em>
+                                </MenuItem>
+                                <MenuItem value="Games">
+                                    <em>Games</em>
+                                </MenuItem>
+                                <MenuItem value="Tech">
+                                    <em>Tech</em>
+                                </MenuItem>
+                                <MenuItem value="Music">
+                                    <em>Music</em>
+                                </MenuItem>
+                                <MenuItem value="Publishing">
+                                    <em>Publishing</em>
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
                         <Typography variant='h6' align='left' margin='dense'>
                             Project Description
                         </Typography>
