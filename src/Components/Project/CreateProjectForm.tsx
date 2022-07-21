@@ -16,6 +16,7 @@ import {
     InputLabel,
     MenuItem
 } from "@mui/material"
+import { categories } from '../../types/Categories';
 
 export default function ProjectForm() {
 
@@ -49,40 +50,16 @@ export default function ProjectForm() {
                                 {...register('projectName', { required: true })}
                             />
                         </Grid>
-                        <FormControl variant="outlined">
-                            <InputLabel id='category'>Category</InputLabel>
-                            <Select
-                                labelId="category"
-                                id='category'
-                                autoWidth
-                                {...register('category', { required: true })}
-                            >
-                                <MenuItem value="Arts">
-                                    <em>Arts</em>
-                                </MenuItem>
-                                <MenuItem value="Comics and Illustrations">
-                                    <em>Comics and Illustrations</em>
-                                </MenuItem>
-                                <MenuItem value="Fashion">
-                                    <em>Fashion</em>
-                                </MenuItem>
-                                <MenuItem value="Film">
-                                    <em>Film</em>
-                                </MenuItem>
-                                <MenuItem value="Games">
-                                    <em>Games</em>
-                                </MenuItem>
-                                <MenuItem value="Tech">
-                                    <em>Tech</em>
-                                </MenuItem>
-                                <MenuItem value="Music">
-                                    <em>Music</em>
-                                </MenuItem>
-                                <MenuItem value="Publishing">
-                                    <em>Publishing</em>
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
+                        <Grid item>
+                            <Typography variant='h6' align='left' margin='dense'>
+                                Select Category
+                            </Typography>
+                            <select {...register('category', { required: true })}>
+                                {categories.map((category) => (
+                                    <option value={category}>{category}</option>
+                                ))}
+                            </select>
+                        </Grid>
                         <Typography variant='h6' align='left' margin='dense'>
                             Project Description
                         </Typography>
