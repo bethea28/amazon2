@@ -56,9 +56,7 @@ const CommentForm = () => {
         </Grid>
 
         <Grid>
-          <Button variant='contained' /* onClick={onSubmit} */>
-            Post Comment
-          </Button>
+          <Button variant='contained'>Post Comment</Button>
         </Grid>
       </form>
     </Grid>

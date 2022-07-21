@@ -2,9 +2,13 @@ import axiosInstance from "../apiConfig";
 import CommentData from "../types/Comment";
 
 export default async function getProject(projectId: string) {
-  return await axiosInstance.get<CommentData>(
-    `/projects/${projectId}/comments`
-  );
+  try {
+    return await axiosInstance.get<CommentData>(
+      `/projects/${projectId}/comments`
+    );
+  } catch (error) {
+    throw error;
+  }
 }
 
 export const fetchCommentsById = async (id: string) => {
