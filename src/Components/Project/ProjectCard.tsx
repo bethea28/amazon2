@@ -1,4 +1,5 @@
 import React from 'react';
+// import ProjectData from '../../types/Project';
 import {
     FavoriteBorderOutlined,
     MonetizationOnOutlined
@@ -16,7 +17,7 @@ import {
 } from "@mui/material";
 
 const ProjectCard = () => {
-    //later to include (props: any) in params
+    //later to include (props: projectData) in params
 
     return (
         <Container maxWidth="xs">

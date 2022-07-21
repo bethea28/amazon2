@@ -1,5 +1,6 @@
-import React from "react";
-import { FavoriteBorderOutlined } from '@mui/icons-material';
+import React, { useState, MouseEvent } from "react";
+// import ProjectData from '../../types/Project';
+import ProjectService from "../../services/ProjectService";
 import {
     Container,
     Grid,
@@ -9,12 +10,17 @@ import {
     CardContent,
     Button,
     Typography,
-    IconButton,
-    Paper
+    Paper,
+    TextField
 } from "@mui/material";
 
 const ProjectDetails = () => {
-    //later to include (props: any) in params
+    //later to include (props: ProjectData) in params
+
+
+    const likeProject = async () => {
+        return await ProjectService.updateProject(props.projectId, props.userId);
+    };
 
     return (
         <Container maxWidth="lg">
@@ -64,9 +70,11 @@ const ProjectDetails = () => {
                                     {/* funding component to be imported */}
                                     Back this project
                                 </Button>
-                                <IconButton>
-                                    <FavoriteBorderOutlined />
-                                </IconButton>
+                                <Button type="submit" onClick={() => likeProject(projectId, userId)} variant='outlined' size="small">
+                                    Like
+                                </Button>
+                                <TextField label={props.likeCount} />
+                                {/* change likeCount to likedBy */}
                             </CardActions>
                         </Card>
                     </Paper>
