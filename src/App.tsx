@@ -36,11 +36,11 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route
-                path='/signup'
+                path='/users/'
                 element={<Signup setUser={setUser} msgAlert={msgAlert} />}
               />
               <Route
-                path='/signin'
+                path='/users/signin'
                 element={<SignIn setUser={setUser} msgAlert={msgAlert} />}
               />
               <Route 
