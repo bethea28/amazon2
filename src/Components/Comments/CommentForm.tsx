@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { createComment } from "./api/apiComments";
 import { Typography, Grid, TextField, Button } from "@mui/material";
+import CommentService from "../../services/CommentService";
 
 type FormData = {
-  headline: string;
-  comment: string;
+  commentText: string;
 };
 
-const Comment = () => {
+const CommentForm = () => {
+  const [userComment, setUserComment] = useState<FormData>();
+
+  const projectId = "project name";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await CommentService(projectId).then((response) => {
+        setUserComment(response.data);
+      });
+    };
+    fetchData();
+  }, []);
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FormData>();
   const onSubmit = async (data: FormData) => {
@@ -34,19 +45,9 @@ const Comment = () => {
           </Typography>
         </Grid>
 
-        <Grid item sx={{ width: 300 }} marginBottom={2}>
-          <TextField
-            {...register("headline")}
-            sx={{ width: 300 }}
-            id='outlined-basic'
-            label='Headline'
-            variant='outlined'
-          />
-        </Grid>
-
         <Grid item xs={6} md={20} marginBottom={2}>
           <TextField
-            {...register("comment")}
+            {...register("commentText")}
             sx={{ width: 300 }}
             id='outlined-basic'
             label='Comment'
@@ -55,7 +56,6 @@ const Comment = () => {
         </Grid>
 
         <Grid>
-
           <Button variant='contained'>Post Comment</Button>
         </Grid>
       </form>
@@ -63,4 +63,4 @@ const Comment = () => {
   );
 };
 
-export default Comment;
+export default CommentForm;
