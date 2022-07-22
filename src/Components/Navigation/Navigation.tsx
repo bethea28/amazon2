@@ -12,6 +12,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
+import SignIn from "../Auth/signIn";
 
 interface Props {
   /**
@@ -22,12 +24,6 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = [
-  "Discover Projects",
-  "Create a New Project",
-  "Sign In",
-  "Register",
-];
 
 export default function NavigationBar(props: Props) {
   const { window } = props;
@@ -39,19 +35,10 @@ export default function NavigationBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant='h1' sx={{ my: 2 }}>
+      <Typography variant='h5' sx={{ my: 2 }}>
         JumpStarter
       </Typography>
       <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
     </Box>
   );
 
@@ -72,18 +59,50 @@ export default function NavigationBar(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography
-            variant='h4'
+            variant='h5'
             component='div'
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{
+              flexGrow: 1,
+              fontWeight: "bold",
+              display: { xs: "none", sm: "block" },
+            }}
           >
-            JumpStarter
+            <Link to='/' style={{ color: "#fff", textDecoration: "none" }}>
+              JumpStarter
+            </Link>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
-              </Button>
-            ))}
+            <Typography
+              variant='body1'
+              component='div'
+              display='inline'
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            >
+              <Link
+                to='/projects'
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                Discover
+              </Link>
+              <Link
+                to='/createProject'
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                Create a New Project
+              </Link>
+              <Link
+                to='/signin'
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                Log In
+              </Link>
+              <Link
+                to='/signup'
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                Register
+              </Link>
+            </Typography>
           </Box>
         </Toolbar>
       </AppBar>
@@ -109,7 +128,6 @@ export default function NavigationBar(props: Props) {
       </Box>
       <Box component='main' sx={{ p: 4 }}>
         <Toolbar />
-        <Typography variant='h2'>Making Creative Ideas a Reality</Typography>
       </Box>
     </Box>
   );
