@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ProjectData from '../../types/Project';
 import projectService from '../../services/ProjectService';
+import { categories } from '../../types/Categories';
 import {
     TextField,
     Button,
     Grid,
     Container,
     Paper,
-    Typography
+    Typography,
 } from "@mui/material"
 
 export default function ProjectForm() {
-
-    // const [projectData, setProjectData] = useState<ProjectData>();
 
     const {
         register,
@@ -23,6 +22,7 @@ export default function ProjectForm() {
         control
     } = useForm<ProjectData>();
 
+    /** handles the submission of general details for a project */
     const onSubmit = async (data: ProjectData) => {
         return await projectService.createProject(data);
     }
@@ -45,6 +45,16 @@ export default function ProjectForm() {
                                 margin="dense"
                                 {...register('projectName', { required: true })}
                             />
+                        </Grid>
+                        <Grid item>
+                            <Typography variant='h6' align='left' margin='dense'>
+                                Select Category
+                            </Typography>
+                            <select {...register('category', { required: true })}>
+                                {categories.map((category) => (
+                                    <option value={category}>{category}</option>
+                                ))}
+                            </select>
                         </Grid>
                         <Typography variant='h6' align='left' margin='dense'>
                             Project Description
