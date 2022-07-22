@@ -3,7 +3,7 @@ import {
     Typography,
     Grid
 } from "@mui/material"
-import { interestCategories } from '../../types/InterestCategories';
+import { categories } from '../../types/Categories';
 
 export default function Discover() {
 

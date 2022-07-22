@@ -1,4 +1,3 @@
-
 export type Interests = {[key: string]: boolean}
 
 export default interface UserData {
