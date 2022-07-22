@@ -1,6 +1,8 @@
-import React, { useState, MouseEvent } from "react";
-// import ProjectData from '../../types/Project';
-import ProjectService from "../../services/ProjectService";
+import React, { useState, MouseEvent, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import ProjectData from '../../types/Project';
+import projectService from "../../services/ProjectService";
+import { UserData } from "amazon-cognito-identity-js";
 import {
     Container,
     Grid,
@@ -15,21 +17,34 @@ import {
 } from "@mui/material";
 
 const ProjectDetails = () => {
-    //later to include (props: ProjectData) in params
+
+    const [currentProject, setCurrentProject] = useState<ProjectData>();
+    const [userProfile, setUserProfile] = useState<UserData>();
+    const { projectId } = useParams();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (projectId) {
+                await projectService.getProjectById(projectId)
+                    .then(response => {
+                        setCurrentProject(response.data)
+                    })
+            }
+        }
+        fetchData();
+    }, [projectId])
 
 
-    const likeProject = async () => {
-        return await ProjectService.updateProject(props.projectId, props.userId);
-    };
+    // const likeProject = async () => {
+    //     return await ProjectService.updateProject(props.projectId, props.userId);
+    // };
 
     return (
         <Container maxWidth="lg">
             <Grid container spacing={6} justifyItems={"center"}>
                 <Grid item>
                     <Paper style={{ padding: 20 }}>
-                        {/* image is a place holder */}
-                        <img alt='project img' src='https://picsum.photos/400/300' />
-                        {/* props.image */}
+                        <img alt='project img' src={currentProject?.images} />
                     </Paper>
                 </Grid>
                 <Grid item>
@@ -39,29 +54,29 @@ const ProjectDetails = () => {
                                 <CardContent>
                                     <Typography gutterBottom variant="h4">
                                         Project Name
-                                        {/* {props.name} */}
+                                        {currentProject?.projectName}
                                     </Typography>
                                     <Typography variant='h6' gutterBottom>
                                         Project Description
-                                        {/* {props.description} */}
+                                        {currentProject?.description}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         By User Name
-                                        {/* {props.userId.name} */}
+                                        {currentProject?.userId.name}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Amount
-                                        {/* {props.targetFundingAmount} */}
+                                        {currentProject?.targetFundingAmount}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Date
-                                        {/* {props.targetFundingDate} */}
+                                        {currentProject?.targetFundingDate}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
