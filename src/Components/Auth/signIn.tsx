@@ -46,7 +46,7 @@ const SignIn = ({ msgAlert, setUser }: SignInProps) => {
   }
 
   if (shouldNavigate) {
-    return <Navigate to='/' />
+    return <Navigate to='/createproject' />
   }
 
   return (
