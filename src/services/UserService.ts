@@ -4,7 +4,7 @@ import UserData from '../types/User'
 
 async function getProfile(userId: String) {
     try {
-        return await axiosInstance.get<UserData>(`/users/${userId}/`)
+        return await axiosInstance.get<UserData>(`/users/${userId}`)
     } catch (error) {
         throw error;
     }
@@ -12,7 +12,7 @@ async function getProfile(userId: String) {
 
 async function updateProfile(data: UserData, userId: String) {
     try {
-        return await axiosInstance.put<any>(`/users/${userId}/`, data)
+        return await axiosInstance.put<any>(`/users/${userId}`, data)
     } catch (error) {
         throw error;
     }
