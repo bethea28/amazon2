@@ -1,5 +1,6 @@
 import axiosInstance from '../apiConfig'
 import ProjectData from "../types/Project"
+import UserData from '../types/User';
 
 const createProject = async (data: ProjectData) => {
   try {
@@ -49,13 +50,22 @@ const findProjectByName = async (name: string) => {
   }
 };
 
+const addLike = async (projectId: string, likedByUserId: string) => {
+  try {
+    return await axiosInstance.patch<ProjectData>(`/${projectId}/addLike/${likedByUserId}`);
+  } catch (error) {
+    throw error;
+  }
+};
+
 const ProjectService = {
   createProject,
   getProjectById,
   getAllProjects,
   updateProject,
   removeProject,
-  findProjectByName
+  findProjectByName,
+  addLike
 };
 
 export default ProjectService;

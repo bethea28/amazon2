@@ -55,7 +55,7 @@ const Comment = () => {
         </Grid>
 
         <Grid>
-          {" "}
+
           <Button variant='contained'>Post Comment</Button>
         </Grid>
       </form>

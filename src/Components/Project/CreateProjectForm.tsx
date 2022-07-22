@@ -43,7 +43,7 @@ export default function ProjectForm() {
                                 variant="outlined"
                                 size="small"
                                 margin="dense"
-                                {...register('name', { required: true })}
+                                {...register('projectName', { required: true })}
                             />
                         </Grid>
                         <Typography variant='h6' align='left' margin='dense'>

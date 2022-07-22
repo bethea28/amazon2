@@ -7,7 +7,6 @@ export default interface ProjectData {
   targetFundingAmount: string,
   targetFundingDate: Date,
   category: string,
-  images: string,
-  likeCount: string
-  //change likeCount to likedBy
+  images: Array<string>,
+  likedBy: Array<string>
 }

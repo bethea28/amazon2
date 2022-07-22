@@ -1,8 +1,8 @@
-import React, { useState, MouseEvent, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
-import { UserData } from "amazon-cognito-identity-js";
+import UserService from "../../services/UserService";
+import UserData from "../../types/User";
 import {
     Container,
     Grid,
@@ -12,18 +12,20 @@ import {
     CardContent,
     Button,
     Typography,
-    Paper,
-    TextField
+    Paper
 } from "@mui/material";
 
 const ProjectDetails = () => {
 
     const [currentProject, setCurrentProject] = useState<ProjectData>();
     const [userProfile, setUserProfile] = useState<UserData>();
-    const { projectId } = useParams();
+
+    // To be updated once we have current user and project:
+    let loggedInUserId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
+    let projectId = "552c252b-236b-4ec3-bbde-1de4cc35067e"
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchProject = async () => {
             if (projectId) {
                 await projectService.getProjectById(projectId)
                     .then(response => {
@@ -31,20 +33,35 @@ const ProjectDetails = () => {
                     })
             }
         }
-        fetchData();
+        fetchProject();
     }, [projectId])
 
+    // To be updated once we have projects created by users:
+    // let projectUserId = currentProject && currentProject.userId;
+    let projectUserId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891";
 
-    // const likeProject = async () => {
-    //     return await ProjectService.updateProject(props.projectId, props.userId);
-    // };
+    useEffect(() => {
+        const fetchUser = async () => {
+            await UserService.getProfile(projectUserId).then((response) => {
+                setUserProfile(response.data)
+            })
+        }
+        fetchUser()
+    }, [])
+
+    console.log(currentProject && currentProject.targetFundingAmount);
+
+
+    const likeProject = async () => {
+        return await projectService.addLike(projectId, loggedInUserId);
+    };
 
     return (
         <Container maxWidth="lg">
             <Grid container spacing={6} justifyItems={"center"}>
                 <Grid item>
                     <Paper style={{ padding: 20 }}>
-                        <img alt='project img' src={currentProject?.images} />
+                        {/* <img alt='project img' src={currentProject.images} /> */}
                     </Paper>
                 </Grid>
                 <Grid item>
@@ -53,30 +70,27 @@ const ProjectDetails = () => {
                             <CardActionArea>
                                 <CardContent>
                                     <Typography gutterBottom variant="h4">
-                                        Project Name
-                                        {currentProject?.projectName}
+                                        {currentProject && currentProject.projectName}
                                     </Typography>
                                     <Typography variant='h6' gutterBottom>
-                                        Project Description
-                                        {currentProject?.description}
+                                        {currentProject && currentProject.description}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        By User Name
-                                        {currentProject?.userId.name}
+                                        By {userProfile && userProfile.name}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Amount
-                                        {currentProject?.targetFundingAmount}
+                                        {currentProject && currentProject.targetFundingAmount}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Date
-                                        {currentProject?.targetFundingDate}
+                                        {currentProject && currentProject.targetFundingDate}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -85,11 +99,12 @@ const ProjectDetails = () => {
                                     {/* funding component to be imported */}
                                     Back this project
                                 </Button>
-                                <Button type="submit" onClick={() => likeProject(projectId, userId)} variant='outlined' size="small">
+                                <Button type="submit" onClick={likeProject} variant='outlined' size="small">
                                     Like
                                 </Button>
-                                <TextField label={props.likeCount} />
-                                {/* change likeCount to likedBy */}
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {currentProject && (currentProject.likedBy == null ? 0 : currentProject.likedBy.length)} likes
+                                </Typography>
                             </CardActions>
                         </Card>
                     </Paper>
