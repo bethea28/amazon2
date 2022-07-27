@@ -25,6 +25,23 @@ const getAllProjects = async () => {
   }
 };
 
+const getProjectsByUser = async (userId: string) => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>(`/projects/users/${userId}`);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getProjectsByCategory = async (projectCategory: string) => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>(`/projects/categories/${projectCategory}`);
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 const updateProject = async (projectId: any, data: ProjectData) => {
   try {
     return await axiosInstance.put<any>(`/projects/${projectId}`, data);
@@ -53,6 +70,8 @@ const ProjectService = {
   createProject,
   getProject,
   getAllProjects,
+  getProjectsByUser,
+  getProjectsByCategory,
   updateProject,
   removeProject,
   findProjectByName

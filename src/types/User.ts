@@ -5,6 +5,5 @@ export default interface UserData {
     name: string,
     username: string,
     bio: string,
-    interests: Interests,
-    projects: Array<String>
+    interests: Interests
   }

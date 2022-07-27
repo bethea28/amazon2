@@ -53,7 +53,7 @@ function App() {
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
                 <Route path='/projects' element={<AllProjects />} />
-                <Route path='/projects/projectId' element={<CommentForm />} />
+                <Route path='/projects/:projectId' element={<CommentForm />} />
                 <Route
                   path='/projects/:projectId/:commentId'
                   element={<CommentForm />}

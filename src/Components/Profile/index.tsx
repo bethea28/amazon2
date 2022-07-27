@@ -14,6 +14,8 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import UserService from "../../services/UserService";
 import UserData from '../../types/User'
+import ProjectService from '../../services/ProjectService';
+import ProjectData from '../../types/Project';
 
 export default function Profile() {
 
@@ -21,12 +23,14 @@ export default function Profile() {
     let userId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
 
     const [userProfile, setUserProfile] = useState<UserData>()
+    const [userProjects, setUserProjects] = useState<Array<ProjectData> | []>()
 
     useEffect(() => {
         const fetchData = async () => {
-            await UserService.getProfile(userId).then((response) => {
-            setUserProfile(response.data)
-        })
+            await UserService.getProfile(userId)
+            .then((response) => {setUserProfile(response.data)})
+            .then(() => ProjectService.getProjectsByUser(userId)
+            .then((response) => {setUserProjects(response.data)})) 
     }
     fetchData()
     }, [])
@@ -71,10 +75,10 @@ export default function Profile() {
                 <Grid>
                     <Typography variant="h6">
                         Projects Posted
-                        {userProfile && !userProfile.projects.length && (<Typography variant="body2"> No projects yet! </Typography>)}
+                        {userProjects && !userProjects.length && (<Typography variant="body2"> No projects yet! </Typography>)}
 
-                        {userProfile && userProfile.projects.length > 0 && userProfile!.projects.map((project) => {
-                        return <Typography display="inline" variant="body2"> {project}, </Typography>
+                        {userProjects && userProjects.length > 0 && userProjects.map((project) => {
+                        return <Link to={`/projects/${project.projectId}`}> {project.projectName} </Link>
                         })}
                     </Typography>
                 </Grid>
