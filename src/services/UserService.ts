@@ -10,6 +10,8 @@ async function updateProfile(data: UserData, userId: String) {
     return await axiosInstance.put<any>(`/users/${userId}/`, data)
 }
 
+
+
 const UserService = {
     getProfile,
     updateProfile

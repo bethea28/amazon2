@@ -1,6 +1,7 @@
-import React, { FunctionComponent, useState, useCallback } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
 import { useDropzone } from 'react-dropzone'
+import {uploadToS3} from "../../services/UploadService";
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
@@ -40,10 +41,14 @@ const completeBtnStyle = {
 export const ProjectImageIndex: FunctionComponent = () => {
     const [uploadedImage, setUploadedImage] = useState<string>('');
 
-    const onDrop = useCallback((files: File[]) => {
+    const onDrop = (files: File[]) => {
         const imageBlob = new Blob([files[0]], { type: files[0].type });
         setUploadedImage(URL.createObjectURL(imageBlob));
-    }, [])
+        const data = {
+            file: files[0],
+        }
+        uploadToS3(data);
+    }
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
