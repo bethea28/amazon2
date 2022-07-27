@@ -1,6 +1,6 @@
 export const categories = [
     "Art",
-    "Comics & Illustrations",
+    "Comics & Illustration",
     "Fashion",
     "Film",
     "Games",
