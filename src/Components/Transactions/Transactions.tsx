@@ -33,18 +33,13 @@ export default function TrasactionForm(){ //PM to be added: projectIdInput: stri
         data.projectId = "hello";
         
         // Back End points to deal with: /data.date = new Date; data.status = 'COMPLETE';
-        
-        //CHECK: Log input to console
-        console.log(data);
 
         //CHECK: Request Status, setStatus
         try{
             const transaction = await TransactionService.createTransaction(data);
             setStatus('COMPLETE');
-            console.log(status);
         }catch(error) {
             setStatus("ERROR");
-            console.log(status);
         }
     }
     return (
