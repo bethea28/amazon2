@@ -3,7 +3,6 @@ import { Grid, Button, Card, CardActions, CardContent, Paper, Typography, Input,
 import {useForm, Controller, useFormContext} from 'react-hook-form'
 import TransactionService from "../../services/transactionService";
 
-
 interface PaymentInput{
     amount: number;
     firstName: string;
