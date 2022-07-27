@@ -15,6 +15,7 @@ import { v4 as uuid } from "uuid";
 import { Box, Typography, Link, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
 import AllProjects from "./Components/Discover/AllProjects";
+import TrasactionForm from "./Components/Transactions/Transactions";
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -58,6 +59,7 @@ function App() {
                 <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
+                <Route path='/transaction' element={<TrasactionForm />} />
               </Routes>
               <Link
                 className='App-link'
