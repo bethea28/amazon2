@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -9,7 +8,8 @@ import {
     Box,
     IconButton,
     List,
-    ListItem
+    ListItem,
+    Link
 } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
 import UserService from "../../services/UserService";
@@ -44,7 +44,7 @@ export default function Profile() {
                         Profile
                     </Typography>
                     <IconButton aria-label="edit" size="large" >
-                        <Link to={`/profile/${userId}/edit`}>
+                        <Link href={`/profile/${userId}/edit`}>
                             <EditIcon />
                         </Link>
                     </IconButton>
@@ -75,12 +75,14 @@ export default function Profile() {
                 <Grid>
                     <Typography variant="h6">
                         Projects Posted
-                        {userProjects && !userProjects.length && (<Typography variant="body2"> No projects yet! </Typography>)}
-
-                        {userProjects && userProjects.length > 0 && userProjects.map((project) => {
-                        return <Link to={`/projects/${project.projectId}`}> {project.projectName} </Link>
-                        })}
                     </Typography>
+                        {userProjects && !userProjects.length && (<Typography variant="body2"> No projects yet! </Typography>)}
+                            {userProjects && userProjects.length > 0 && userProjects.map((project) => {
+                            return <Link href={`/projects/${project.projectId}`} underline="hover" variant="body2" key={project.projectId}> 
+                                        {project.projectName} 
+                                    <br />
+                                    </Link>
+                            })}
                 </Grid>
 
                 <Grid>

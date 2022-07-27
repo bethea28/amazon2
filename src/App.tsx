@@ -68,7 +68,7 @@ function App() {
                 rel='noopener noreferrer'
               ></Link>
             </header>
-            <CommentForm />
+            {/* <CommentForm /> */}
           </Box>
         </Grid>
         <Footer />
