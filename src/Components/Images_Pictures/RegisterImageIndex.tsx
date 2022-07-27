@@ -1,7 +1,8 @@
-import React, { FunctionComponent, useState, useCallback } from "react";
-import { Grid, Typography, Box, Button } from "@mui/material";
-import { useDropzone } from 'react-dropzone'
+import React, {FunctionComponent, useEffect, useState} from "react";
+import {Grid, Typography, Box, Button} from "@mui/material";
+import {useDropzone} from 'react-dropzone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import {uploadToS3} from "../../services/UploadService";
 
 const dialogStyle = {
     backgroundColor: "#E9F3FF",
@@ -39,12 +40,16 @@ const completeBtnStyle = {
 export const RegisterImageIndex: FunctionComponent = () => {
     const [uploadedImage, setUploadedImage] = useState<string>('');
 
-    const onDrop = useCallback((files: File[]) => {
-        const imageBlob = new Blob([files[0]], { type: files[0].type });
+    const onDrop = (files: File[]) => {
+        const imageBlob = new Blob([files[0]], {type: files[0].type});
         setUploadedImage(URL.createObjectURL(imageBlob));
-    }, [])
+        const data = {
+            file: files[0],
+        };
+        uploadToS3(data);
+    }
 
-    const { getRootProps, getInputProps } = useDropzone({ onDrop })
+    const {getRootProps, getInputProps} = useDropzone({onDrop})
 
     return (
         <Grid container p={2} justifyContent="center">
@@ -59,7 +64,8 @@ export const RegisterImageIndex: FunctionComponent = () => {
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
-                                {!uploadedImage ? <Box sx={imagePlaceholder} /> : <Box sx={imageStyle} component="img" alt="image-placeholder" src={uploadedImage} />}
+                                {!uploadedImage ? <Box sx={imagePlaceholder}/> :
+                                    <Box sx={imageStyle} component="img" alt="image-placeholder" src={uploadedImage}/>}
                             </Grid>
                             <Grid item xs={6}>
                                 <Grid container spacing={1}>
@@ -87,7 +93,7 @@ export const RegisterImageIndex: FunctionComponent = () => {
                     <Grid item xs={12}>
                         <Grid container justifyContent="space-between" pt={6} alignItems="center">
                             <Grid item>
-                                <Button sx={backBtnStyle} startIcon={<KeyboardArrowLeftIcon />}>
+                                <Button sx={backBtnStyle} startIcon={<KeyboardArrowLeftIcon/>}>
                                     Go Back
                                 </Button>
                             </Grid>

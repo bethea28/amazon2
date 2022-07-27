@@ -1,6 +1,7 @@
-import React, { FunctionComponent, useState, useCallback } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
 import { useDropzone } from 'react-dropzone'
+import {uploadToS3} from "../../services/UploadService";
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
@@ -40,10 +41,14 @@ const completeBtnStyle = {
 export const AdditionalImageIndex: FunctionComponent = () => {
     const [uploadedImage, setUploadedImage] = useState<string>('');
 
-    const onDrop = useCallback((files: File[]) => {
+    const onDrop = (files: File[]) => {
         const imageBlob = new Blob([files[0]], { type: files[0].type });
         setUploadedImage(URL.createObjectURL(imageBlob));
-    }, [])
+        const data = {
+            file: files[0],
+        };
+        uploadToS3(data);
+    }
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
@@ -51,9 +56,6 @@ export const AdditionalImageIndex: FunctionComponent = () => {
         <Grid container p={2} justifyContent="center">
             <Grid item xs={12} sm={5} lg={4} sx={dialogStyle} p={2}>
                 <Grid container gap={2}>
-                    {/* <Grid item xs={12}>
-                        <Typography variant="h6">Create New Project</Typography>
-                    </Grid> */}
                     <Grid item xs={12}>
                         <Typography variant="body1">Upload Additional Images</Typography>
                     </Grid>

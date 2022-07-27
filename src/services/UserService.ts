@@ -18,6 +18,8 @@ async function updateProfile(data: UserData, userId: string | undefined) {
     }
 }
 
+
+
 const UserService = {
     getProfile,
     updateProfile
