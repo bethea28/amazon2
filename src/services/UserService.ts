@@ -2,7 +2,7 @@ import axiosInstance from '../apiConfig'
 import UserData from '../types/User'
 
 
-async function getProfile(userId: String) {
+async function getProfile(userId: string | undefined) {
     try {
         return await axiosInstance.get<UserData>(`/users/${userId}`)
     } catch (error) {
@@ -10,9 +10,9 @@ async function getProfile(userId: String) {
     }
 }
 
-async function updateProfile(data: UserData, userId: String) {
+async function updateProfile(data: UserData, userId: string) {
     try {
-        return await axiosInstance.put<any>(`/users/${userId}`, data)
+        return await axiosInstance.put<UserData>(`/users/${userId}`, data)
     } catch (error) {
         throw error;
     }

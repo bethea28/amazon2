@@ -11,7 +11,6 @@ export interface ProjectCardProps {
 }
 
 const ProjectCard = ({ data }: ProjectCardProps) => {
-  console.log(data);
 
   return (
     <>

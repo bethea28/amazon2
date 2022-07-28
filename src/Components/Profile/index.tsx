@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
     Container,
     Grid,
@@ -17,10 +18,11 @@ import UserData from '../../types/User'
 import ProjectService from '../../services/ProjectService';
 import ProjectData from '../../types/Project';
 
+
 export default function Profile() {
 
-    // To be updated once we have current user:
-    let userId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
+    // let userId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
+    const {userId} = useParams()
 
     const [userProfile, setUserProfile] = useState<UserData>()
     const [userProjects, setUserProjects] = useState<Array<ProjectData> | []>()

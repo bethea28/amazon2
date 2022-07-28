@@ -9,7 +9,7 @@ const createProject = async (data: ProjectData) => {
   }
 };
 
-const getProject = async (projectId: any) => {
+const getProject = async (projectId: string) => {
   try {
     return await axiosInstance.get<ProjectData>(`/projects/${projectId}`);
   } catch (error) {
@@ -25,7 +25,7 @@ const getAllProjects = async () => {
   }
 };
 
-const getProjectsByUser = async (userId: string) => {
+const getProjectsByUser = async (userId: string | undefined) => {
   try {
     return await axiosInstance.get<Array<ProjectData>>(`/projects/users/${userId}`);
   } catch (error) {
@@ -42,7 +42,7 @@ const getProjectsByCategory = async (projectCategory: string | undefined) => {
 };
 
 
-const updateProject = async (projectId: any, data: ProjectData) => {
+const updateProject = async (projectId: string, data: ProjectData) => {
   try {
     return await axiosInstance.put<any>(`/projects/${projectId}`, data);
   } catch (error) {

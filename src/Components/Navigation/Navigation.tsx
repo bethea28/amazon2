@@ -1,18 +1,20 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
+import {
+  AppBar,
+  Box,
+  Divider,
+  Toolbar,
+  Typography,
+  Link,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Button  
+} from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 import SignIn from "../Auth/signIn";
 import DiscoverNavBar from '../Discover/DiscoverNavBar'
 
@@ -27,6 +29,16 @@ interface Props {
 const drawerWidth = 240;
 
 export default function NavigationBar(props: Props) {
+
+  // To update to sessionUser when user is logged in
+  // let sessionUser = {
+  //   username: "user1",
+  //   name: "User 1",
+  //   userId: "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
+  // }
+  let sessionUser;
+  let userId;
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -45,6 +57,31 @@ export default function NavigationBar(props: Props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+  
+  let sessionLinks;
+  if(sessionUser) {
+    sessionLinks = (
+      <>
+        <Link href='/createProject' style={{ color: "#fff"}} underline="hover">
+          Create a New Project
+        </Link>
+        <Link href={`/profile/${userId}`} style={{ color: "#fff"}} underline="hover">
+          Profile
+        </Link>
+      </>
+    )
+  } else {
+    sessionLinks = (
+      <>
+        <Link href='/signin'style={{ color: "#fff"}} underline="hover">
+          Log In
+        </Link>
+        <Link href='/signup' style={{ color: "#fff"}} underline="hover">
+          Register
+        </Link>
+      </>
+    );
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -68,7 +105,7 @@ export default function NavigationBar(props: Props) {
               display: { xs: "none", sm: "block" },
             }}
           >
-            <Link to='/' style={{ color: "#fff", textDecoration: "none" }}>
+            <Link href='/' style={{ color: "#fff", textDecoration: "none" }}>
               JumpStarter
             </Link>
           </Typography>
@@ -80,29 +117,13 @@ export default function NavigationBar(props: Props) {
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
               <Link
-                to='/categories/Art'
-                style={{ color: "#fff", textDecoration: "none" }}
+                href='/categories/Art'
+                style={{ color: "#fff"}} underline="hover"
               >
                 Discover
               </Link>
-              <Link
-                to='/createProject'
-                style={{ color: "#fff", textDecoration: "none" }}
-              >
-                Create a New Project
-              </Link>
-              <Link
-                to='/signin'
-                style={{ color: "#fff", textDecoration: "none" }}
-              >
-                Log In
-              </Link>
-              <Link
-                to='/signup'
-                style={{ color: "#fff", textDecoration: "none" }}
-              >
-                Register
-              </Link>
+              {sessionLinks}
+              
             </Typography>
           </Box>
         </Toolbar>
