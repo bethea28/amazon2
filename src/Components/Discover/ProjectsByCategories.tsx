@@ -15,13 +15,14 @@ export default function ProjectsByCategories() {
     const [categoryProjects, setCategoryProjects] = useState<Array<ProjectData> | []>()
 
     useEffect(() => {
-        const fetchProjects = async () => {
-            await ProjectService.getProjectsByCategory(projectCategory)
-            .then((response) => {setCategoryProjects(response.data)})
-    }
     fetchProjects()
     }, [projectCategory])
 
+    const fetchProjects = async () => {
+        await ProjectService.getProjectsByCategory(projectCategory)
+        .then((response) => {setCategoryProjects(response.data)})
+    }
+    
     return (
         <Grid
             container

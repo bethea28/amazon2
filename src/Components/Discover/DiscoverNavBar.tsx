@@ -2,8 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     Typography,
-    Grid,
-    AppBar,
     Toolbar
 } from "@mui/material"
 import { categories } from '../../types/Categories';

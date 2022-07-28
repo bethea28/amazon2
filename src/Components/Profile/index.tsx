@@ -27,15 +27,16 @@ export default function Profile() {
     const [userProfile, setUserProfile] = useState<UserData>()
     const [userProjects, setUserProjects] = useState<Array<ProjectData> | []>()
 
-    useEffect(() => {
-        const fetchUserAndProjects = async () => {
-            await UserService.getProfile(userId)
-            .then((response) => {setUserProfile(response.data)})
-            .then(() => ProjectService.getProjectsByUser(userId)
-            .then((response) => {setUserProjects(response.data)})) 
-    }
-    fetchUserAndProjects()
+    useEffect(() => {   
+        fetchUserAndProjects()
     }, [])
+
+    const fetchUserAndProjects = async () => {
+        await UserService.getProfile(userId)
+        .then((response) => {setUserProfile(response.data)})
+        .then(() => ProjectService.getProjectsByUser(userId)
+        .then((response) => {setUserProjects(response.data)})) 
+    }
 
     return (
         <Container maxWidth="xs">
