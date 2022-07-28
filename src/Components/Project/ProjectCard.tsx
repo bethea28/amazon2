@@ -18,19 +18,6 @@ import {
     Link
 } from "@mui/material";
 
-// interface ProjDat1 {
-//         projectId: string,
-//         userId: string,
-//         createdAt: Date,
-//         projectName: string,
-//         description: string,
-//         targetFundingAmount: number,
-//         targetFundingDate: Date,
-//         category: string,
-//         images: Array<string>,
-//         likedBy: Array<string>
-//   }
-
 const ProjectCard = ({data}: any) => {
     //later to include (data: ProjectData) in params
 

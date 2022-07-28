@@ -31,11 +31,6 @@ const drawerWidth = 240;
 export default function NavigationBar(props: Props) {
 
   // To update to sessionUser when user is logged in
-  // let sessionUser = {
-  //   username: "user1",
-  //   name: "User 1",
-  //   userId: "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
-  // }
   let sessionUser;
   let userId;
 
