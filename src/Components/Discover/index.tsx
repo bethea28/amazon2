@@ -42,10 +42,7 @@ export default function ProjectsByCategories() {
             }}>
         {categoryProjects && !categoryProjects.length && (<Typography variant="body2"> No projects yet for {projectCategory}! </Typography>)}
         {categoryProjects && categoryProjects.length > 0 && categoryProjects.map((project) => {
-        return <Link href={`/projects/${project.projectId}`} underline="hover" variant="body2" key={project.projectId}> 
-                    <ProjectCard props={project} />
-
-                </Link>
+        return  <ProjectCard props={project} key={project.projectId} />
         })}
             </Grid>
 

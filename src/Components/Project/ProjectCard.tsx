@@ -13,11 +13,14 @@ import {
     Typography,
     IconButton,
     Container,
-    Paper
+    Paper,
+    Link
 } from "@mui/material";
 
 const ProjectCard = (props: any) => {
     //later to include (props: ProjectData) in params
+
+    console.log(props)
 
     return (
         <Container maxWidth="xs">
@@ -27,16 +30,18 @@ const ProjectCard = (props: any) => {
                         {/* place holder */}
                         <img alt='project img' src='https://picsum.photos/400/300' />
                         {/* props.image */}
-                        <CardContent>
-                            <Typography gutterBottom variant="h4">
-                                Project Name
-                                {props.projectName}
-                            </Typography>
-                            <Typography variant='h6' gutterBottom>
-                                Project Description
-                                {props.description}
-                            </Typography>
-                        </CardContent>
+                        <Link href={`/projects/${props.projectId}`} underline="none">
+                            <CardContent>
+                                <Typography gutterBottom variant="h4">
+                                    Project Name
+                                    {props.projectName}
+                                </Typography>
+                                <Typography variant='h6' gutterBottom>
+                                    Project Description
+                                    {props.description}
+                                </Typography>
+                            </CardContent>
+                        </Link>
                         <CardContent>
                             <Typography variant="body2" color="textSecondary" component="p">
                                 By User Name
