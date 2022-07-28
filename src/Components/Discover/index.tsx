@@ -27,12 +27,26 @@ export default function ProjectsByCategories() {
 
 
     return (
-        <Grid>
+        <Grid
+            container
+            spacing={0}
+            justifyContent='center'
+            alignItems='center'
+            flexDirection='column'
+        >
+            <Grid
+            container
+            sx={{
+                flexDirection: "row",
+            }}
+            >
+            <Grid>
+            </Grid>
+            </Grid>
         {categoryProjects && !categoryProjects.length && (<Typography variant="body2"> No projects yet for {projectCategory}! </Typography>)}
         {categoryProjects && categoryProjects.length > 0 && categoryProjects.map((project) => {
         return <Link href={`/projects/${project.projectId}`} underline="hover" variant="body2" key={project.projectId}> 
                     {project.projectName} 
-                <br />
                 </Link>
         })}
 
