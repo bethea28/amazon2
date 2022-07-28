@@ -14,7 +14,7 @@ import AutoDismissAlert, {
 import { v4 as uuid } from "uuid";
 import { Box, Link, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
-import Discover from "./Components/Discover";
+import Discover from "./Components/Discover/ProjectsByCategories";
 
 function App() {
   const [user, setUser] = useState<string | null>(null);

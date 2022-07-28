@@ -39,10 +39,10 @@ const ProjectCard = ({data}: any) => {
             <Paper>
                 <Card variant='outlined'>
                     <CardActionArea>
-                        {/* place holder */}
-                        <img alt='project img' src='https://picsum.photos/400/300' />
-                        {/* data.image */}
                         <Link href={`/projects/${data.projectId}`} underline="none">
+                            {/* place holder */}
+                            <img alt='project img' src='https://picsum.photos/400/300' />
+                            {/* data.image */}
                             <CardContent>
                                 <Typography gutterBottom variant="h4">
                                     {/* Project Name */}
