@@ -15,6 +15,8 @@ import { v4 as uuid } from "uuid";
 import { Box, Link, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
 import Discover from "./Components/Discover/ProjectsByCategories";
+import TrasactionForm from "./Components/Transactions/Transactions";
+
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -61,6 +63,7 @@ function App() {
                   path='/categories/:projectCategory'
                   element={<Discover />}
                 />
+                <Route path='/transaction' element={<TrasactionForm />} />
               </Routes>
 
               <Link
