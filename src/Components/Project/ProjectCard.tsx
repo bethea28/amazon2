@@ -1,5 +1,5 @@
 import React from 'react';
-// import ProjectData from '../../types/Project';
+import ProjectData from '../../types/Project';
 import {
     FavoriteBorderOutlined,
     MonetizationOnOutlined
@@ -16,8 +16,8 @@ import {
     Paper
 } from "@mui/material";
 
-const ProjectCard = () => {
-    //later to include (props: projectData) in params
+const ProjectCard = (props: any) => {
+    //later to include (props: ProjectData) in params
 
     return (
         <Container maxWidth="xs">
@@ -30,17 +30,17 @@ const ProjectCard = () => {
                         <CardContent>
                             <Typography gutterBottom variant="h4">
                                 Project Name
-                                {/* {props.name} */}
+                                {props.projectName}
                             </Typography>
                             <Typography variant='h6' gutterBottom>
                                 Project Description
-                                {/* {props.description} */}
+                                {props.description}
                             </Typography>
                         </CardContent>
                         <CardContent>
                             <Typography variant="body2" color="textSecondary" component="p">
                                 By User Name
-                                {/* {props.userId.name} */}
+                                {/* {props.userId.username} */}
                             </Typography>
                         </CardContent>
                     </CardActionArea>

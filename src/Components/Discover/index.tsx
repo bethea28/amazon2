@@ -7,6 +7,7 @@ import {
 } from "@mui/material"
 import ProjectData from '../../types/Project';
 import ProjectService from '../../services/ProjectService';
+import ProjectCard from '../Project/ProjectCard';
 
 export default function ProjectsByCategories() {
 
@@ -38,17 +39,15 @@ export default function ProjectsByCategories() {
             container
             sx={{
                 flexDirection: "row",
-            }}
-            >
-            <Grid>
-            </Grid>
-            </Grid>
+            }}>
         {categoryProjects && !categoryProjects.length && (<Typography variant="body2"> No projects yet for {projectCategory}! </Typography>)}
         {categoryProjects && categoryProjects.length > 0 && categoryProjects.map((project) => {
         return <Link href={`/projects/${project.projectId}`} underline="hover" variant="body2" key={project.projectId}> 
-                    {project.projectName} 
+                    <ProjectCard props={project} />
+
                 </Link>
         })}
+            </Grid>
 
         </Grid>
     )
