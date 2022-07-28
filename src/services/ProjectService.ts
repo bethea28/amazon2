@@ -33,7 +33,7 @@ const getProjectsByUser = async (userId: string) => {
   }
 };
 
-const getProjectsByCategory = async (projectCategory: string) => {
+const getProjectsByCategory = async (projectCategory: string | undefined) => {
   try {
     return await axiosInstance.get<Array<ProjectData>>(`/projects/categories/${projectCategory}`);
   } catch (error) {

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
     Typography,
-    Grid,
-    Link
+    Grid
 } from "@mui/material"
 import ProjectData from '../../types/Project';
 import ProjectService from '../../services/ProjectService';
@@ -11,9 +10,7 @@ import ProjectCard from '../Project/ProjectCard';
 
 export default function ProjectsByCategories() {
 
-    // const {projectCategory} = useParams<string>()
-
-    const projectCategory = "Tech"
+    const {projectCategory} = useParams()
 
     const [categoryProjects, setCategoryProjects] = useState<Array<ProjectData> | []>()
 
@@ -23,9 +20,7 @@ export default function ProjectsByCategories() {
             .then((response) => {setCategoryProjects(response.data)})
     }
     fetchProjects()
-    }, [])
-
-
+    }, [projectCategory])
 
     return (
         <Grid
@@ -42,7 +37,8 @@ export default function ProjectsByCategories() {
             }}>
         {categoryProjects && !categoryProjects.length && (<Typography variant="body2"> No projects yet for {projectCategory}! </Typography>)}
         {categoryProjects && categoryProjects.length > 0 && categoryProjects.map((project) => {
-        return  <ProjectCard props={project} key={project.projectId} />
+        console.log(project)
+        return <ProjectCard projectData={project} />
         })}
             </Grid>
 

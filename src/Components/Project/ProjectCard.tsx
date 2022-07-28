@@ -1,5 +1,6 @@
 import React from 'react';
 import ProjectData from '../../types/Project';
+
 import {
     FavoriteBorderOutlined,
     MonetizationOnOutlined
@@ -17,10 +18,24 @@ import {
     Link
 } from "@mui/material";
 
-const ProjectCard = (props: any) => {
-    //later to include (props: ProjectData) in params
 
-    console.log(props)
+interface ProjDat1 {
+        projectId: string,
+        userId: string,
+        createdAt: Date,
+        projectName: string,
+        description: string,
+        targetFundingAmount: number,
+        targetFundingDate: Date,
+        category: string,
+        images: Array<string>,
+        likedBy: Array<string>
+  }
+
+const ProjectCard = ({projectData}: any) => {
+    //later to include (projectData: ProjectData) in params
+
+    console.log(projectData)
 
     return (
         <Container maxWidth="xs">
@@ -29,23 +44,23 @@ const ProjectCard = (props: any) => {
                     <CardActionArea>
                         {/* place holder */}
                         <img alt='project img' src='https://picsum.photos/400/300' />
-                        {/* props.image */}
-                        <Link href={`/projects/${props.projectId}`} underline="none">
+                        {/* projectData.image */}
+                        <Link href={`/projects/${projectData.projectId}`} underline="none">
                             <CardContent>
                                 <Typography gutterBottom variant="h4">
-                                    Project Name
-                                    {props.projectName}
+                                    {/* Project Name */}
+                                    {projectData.projectName}
                                 </Typography>
                                 <Typography variant='h6' gutterBottom>
-                                    Project Description
-                                    {props.description}
+                                    {/* Project Description */}
+                                    {projectData.description}
                                 </Typography>
                             </CardContent>
                         </Link>
                         <CardContent>
                             <Typography variant="body2" color="textSecondary" component="p">
                                 By User Name
-                                {/* {props.userId.username} */}
+                                {/* {projectData.userId.username} */}
                             </Typography>
                         </CardContent>
                     </CardActionArea>
