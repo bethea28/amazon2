@@ -7,17 +7,9 @@ async function createTransaction(transactiondata: TransactionType) {
         "http://localhost:8083/transaction",
         transactiondata
        );
-       console.log(JSON.stringify(data, null, 4));
        return data;
     }  catch(error) {
         throw "error";
-       /* if (axios.isAxiosError(error)) {
-            console.log('error message: ', error.message);
-            return error.message;
-        } else {
-            console.log('unexpected error: ', error);
-            return "An unexpected error has occured";  
-        } */
     }
 }
 
