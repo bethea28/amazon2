@@ -65,15 +65,7 @@ function App() {
                 />
                 <Route path='/transaction' element={<TrasactionForm />} />
               </Routes>
-
-              <Link
-                className='App-link'
-                href='https://reactjs.org'
-                target='_blank'
-                rel='noopener noreferrer'
-              ></Link>
             </header>
-            {/* <CommentForm /> */}
           </Box>
         </Grid>
         <Footer />
