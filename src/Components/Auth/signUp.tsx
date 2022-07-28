@@ -17,14 +17,13 @@ interface SignUpProps {
 const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [shouldNavigate, setShouldNavigate] = useState(false)
 
   const onSignUp: FormEventHandler = async event => {
     event.preventDefault()
 
     try {
-      await signUp(userName, password, passwordConfirmation)
+      await signUp(userName, password)
       const res = await signIn(userName, password)
       setUser(res.data.user)
       msgAlert({
@@ -36,9 +35,7 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
     } catch (error: unknown) {
       setUserName('')
       setPassword('')
-      setPasswordConfirmation('')
       msgAlert({
-      
         message: Message.Alert.SignUp.Failure,
         variant: 'error'
       })
@@ -76,17 +73,7 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
               onChange={event => setPassword(event.target.value)}
             />
           </Form.Group>
-          <Form.Group controlId='passwordConfirmation'>
-            <Form.Label className='label'>Password Confirmation</Form.Label>
-            <Form.Control
-              required
-              name='passwordConfirmation'
-              value={passwordConfirmation}
-              type='password'
-              placeholder='Confirm Password'
-              onChange={event => setPasswordConfirmation(event.target.value)}
-            />
-          </Form.Group>
+         
           <Button className='start-btn' type='submit'>
             Submit
           </Button>

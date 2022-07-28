@@ -1,7 +1,6 @@
 import ProjectData from "../types/Project";
 import ProjectService from "./ProjectService";
 
-//change likeCount to likedBy
-export const likeProject = async (projectId: any, likeCount: ProjectData) => {
-    return await ProjectService.updateProject(projectId, likeCount);
+export const likeProject = async (projectId: any, likedBy: ProjectData) => {
+    return await ProjectService.updateProject(projectId, likedBy);
 };

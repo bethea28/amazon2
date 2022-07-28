@@ -49,9 +49,6 @@ const ProjectDetails = () => {
         fetchUser()
     }, [])
 
-    console.log(currentProject && currentProject.targetFundingAmount);
-
-
     const likeProject = async () => {
         return await projectService.addLike(projectId, loggedInUserId);
     };
@@ -61,7 +58,9 @@ const ProjectDetails = () => {
             <Grid container spacing={6} justifyItems={"center"}>
                 <Grid item>
                     <Paper style={{ padding: 20 }}>
-                        {/* <img alt='project img' src={currentProject.images} /> */}
+                        {currentProject && currentProject.images.map(src =>
+                            <img alt='project images' src={src} />
+                        )}
                     </Paper>
                 </Grid>
                 <Grid item>
@@ -90,7 +89,7 @@ const ProjectDetails = () => {
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Date
-                                        {currentProject && currentProject.targetFundingDate}
+                                        {currentProject && currentProject.targetFundingDate.toDateString()}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
