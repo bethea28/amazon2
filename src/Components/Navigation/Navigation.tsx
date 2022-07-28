@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import SignIn from "../Auth/signIn";
+import DiscoverNavBar from '../Discover/DiscoverNavBar'
 
 interface Props {
   /**
@@ -47,7 +48,7 @@ export default function NavigationBar(props: Props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar component='nav'>
+      <AppBar component='nav' position='absolute'>
         <Toolbar>
           <IconButton
             color='inherit'
@@ -79,7 +80,7 @@ export default function NavigationBar(props: Props) {
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
               <Link
-                to='/projects'
+                to='/categories/Art'
                 style={{ color: "#fff", textDecoration: "none" }}
               >
                 Discover
@@ -105,6 +106,7 @@ export default function NavigationBar(props: Props) {
             </Typography>
           </Box>
         </Toolbar>
+      <DiscoverNavBar />
       </AppBar>
       <Box component='nav'>
         <Drawer

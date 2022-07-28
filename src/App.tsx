@@ -58,7 +58,10 @@ function App() {
                   path='/projects/:projectId/:commentId'
                   element={<CommentForm />}
                 />
-                <Route path='/discover' element={<Discover />} />
+                <Route
+                  path='/categories/:projectCategory'
+                  element={<Discover />}
+                />
               </Routes>
 
               <Link

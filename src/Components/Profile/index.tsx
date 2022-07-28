@@ -26,13 +26,13 @@ export default function Profile() {
     const [userProjects, setUserProjects] = useState<Array<ProjectData> | []>()
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUserAndProjects = async () => {
             await UserService.getProfile(userId)
             .then((response) => {setUserProfile(response.data)})
             .then(() => ProjectService.getProjectsByUser(userId)
             .then((response) => {setUserProjects(response.data)})) 
     }
-    fetchData()
+    fetchUserAndProjects()
     }, [])
 
     return (
@@ -77,12 +77,12 @@ export default function Profile() {
                         Projects Posted
                     </Typography>
                         {userProjects && !userProjects.length && (<Typography variant="body2"> No projects yet! </Typography>)}
-                            {userProjects && userProjects.length > 0 && userProjects.map((project) => {
-                            return <Link href={`/projects/${project.projectId}`} underline="hover" variant="body2" key={project.projectId}> 
-                                        {project.projectName} 
-                                    <br />
-                                    </Link>
-                            })}
+                        {userProjects && userProjects.length > 0 && userProjects.map((project) => {
+                        return <Link href={`/projects/${project.projectId}`} underline="hover" variant="body2" key={project.projectId}> 
+                                    {project.projectName} 
+                                <br />
+                                </Link>
+                        })}
                 </Grid>
 
                 <Grid>

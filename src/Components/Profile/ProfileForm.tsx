@@ -29,13 +29,13 @@ export default function ProfileForm() {
     const [interests, setInterests] = useState<Interests>({})
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUser = async () => {
                 await UserService.getProfile(userId).then((response) => {
                 setUserProfile(response.data)
                 setInterests(response.data.interests)
             })
         }
-        fetchData()
+        fetchUser()
     }, [])
 
     const {register,
