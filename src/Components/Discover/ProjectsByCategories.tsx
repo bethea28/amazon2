@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Typography, Grid } from '@mui/material'
 import ProjectData from '../../types/Project'
-import ProjectService from '../../Services/ProjectService'
+import ProjectService from '../../services/ProjectService'
 import ProjectCard from '../Project/ProjectCard'
 
 export default function ProjectsByCategories() {
   const { projectCategory } = useParams()
 
-  const [categoryProjects, setCategoryProjects] = useState<
-    Array<ProjectData> | []
-  >()
+  const [categoryProjects, setCategoryProjects] = useState<Array<ProjectData> | []>()
 
   useEffect(() => {
     fetchProjects()
@@ -29,8 +27,7 @@ export default function ProjectsByCategories() {
       <Grid container sx={{ flexDirection: 'row' }}>
         {categoryProjects && !categoryProjects.length && (
           <Typography gutterBottom variant='h4'>
-            {' '}
-            No projects yet for {projectCategory}{' '}
+            No projects yet for {projectCategory}
           </Typography>
         )}
         {categoryProjects &&

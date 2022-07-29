@@ -13,9 +13,9 @@ import {
   Link,
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
-import UserService from '../../Services/UserService'
+import UserService from '../../services/UserService'
 import UserData from '../../types/User'
-import ProjectService from '../../Services/ProjectService'
+import ProjectService from '../../services/ProjectService'
 import ProjectData from '../../types/Project'
 
 export default function Profile() {
@@ -62,15 +62,12 @@ export default function Profile() {
           />
           <Grid>
             <Typography variant='body2'>
-              {' '}
-              {userProfile && userProfile.name}{' '}
+              {userProfile && userProfile.name}
             </Typography>
             <Typography variant='body2'>
-              {' '}
-              {userProfile && userProfile.username}{' '}
+              {userProfile && userProfile.username}
             </Typography>
             <Typography variant='body2'>
-              {' '}
               {userProfile && userProfile.bio}
             </Typography>
           </Grid>
@@ -87,8 +84,7 @@ export default function Profile() {
                 if (isInterested) {
                   return (
                     <ListItem dense key={field}>
-                      {' '}
-                      {field}{' '}
+                      {field}
                     </ListItem>
                   )
                 }

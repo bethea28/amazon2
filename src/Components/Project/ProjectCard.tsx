@@ -19,7 +19,6 @@ import {
 } from '@mui/material'
 
 const ProjectCard = (data: ProjectData) => {
-  //later to include (data: ProjectData) in params
 
   return (
     <Container maxWidth='xs'>
@@ -32,11 +31,9 @@ const ProjectCard = (data: ProjectData) => {
               {/* data.image */}
               <CardContent>
                 <Typography gutterBottom variant='h4'>
-                  {/* Project Name */}
                   {data.projectName}
                 </Typography>
                 <Typography variant='h6' gutterBottom>
-                  {/* Project Description */}
                   {data.description}
                 </Typography>
               </CardContent>

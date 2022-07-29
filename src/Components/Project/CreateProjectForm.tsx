@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ProjectData from '../../types/Project'
-import projectService from '../../Services/ProjectService'
+import projectService from '../../services/ProjectService'
 import { categories } from '../../types/Categories'
 import {
   TextField,

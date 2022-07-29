@@ -15,7 +15,7 @@ import {
   Button,
   Typography,
 } from '@mui/material'
-import UserService from '../../Services/UserService'
+import UserService from '../../services/UserService'
 
 export default function ProfileForm() {
   // To be updated once we have current user:

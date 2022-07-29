@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Typography, Grid, TextField, Button } from '@mui/material'
-import CommentService from '../../Services/CommentService'
+import CommentService from '../../services/CommentService'
 
 type FormData = {
   commentText: string
