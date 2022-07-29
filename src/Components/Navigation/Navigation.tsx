@@ -1,11 +1,11 @@
 import * as React from "react";
+import { NavLink } from 'react-router-dom';
 import {
   AppBar,
   Box,
   Divider,
   Toolbar,
   Typography,
-  Link,
   Drawer,
   IconButton,
   List,
@@ -57,23 +57,23 @@ export default function NavigationBar(props: Props) {
   if(sessionUser) {
     sessionLinks = (
       <>
-        <Link href='/createProject' style={{ color: "#fff"}} underline="hover">
+        <NavLink to='/createProject' className="navbar">
           Create a New Project
-        </Link>
-        <Link href={`/profile/${userId}`} style={{ color: "#fff"}} underline="hover">
+        </NavLink>
+        <NavLink to={`/profile/${userId}`} className="navbar">
           Profile
-        </Link>
+        </NavLink>
       </>
     )
   } else {
     sessionLinks = (
       <>
-        <Link href='/signin'style={{ color: "#fff"}} underline="hover">
+        <NavLink to='/signin' className="navbar">
           Log In
-        </Link>
-        <Link href='/signup' style={{ color: "#fff"}} underline="hover">
+        </NavLink>
+        <NavLink to='/signup' className="navbar">
           Register
-        </Link>
+        </NavLink>
       </>
     );
   }
@@ -100,9 +100,9 @@ export default function NavigationBar(props: Props) {
               display: { xs: "none", sm: "block" },
             }}
           >
-            <Link href='/' style={{ color: "#fff", textDecoration: "none" }}>
+            <NavLink to='/' style={{ color: "#fff", textDecoration: "none" }}>
               JumpStarter
-            </Link>
+            </NavLink>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Typography
@@ -111,12 +111,9 @@ export default function NavigationBar(props: Props) {
               display='inline'
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
-              <Link
-                href='/categories/Art'
-                style={{ color: "#fff"}} underline="hover"
-              >
+              <NavLink to='/categories/Art' className="navbar">
                 Discover
-              </Link>
+              </NavLink>
               {sessionLinks}
               
             </Typography>

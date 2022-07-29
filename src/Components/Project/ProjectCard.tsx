@@ -1,6 +1,6 @@
 import React from 'react'
 import ProjectData from '../../types/Project'
-
+import { Link } from 'react-router-dom'
 import {
   FavoriteBorderOutlined,
   MonetizationOnOutlined,
@@ -14,8 +14,7 @@ import {
   Typography,
   IconButton,
   Container,
-  Paper,
-  Link,
+  Paper
 } from '@mui/material'
 
 const ProjectCard = (data: ProjectData) => {
@@ -25,7 +24,7 @@ const ProjectCard = (data: ProjectData) => {
       <Paper>
         <Card variant='outlined'>
           <CardActionArea>
-            <Link href={`/projects/${data.projectId}`} underline='none'>
+            <Link to={`/projects/${data.projectId}`} >
               {/* place holder */}
               <img alt='project img' src='https://picsum.photos/400/300' />
               {/* data.image */}

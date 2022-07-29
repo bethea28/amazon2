@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import {
   Container,
   Grid,
@@ -9,8 +9,7 @@ import {
   Box,
   IconButton,
   List,
-  ListItem,
-  Link,
+  ListItem
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import UserService from '../../services/UserService'
@@ -42,7 +41,7 @@ export default function Profile() {
         <Grid sx={{ display: 'flex ' }}>
           <Typography variant='h6'>Profile</Typography>
           <IconButton aria-label='edit' size='large'>
-            <Link href={`/profile/${userId}/edit`}>
+            <Link to={`/profile/${userId}/edit`}>
               <EditIcon />
             </Link>
           </IconButton>
@@ -97,9 +96,7 @@ export default function Profile() {
             userProjects.map((project) => {
               return (
                 <Link
-                  href={`/projects/${project.projectId}`}
-                  underline='hover'
-                  variant='body2'
+                  to={`/projects/${project.projectId}`}
                   key={project.projectId}
                 >
                   {project.projectName}
