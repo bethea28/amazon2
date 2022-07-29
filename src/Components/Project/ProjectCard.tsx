@@ -24,15 +24,15 @@ const ProjectCard = (data: ProjectData) => {
       <Paper>
         <Card variant='outlined'>
           <CardActionArea>
-            <Link to={`/projects/${data.projectId}`} >
+            <Link to={`/projects/${data.projectId}`} style={{textDecoration: "none"}}>
               {/* place holder */}
               <img alt='project img' src='https://picsum.photos/400/300' />
               {/* data.image */}
               <CardContent>
-                <Typography gutterBottom variant='h4'>
+                <Typography gutterBottom variant='h5'>
                   {data.projectName}
                 </Typography>
-                <Typography variant='h6' gutterBottom>
+                <Typography variant='body2' gutterBottom>
                   {data.description}
                 </Typography>
               </CardContent>

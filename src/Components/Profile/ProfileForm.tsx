@@ -14,8 +14,10 @@ import {
   FormControlLabel,
   Button,
   Typography,
+  Card
 } from '@mui/material'
 import UserService from '../../services/UserService'
+import { BorderAllOutlined } from '@mui/icons-material'
 
 export default function ProfileForm() {
 
@@ -80,9 +82,14 @@ export default function ProfileForm() {
   }
 
   return (
-    <Container maxWidth='xs'>
-      <Paper elevation={3} style={{ padding: 20 }}>
-        <Grid container direction='column'>
+    <Container maxWidth='xs' style={{ margin: 20 }}>
+      <Paper elevation={3} style={{ padding: 20, minWidth: 350 }}>
+      <Grid margin={2}>
+        <Typography variant='h5'>
+          Edit Profile
+        </Typography>
+      </Grid>
+        <Grid container direction='column' spacing={3} >
           <Grid item>
             <ErrorMessage
               errors={errors}
@@ -104,6 +111,7 @@ export default function ProfileForm() {
                 size='small'
                 margin='dense'
                 defaultValue={userProfile.name}
+                fullWidth
               />
             )}
           </Grid>
@@ -117,10 +125,13 @@ export default function ProfileForm() {
                 multiline
                 margin='dense'
                 defaultValue={userProfile.bio}
+                fullWidth
               />
             )}
           </Grid>
           <Grid item>
+          <Typography variant='body2' sx={{color: 'rgb(133, 133, 133)'}}>Interests</Typography>
+          <Card variant='outlined' style={{padding: 15}}>
             <FormGroup>
               {userProfile &&
                 Object.entries(userProfile.interests).map(
@@ -144,10 +155,10 @@ export default function ProfileForm() {
                   }
                 )}
             </FormGroup>
+            </Card>
           </Grid>
-          <Grid item>
-            <Button variant='contained' onClick={onSubmit}>
-              {' '}
+          <Grid item alignSelf='center'>
+            <Button variant='contained' onClick={onSubmit} >
               Save Changes
             </Button>
           </Grid>

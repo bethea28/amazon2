@@ -9,7 +9,8 @@ import {
   Box,
   IconButton,
   List,
-  ListItem
+  ListItem,
+  Card
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import UserService from '../../services/UserService'
@@ -36,15 +37,15 @@ export default function Profile() {
   }
 
   return (
-    <Container maxWidth='xs'>
-      <Paper elevation={3} style={{ padding: 20 }}>
-        <Grid sx={{ display: 'flex ' }}>
-          <Typography variant='h6'>Profile</Typography>
-          <IconButton aria-label='edit' size='large'>
-            <Link to={`/profile/${userId}/edit`}>
-              <EditIcon />
-            </Link>
-          </IconButton>
+    <Container maxWidth='xs' style={{ margin: 20 }}>
+      <Paper elevation={3} style={{ padding: 20, minWidth: 350 }}>
+        <Grid margin={2} sx={{ display: 'flex ' }}>
+        <Typography variant='h5'>Profile</Typography>
+            <IconButton aria-label='edit' size='large'>
+              <Link to={`/profile/${userId}/edit`}>
+                <EditIcon />
+              </Link>
+            </IconButton>
         </Grid>
 
         <Box sx={{ display: 'flex ' }}>
@@ -91,19 +92,19 @@ export default function Profile() {
           {userProjects && !userProjects.length && (
             <Typography variant='body2'> No projects yet! </Typography>
           )}
-          {userProjects &&
-            userProjects.length > 0 &&
-            userProjects.map((project) => {
-              return (
-                <Link
-                  to={`/projects/${project.projectId}`}
-                  key={project.projectId}
-                >
-                  {project.projectName}
-                  <br />
-                </Link>
-              )
-            })}
+          <List>
+            {userProjects &&
+              userProjects.length > 0 &&
+              userProjects.map((project) => {
+                return (
+                  <ListItem dense key={project.projectId}>
+                    <Link to={`/projects/${project.projectId}`} className="internalLinks">
+                      {project.projectName}
+                    </Link>
+                  </ListItem>
+                )
+              })}
+          </List>
         </Grid>
 
         <Grid>
