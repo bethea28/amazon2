@@ -12,7 +12,7 @@ import AutoDismissAlert, {
   AutoDismissAlertProps,
 } from "./Components/core/AutoDismissAlert";
 import { v4 as uuid } from "uuid";
-import { Box, Link, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
 import ProjectsByCategories from "./Components/Discover/ProjectsByCategories";
 import TrasactionForm from "./Components/Transactions/Transactions";

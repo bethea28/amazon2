@@ -1,11 +1,15 @@
 .navbar {
-    color: white;
+    color: rgba(255, 255, 255);
     text-decoration: none;
     padding: 10px;
 }
 
 .active {
     text-decoration: underline;
-    text-underline-offset: 2px;
+    text-underline-offset: 3px;
     text-decoration-color: rgba(255, 255, 255, 0.774);
+}
+
+.navbar:hover {
+    color:rgba(255, 255, 255, 0.8);
 }

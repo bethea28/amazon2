@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import ProjectCard from "./Card";
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const data = [
   {

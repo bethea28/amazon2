@@ -20,22 +20,28 @@ export default function ProjectsByCategories() {
   }
 
   return (
-    <Grid container justifyContent='center' alignItems='center'>
-      <Grid container sx={{ flexDirection: 'row' }}>
-        {categoryProjects && !categoryProjects.length && (
-          <Typography gutterBottom variant='h4'>
-            No projects yet for {projectCategory}
-          </Typography>
-        )}
-        {categoryProjects &&
-          categoryProjects.length > 0 &&
-          categoryProjects.map((project) => {
-            return (
-              <Grid key={project.projectId}>
-                <ProjectCard {...project} />
-              </Grid>
-            )
-          })}
+    
+    <Grid container justifyContent='center' alignItems='center' flexDirection='column'>
+      <Grid marginTop={2}>
+        <Typography sx={{ fontWeight: "bold" }} variant='h3'>
+          {projectCategory}
+        </Typography>
+      </Grid>
+      {categoryProjects && !categoryProjects.length && (
+        <Typography gutterBottom variant='h5'>
+          No projects yet for {projectCategory}
+        </Typography>
+      )}
+      <Grid container justifyContent='center' alignItems='center' marginTop={2}>
+      {categoryProjects &&
+        categoryProjects.length > 0 &&
+        categoryProjects.map((project) => {
+          return (
+            <Grid key={project.projectId}>
+              <ProjectCard {...project} />
+            </Grid>
+          )
+        })}
       </Grid>
     </Grid>
   )

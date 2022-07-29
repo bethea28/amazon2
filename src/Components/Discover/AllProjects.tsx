@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import { Typography, Grid } from '@mui/material'
 import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
@@ -19,17 +18,22 @@ export default function AllProjects() {
   }
 
   return (
-    <Grid container justifyContent='center' alignItems='center'>
-      <Grid container sx={{ flexDirection: 'row' }}>
-        {allProjects &&
-          allProjects.length > 0 &&
-          allProjects.map((project) => {
-            return (
-              <Grid key={project.projectId}>
-                <ProjectCard {...project} />
-              </Grid>
-            )
-          })}
+    <Grid container justifyContent='center' alignItems='center' flexDirection='column'>
+      <Grid marginTop={2}>
+        <Typography sx={{ fontWeight: "bold" }} variant='h3'>
+          All Projects
+        </Typography>
+      </Grid>
+      <Grid container justifyContent='center' alignItems='center' marginTop={2}>
+      {allProjects &&
+        allProjects.length > 0 &&
+        allProjects.map((project) => {
+          return (
+            <Grid key={project.projectId} marginBottom={2}>
+              <ProjectCard {...project} />
+            </Grid>
+          )
+        })}
       </Grid>
     </Grid>
   )

@@ -15,7 +15,6 @@ import {
   Button  
 } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu";
-import SignIn from "../Auth/signIn";
 import DiscoverNavBar from '../Discover/DiscoverNavBar'
 
 interface Props {
