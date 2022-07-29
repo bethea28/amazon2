@@ -1,4 +1,4 @@
-import axiosInstance from '../../../apiConfig'
+import axiosInstance from '../apiConfig'
 
 
 export const signUp = (userName: string, password: string) => {
