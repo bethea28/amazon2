@@ -19,7 +19,7 @@ import ProjectService from '../../services/ProjectService'
 import ProjectData from '../../types/Project'
 
 export default function Profile() {
-  // let userId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
+
   const { userId } = useParams()
 
   const [userProfile, setUserProfile] = useState<UserData>()
@@ -31,14 +31,9 @@ export default function Profile() {
 
   const fetchUserAndProjects = async () => {
     await UserService.getProfile(userId)
-      .then((response) => {
-        setUserProfile(response.data)
-      })
-      .then(() =>
-        ProjectService.getProjectsByUser(userId).then((response) => {
-          setUserProjects(response.data)
-        })
-      )
+      .then((response) => {setUserProfile(response.data)})
+      .then(() => ProjectService.getProjectsByUser(userId))
+      .then((response) => {setUserProjects(response.data)})
   }
 
   return (

@@ -10,7 +10,7 @@ async function getProfile(userId: string | undefined) {
     }
 }
 
-async function updateProfile(data: UserData, userId: string) {
+async function updateProfile(data: UserData, userId: string | undefined) {
     try {
         return await axiosInstance.put<UserData>(`/users/${userId}`, data)
     } catch (error) {

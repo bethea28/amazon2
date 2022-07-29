@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import UserData, { Interests } from '../../types/User'
 
 import {
@@ -18,8 +18,8 @@ import {
 import UserService from '../../services/UserService'
 
 export default function ProfileForm() {
-  // To be updated once we have current user:
-  let userId = 'd8ff08d1-6f3b-4e38-b6fb-218e88663891'
+
+  const { userId } = useParams()
 
   let navigate = useNavigate()
 

@@ -13,9 +13,7 @@ export default function DiscoverNavBar() {
         <Toolbar variant='regular'>
             <Typography
             component='div'
-            sx={{
-                flexGrow: 1
-            }}>
+            sx={{flexGrow: 1}}>
             {categories.map((category) => (
                 <NavLink to={`/categories/${category}`} key={category} className='navbar'>{category}</NavLink>
             ))}

@@ -15,11 +15,8 @@ export default function ProjectsByCategories() {
   }, [projectCategory])
 
   const fetchProjects = async () => {
-    await ProjectService.getProjectsByCategory(projectCategory).then(
-      (response) => {
-        setCategoryProjects(response.data)
-      }
-    )
+    await ProjectService.getProjectsByCategory(projectCategory)
+    .then((response) => {setCategoryProjects(response.data)})
   }
 
   return (
