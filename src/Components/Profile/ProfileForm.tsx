@@ -21,7 +21,7 @@ export default function ProfileForm() {
 
   const { userId } = useParams()
 
-  let navigate = useNavigate()
+  const navigate = useNavigate()
 
   const [userProfile, setUserProfile] = useState<UserData>()
   const [interests, setInterests] = useState<Interests>({})

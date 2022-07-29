@@ -19,7 +19,7 @@ const getProject = async (projectId: string) => {
 
 const getAllProjects = async () => {
   try {
-    return await axiosInstance.get<ProjectData>('/projects');
+    return await axiosInstance.get<Array<ProjectData>>('/projects');
   } catch (error) {
     throw error;
   }

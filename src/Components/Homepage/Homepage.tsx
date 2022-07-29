@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import ProjectCard from "./Card";
+import { useNavigate, useParams } from 'react-router-dom'
 
 const data = [
   {
@@ -20,7 +21,15 @@ const data = [
   },
 ];
 
+
 const Homepage = () => {
+
+  const navigate = useNavigate()
+
+  const exploreProjects = () => {
+    navigate(`/projects`)
+  }
+
   return (
     <>
       <Grid
@@ -36,7 +45,7 @@ const Homepage = () => {
           </Typography>
         </Grid>
         <Grid marginTop={4}>
-          <Button variant='contained'>Explore Projects</Button>
+          <Button variant='contained' onClick={exploreProjects}>Explore Projects</Button>
         </Grid>
       </Grid>
 
