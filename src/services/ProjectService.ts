@@ -9,7 +9,7 @@ const createProject = async (data: ProjectData) => {
   }
 };
 
-const getProject = async (projectId: any) => {
+const getProject = async (projectId: string) => {
   try {
     return await axiosInstance.get<ProjectData>(`/projects/${projectId}`);
   } catch (error) {
@@ -19,13 +19,30 @@ const getProject = async (projectId: any) => {
 
 const getAllProjects = async () => {
   try {
-    return await axiosInstance.get<ProjectData>('/projects');
+    return await axiosInstance.get<Array<ProjectData>>('/projects');
   } catch (error) {
     throw error;
   }
 };
 
-const updateProject = async (projectId: any, data: ProjectData) => {
+const getProjectsByUser = async (userId: string | undefined) => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>(`/projects/users/${userId}`);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getProjectsByCategory = async (projectCategory: string | undefined) => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>(`/projects/categories/${projectCategory}`);
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+const updateProject = async (projectId: string, data: ProjectData) => {
   try {
     return await axiosInstance.put<any>(`/projects/${projectId}`, data);
   } catch (error) {
@@ -53,6 +70,8 @@ const ProjectService = {
   createProject,
   getProject,
   getAllProjects,
+  getProjectsByUser,
+  getProjectsByCategory,
   updateProject,
   removeProject,
   findProjectByName

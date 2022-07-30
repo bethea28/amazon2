@@ -1,7 +1,7 @@
 import React, { FormEvent, FormEventHandler, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { signUp, signIn } from './apiAuth/auth'
+import { signUp, signIn } from '../../services/AuthService'
 import { Message } from '../core/messages'
 
 import Form from 'react-bootstrap/Form'

@@ -1,19 +1,21 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
+import { NavLink } from 'react-router-dom';
+import {
+  AppBar,
+  Box,
+  Divider,
+  Toolbar,
+  Typography,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Button  
+} from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-import SignIn from "../Auth/signIn";
+import DiscoverNavBar from '../Discover/DiscoverNavBar'
 
 interface Props {
   /**
@@ -26,6 +28,11 @@ interface Props {
 const drawerWidth = 240;
 
 export default function NavigationBar(props: Props) {
+
+  // To update to sessionUser when user is logged in
+  let sessionUser;
+  let userId;
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -44,10 +51,35 @@ export default function NavigationBar(props: Props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+  
+  let sessionLinks;
+  if(sessionUser) {
+    sessionLinks = (
+      <>
+        <NavLink to='/createProject' className="navbar">
+          Create a New Project
+        </NavLink>
+        <NavLink to={`/profile/${userId}`} className="navbar">
+          Profile
+        </NavLink>
+      </>
+    )
+  } else {
+    sessionLinks = (
+      <>
+        <NavLink to='/signin' className="navbar">
+          Log In
+        </NavLink>
+        <NavLink to='/signup' className="navbar">
+          Register
+        </NavLink>
+      </>
+    );
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar component='nav'>
+      <AppBar component='nav' position='absolute'>
         <Toolbar>
           <IconButton
             color='inherit'
@@ -67,9 +99,9 @@ export default function NavigationBar(props: Props) {
               display: { xs: "none", sm: "block" },
             }}
           >
-            <Link to='/' style={{ color: "#fff", textDecoration: "none" }}>
+            <NavLink to='/' style={{ color: "#fff", textDecoration: "none" }}>
               JumpStarter
-            </Link>
+            </NavLink>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Typography
@@ -78,33 +110,15 @@ export default function NavigationBar(props: Props) {
               display='inline'
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
-              <Link
-                to='/projects'
-                style={{ color: "#fff", textDecoration: "none" }}
-              >
+              <NavLink to='/categories/Art' className="navbar">
                 Discover
-              </Link>
-              <Link
-                to='/createProject'
-                style={{ color: "#fff", textDecoration: "none" }}
-              >
-                Create a New Project
-              </Link>
-              <Link
-                to='/signin'
-                style={{ color: "#fff", textDecoration: "none" }}
-              >
-                Log In
-              </Link>
-              <Link
-                to='/signup'
-                style={{ color: "#fff", textDecoration: "none" }}
-              >
-                Register
-              </Link>
+              </NavLink>
+              {sessionLinks}
+              
             </Typography>
           </Box>
         </Toolbar>
+      <DiscoverNavBar />
       </AppBar>
       <Box component='nav'>
         <Drawer

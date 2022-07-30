@@ -12,10 +12,12 @@ import AutoDismissAlert, {
   AutoDismissAlertProps,
 } from "./Components/core/AutoDismissAlert";
 import { v4 as uuid } from "uuid";
-import { Box, Typography, Link, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
-import AllProjects from "./Components/Discover/AllProjects";
+import ProjectsByCategories from "./Components/Discover/ProjectsByCategories";
 import TrasactionForm from "./Components/Transactions/Transactions";
+import AllProjects from "./Components/Discover/AllProjects";
+
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -30,7 +32,6 @@ function App() {
     setMsgAlerts((msgAlerts) => [...msgAlerts, { message, variant, id }]);
   };
   return (
-    <>
       <BrowserRouter>
         <NavigationBar />
         <Grid container spacing={0} justifyContent='center' alignItems='center'>
@@ -42,12 +43,6 @@ function App() {
 
               <Routes>
                 <Route path='/' element={<Homepage />} />
-                <Route path='/projects' element={<AllProjects />} />
-                <Route path='/projects/projectId' element={<CommentForm />} />
-                <Route
-                  path='/projects/:projectId/:commentId'
-                  element={<CommentForm />}
-                />
                 <Route
                   path='/signup'
                   element={<Signup setUser={setUser} msgAlert={msgAlert} />}
@@ -59,21 +54,23 @@ function App() {
                 <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
+                <Route path='/projects' element={<AllProjects />} />
+                <Route path='/projects/:projectId' element={<CommentForm />} />
+                <Route
+                  path='/projects/:projectId/:commentId'
+                  element={<CommentForm />}
+                />
+                <Route
+                  path='/categories/:projectCategory'
+                  element={<ProjectsByCategories />}
+                />
                 <Route path='/transaction' element={<TrasactionForm />} />
               </Routes>
-              <Link
-                className='App-link'
-                href='https://reactjs.org'
-                target='_blank'
-                rel='noopener noreferrer'
-              ></Link>
             </header>
-            <CommentForm />
           </Box>
         </Grid>
         <Footer />
       </BrowserRouter>
-    </>
   );
 }
 
