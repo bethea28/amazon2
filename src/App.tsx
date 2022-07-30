@@ -17,6 +17,7 @@ import CreateProjectForm from "./Components/Project/CreateProjectForm";
 import ProjectsByCategories from "./Components/Discover/ProjectsByCategories";
 import TrasactionForm from "./Components/Transactions/Transactions";
 import AllProjects from "./Components/Discover/AllProjects";
+import About from "./Components/Footer/About";
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
                   element={<ProjectsByCategories />}
                 />
                 <Route path='/transaction' element={<TrasactionForm />} />
+                <Route path='/about' element={<About />} />
               </Routes>
             </header>
           </Box>

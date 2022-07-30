@@ -13,7 +13,6 @@ const Homepage = () => {
     navigate(`/projects`)
   }
 
-
   const [allProjects, setAllProjects] = useState<Array<ProjectData> | []>()
 
   useEffect(() => {
