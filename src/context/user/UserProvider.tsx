@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react'
+import { getCookie, setCookie } from 'typescript-cookie'
 import UserContext from './UserContext'
 import UserService from '../../services/UserService'
 import UserData from '../../types/User'
@@ -23,7 +24,6 @@ const UserProvider = ({ children }) => {
     const isLoggedIn = () => {
         // Call Amplify to see if user is logged in? return boolean value
     }
-
 
     return ( <UserContext.Provider value={{user}}>{children}</UserContext.Provider> )
 
