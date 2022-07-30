@@ -55,14 +55,14 @@ export default function Footer() {
             </Typography>
           </Box>
           <Box>
-            <Link to='/discover' style={{ textDecoration: "none" }}>
+            <Link to='/projects' style={{ textDecoration: "none" }}>
               <Typography variant='body2' mb={0.5} color='#FFFFFF'>
                 Discover
               </Typography>
             </Link>
           </Box>
           <Box>
-            <Link to='/createnewproject' style={{ textDecoration: "none" }}>
+            <Link to='/createProject' style={{ textDecoration: "none" }}>
               <Typography variant='body2' mb={0.5} color='#FFFFFF'>
                 Create a New Project
               </Typography>
