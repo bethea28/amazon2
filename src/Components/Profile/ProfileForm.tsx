@@ -94,7 +94,7 @@ export default function ProfileForm() {
             <ErrorMessage
               errors={errors}
               name='name'
-              render={({ message }) => <Typography> {message}</Typography>}
+              render={({ message }) => <Typography style={{color: 'red'}}> {message}</Typography>}
             />
             {userProfile && (
               <TextField

@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import UserProvider from "./context/user/UserProvider";
 import NavigationBar from "./Components/Navigation/Navigation";
 import CommentForm from "./Components/Comments/CommentForm";
 import Homepage from "./Components/Homepage/Homepage";
@@ -19,7 +20,6 @@ import TrasactionForm from "./Components/Transactions/Transactions";
 import AllProjects from "./Components/Discover/AllProjects";
 import About from "./Components/Footer/About";
 
-
 function App() {
   const [user, setUser] = useState<string | null>(null);
   const [msgAlerts, setMsgAlerts] = useState<
@@ -33,6 +33,7 @@ function App() {
     setMsgAlerts((msgAlerts) => [...msgAlerts, { message, variant, id }]);
   };
   return (
+    <UserProvider>
       <BrowserRouter>
         <NavigationBar />
         <Grid container spacing={0} justifyContent='center' alignItems='center'>
@@ -73,6 +74,7 @@ function App() {
         </Grid>
         <Footer />
       </BrowserRouter>
+    </UserProvider>
   );
 }
 
