@@ -50,6 +50,8 @@ export const AdditionalImageIndex: FunctionComponent = () => {
 
         const uploadedS3URL = await uploadToS3(data);
         console.log('Uploaded image url..', uploadedS3URL)
+
+        // Todo: Update the image url in Project data model images and call projectService.updateProject()
     }
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
