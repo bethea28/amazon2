@@ -41,26 +41,30 @@ const completeBtnStyle = {
 export const ProjectImageIndex: FunctionComponent = () => {
     const [uploadedImage, setUploadedImage] = useState<string>('');
 
-    const onDrop = (files: File[]) => {
+    const onDrop = async (files: File[]) => {
         const imageBlob = new Blob([files[0]], { type: files[0].type });
         setUploadedImage(URL.createObjectURL(imageBlob));
         const data = {
             file: files[0],
         }
-        uploadToS3(data);
+
+        const uploadedS3URL = await uploadToS3(data);
+        console.log('Uploaded image url..', uploadedS3URL)
+
+        // Todo: Update the image url in Project data model coverImage and call projectService.updateProject()
     }
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
     return (
-        <Grid container p={2} justifyContent="center">
-            <Grid item xs={12} sm={5} lg={4} sx={dialogStyle} p={2}>
+        <Grid container  justifyContent="center">
+            <Grid item p={1} sx={dialogStyle} >
                 <Grid container gap={2}>
                     <Grid item xs={12}>
                         <Typography variant="h6">Create New Project</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="body1">Upload Cover Image</Typography>
+                        <Typography variant="body1">Upload Cover Images</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container spacing={2}>

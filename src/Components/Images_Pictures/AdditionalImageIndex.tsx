@@ -41,13 +41,15 @@ const completeBtnStyle = {
 export const AdditionalImageIndex: FunctionComponent = () => {
     const [uploadedImage, setUploadedImage] = useState<string>('');
 
-    const onDrop = (files: File[]) => {
+    const onDrop = async (files: File[]) => {
         const imageBlob = new Blob([files[0]], { type: files[0].type });
         setUploadedImage(URL.createObjectURL(imageBlob));
         const data = {
             file: files[0],
-        };
-        uploadToS3(data);
+        }
+
+        const uploadedS3URL = await uploadToS3(data);
+        console.log('Uploaded image url..', uploadedS3URL)
     }
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
