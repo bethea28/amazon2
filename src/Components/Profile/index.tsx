@@ -9,8 +9,7 @@ import {
   Box,
   IconButton,
   List,
-  ListItem,
-  Card
+  ListItem
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import UserService from '../../services/UserService'
@@ -21,6 +20,9 @@ import ProjectData from '../../types/Project'
 export default function Profile() {
 
   const { userId } = useParams()
+  let sessionId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
+
+  const canEdit: boolean = userId === sessionId;
 
   const [userProfile, setUserProfile] = useState<UserData>()
   const [userProjects, setUserProjects] = useState<Array<ProjectData> | []>()
@@ -34,18 +36,20 @@ export default function Profile() {
       .then((response) => {setUserProfile(response.data)})
       .then(() => ProjectService.getProjectsByUser(userId))
       .then((response) => {setUserProjects(response.data)})
-  }
+  } 
+
+  const userBGColor = canEdit ? "rgb(235, 243, 254)" : "white";
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
-      <Paper elevation={3} style={{ padding: 20, minWidth: 350 }}>
+      <Paper elevation={3} style={{ padding: 20, minWidth: 350, backgroundColor: userBGColor }}>
         <Grid margin={2} sx={{ display: 'flex ' }}>
         <Typography variant='h5'>Profile</Typography>
-            <IconButton aria-label='edit' size='large'>
+            {canEdit && <IconButton aria-label='edit' size='large'>
               <Link to={`/profile/${userId}/edit`}>
                 <EditIcon />
               </Link>
-            </IconButton>
+            </IconButton>}
         </Grid>
 
         <Box sx={{ display: 'flex ' }}>

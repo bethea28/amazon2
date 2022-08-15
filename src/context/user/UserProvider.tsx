@@ -3,10 +3,12 @@ import { getCookie, setCookie } from 'typescript-cookie'
 import UserContext from './UserContext'
 import UserService from '../../services/UserService'
 import UserData from '../../types/User'
+import TokenData from '../../types/Tokens'
 
 // @ts-ignore
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState<UserData>()
+    const [tokens, setTokens] = useState()
 
     let userId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
 
@@ -25,7 +27,10 @@ const UserProvider = ({ children }) => {
         // Call Amplify to see if user is logged in? return boolean value
     }
 
-    return ( <UserContext.Provider value={{user}}>{children}</UserContext.Provider> )
+    const login = () => {
+    }
+
+    return ( <UserContext.Provider value={{user, isLoggedIn, login}}>{children}</UserContext.Provider> )
 
 }
 

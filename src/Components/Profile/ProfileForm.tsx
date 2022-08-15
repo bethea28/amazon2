@@ -17,7 +17,6 @@ import {
   Card
 } from '@mui/material'
 import UserService from '../../services/UserService'
-import { BorderAllOutlined } from '@mui/icons-material'
 
 export default function ProfileForm() {
 
@@ -55,12 +54,16 @@ export default function ProfileForm() {
 
     try {
       return await UserService.updateProfile(data, userId).then(() => {
-        navigate(`/profile/${userId}`)
+        toProfile()
       })
     } catch (e) {
       throw e
     }
   })
+
+  const toProfile = () => {
+    navigate(`/profile/${userId}`)
+  }
 
   /** handles the checkbox changes of the user's interests
    * if the particular interest checkbox has now been unselected, to update the value of the interest in the interests object to false
@@ -160,6 +163,9 @@ export default function ProfileForm() {
           <Grid item alignSelf='center'>
             <Button variant='contained' onClick={onSubmit} >
               Save Changes
+            </Button>
+            <Button variant='outlined' onClick={toProfile} style={{marginLeft: 10}}>
+              Back to Profile
             </Button>
           </Grid>
         </Grid>
