@@ -4,20 +4,18 @@ import UserService from '../../services/UserService'
 import UserData from '../../types/User'
 import TokenData from '../../types/Tokens'
 import { getTheCookie, removeTheCookie, setTheCookie } from '../../utils/cookies'
-import { getCookie } from 'typescript-cookie'
 
-// @ts-ignore
-const UserProvider = ({ children }) => {
+const UserProvider = ({ children }: any) => {
 
     const [user, setUser] = useState<UserData| undefined>()
     const [sessionId, setSessionId] = useState<string | undefined>()
-    // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>()
 
-    const isLoggedIn = async () => {
+    const tokenInCookies = () => {
         if (getTheCookie("accessToken")) {
-            return true
+            setIsLoggedIn(true)
         } else {
-            return false
+            setIsLoggedIn(false)
         }
     }
     const loginUser = async (response: TokenData) => {
@@ -26,22 +24,19 @@ const UserProvider = ({ children }) => {
         setTheCookie("accessToken", response.accessToken, response.expiresIn)
         await fetchUser("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
         // fetchUser(response.data.userId)
-        // setIsLoggedIn(true)
-        await isLoggedIn()
+        tokenInCookies()
     }
 
     const logoutUser = async () => {
         setSessionId(undefined)
         setUser(undefined)
         removeTheCookie("accessToken")
-        // setIsLoggedIn(true)
-        await isLoggedIn()
+        tokenInCookies()
     }
 
     const fetchUser = async (userId: string | undefined) => {
         await UserService.getProfile(userId)
           .then((response) => setUser(response.data))}
-
 
     return ( 
     <UserContext.Provider value = {{ user, sessionId, loginUser, logoutUser, isLoggedIn }}>

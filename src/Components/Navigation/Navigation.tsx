@@ -17,7 +17,6 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import DiscoverNavBar from '../Discover/DiscoverNavBar'
 import UserContext from '../../context/user/UserContext'
-import { SettingsApplicationsRounded } from "@mui/icons-material";
 
 interface Props {
   /**
@@ -31,7 +30,7 @@ const drawerWidth = 240;
 
 export default function NavigationBar(props: Props) {
 
-  const {sessionId, logoutUser} = React.useContext(UserContext)
+  const {sessionId, logoutUser, isLoggedIn } = React.useContext(UserContext)
   const navigate = useNavigate()
 
   const { window } = props;
@@ -55,15 +54,15 @@ export default function NavigationBar(props: Props) {
   
     React.useEffect(() => {
 
-    }, [sessionId])
+    }, [isLoggedIn])
 
     const logoutSessionUser = async () => {
       await logoutUser()
-      .then(() => {navigate("/")})
+      navigate("/")
     }
 
   let sessionLinks;
-  if (sessionId) {
+  if (isLoggedIn) {
     sessionLinks = (
       <>
         <NavLink to='/createProject' className="navbar">

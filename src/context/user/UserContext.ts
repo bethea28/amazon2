@@ -5,18 +5,20 @@ import UserData from "../../types/User";
 type UserContextData = {
     user: UserData | undefined;
     sessionId: string | undefined;
-    loginUser: (response: TokenData) => Promise<void> | undefined;
-    logoutUser: () => Promise<void>;
-    isLoggedIn: () => boolean;
+    loginUser: (response: TokenData) => Promise<void> | void;
+    logoutUser: () => Promise<void> | void;
+    isLoggedIn: boolean | undefined;
 }
 
 const initialValues = {
     user: undefined,
     sessionId: undefined,
-    isLoggedIn: () => false
+    loginUser: () => {},
+    logoutUser: () => {},
+    isLoggedIn: false
 }
 
-const UserContext = createContext<any>(initialValues)
+const UserContext = createContext<UserContextData>(initialValues)
 UserContext.displayName = 'UserContext'
 
 export default UserContext;

@@ -24,8 +24,6 @@ export default function Profile() {
 
   const { sessionId } = useContext(UserContext)
 
-  console.log(sessionId, "SESSION!!")
-
   const canEdit: boolean = userId === sessionId;
 
   const [userProfile, setUserProfile] = useState<UserData>()

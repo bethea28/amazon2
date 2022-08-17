@@ -1,7 +1,7 @@
 import { setCookie, getCookie, removeCookie } from 'typescript-cookie';
 
 const setTheCookie = (cookieName: string, value: string, expiresIn: number ) => {
-    setCookie(cookieName, value, {expires: expiresIn})
+    setCookie(cookieName, value, {expires: expiresIn, path: ""})
 }
 
 const getTheCookie = (cookieName: string) => {
@@ -9,7 +9,7 @@ const getTheCookie = (cookieName: string) => {
 }
 
 const removeTheCookie = (cookieName: string) => {
-    removeCookie(cookieName)
+    removeCookie(cookieName, {path: ""})
 }
 
 

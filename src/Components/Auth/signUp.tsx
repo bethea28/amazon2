@@ -29,7 +29,7 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
       const res = await signIn(userName, password)
 
       if (res.data) {
-        await loginUser(res.data)
+        loginUser(res.data)
       }
 
       msgAlert({
@@ -48,10 +48,6 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
       })
     }
   }
-
-  // if (isLoggedIn) {
-  //   navigate("/")
-  // }
 
   return (
     <Box>
