@@ -7,5 +7,5 @@ export default interface UserData {
   bio: string;
   interests: Interests;
   projects: Array<String>;
-  profileImageUrl?: string;
+  avatar?: string;
 }

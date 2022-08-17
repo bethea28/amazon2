@@ -1,8 +1,10 @@
-import React, {FunctionComponent, useEffect, useState} from "react";
-import {Grid, Typography, Box, Button} from "@mui/material";
-import {useDropzone} from 'react-dropzone'
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { Grid, Typography, Box, Button } from "@mui/material";
+import { useDropzone } from 'react-dropzone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import {uploadToS3} from "../../services/UploadService";
+import { uploadToS3 } from "../../services/UploadService";
+import UserService from "../../services/UserService";
+import UserData from '../../types/User'
 
 const dialogStyle = {
     backgroundColor: "#E9F3FF",
@@ -48,11 +50,17 @@ export const RegisterImageIndex: FunctionComponent = () => {
         }
 
         const uploadedS3URL = await uploadToS3(data);
-        console.log('Uploaded image url..', uploadedS3URL)
-        // Todo: Update the image url in User data model profileImageUrl and call userService.updateUser()
+        console.log('Uploaded image url..', uploadedS3URL);
+
+        const userData = {} as UserData;
+        userData.avatar = uploadedS3URL;
+
+
+        // const currUserId = localStorage.getItem('userId');
+        UserService.updateProfile(userData, '123');
     }
 
-    const {getRootProps, getInputProps} = useDropzone({onDrop})
+    const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
     return (
         <Grid container p={2} justifyContent="center">
@@ -67,8 +75,8 @@ export const RegisterImageIndex: FunctionComponent = () => {
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
-                                {!uploadedImage ? <Box sx={imagePlaceholder}/> :
-                                    <Box sx={imageStyle} component="img" alt="image-placeholder" src={uploadedImage}/>}
+                                {!uploadedImage ? <Box sx={imagePlaceholder} /> :
+                                    <Box sx={imageStyle} component="img" alt="image-placeholder" src={uploadedImage} />}
                             </Grid>
                             <Grid item xs={6}>
                                 <Grid container spacing={1}>
@@ -96,7 +104,7 @@ export const RegisterImageIndex: FunctionComponent = () => {
                     <Grid item xs={12}>
                         <Grid container justifyContent="space-between" pt={6} alignItems="center">
                             <Grid item>
-                                <Button sx={backBtnStyle} startIcon={<KeyboardArrowLeftIcon/>}>
+                                <Button sx={backBtnStyle} startIcon={<KeyboardArrowLeftIcon />}>
                                     Go Back
                                 </Button>
                             </Grid>
