@@ -21,17 +21,15 @@ import AllProjects from "./Components/Discover/AllProjects";
 import About from "./Components/Footer/About";
 
 function App() {
-  const [user, setUser] = useState<string | null>(null);
   const [msgAlerts, setMsgAlerts] = useState<
     (AutoDismissAlertProps & { id: string })[]
   >([]);
-
-  const clearUser = () => setUser(null);
 
   const msgAlert = ({ message, variant }: AutoDismissAlertProps) => {
     const id = uuid();
     setMsgAlerts((msgAlerts) => [...msgAlerts, { message, variant, id }]);
   };
+  
   return (
     <UserProvider>
       <BrowserRouter>
@@ -47,11 +45,11 @@ function App() {
                 <Route path='/' element={<Homepage />} />
                 <Route
                   path='/signup'
-                  element={<Signup setUser={setUser} msgAlert={msgAlert} />}
+                  element={<Signup msgAlert={msgAlert} />}
                 />
                 <Route
                   path='/signin'
-                  element={<SignIn setUser={setUser} msgAlert={msgAlert} />}
+                  element={<SignIn msgAlert={msgAlert} />}
                 />
                 <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />

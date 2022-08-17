@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import {
   Container,
@@ -16,11 +16,16 @@ import UserService from '../../services/UserService'
 import UserData from '../../types/User'
 import ProjectService from '../../services/ProjectService'
 import ProjectData from '../../types/Project'
+import UserContext from '../../context/user/UserContext'
 
 export default function Profile() {
 
   const { userId } = useParams()
-  let sessionId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
+
+  const { sessionId } = useContext(UserContext)
+  // let sessionId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
+
+  console.log(sessionId, "SESSION!!")
 
   const canEdit: boolean = userId === sessionId;
 

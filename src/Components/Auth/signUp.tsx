@@ -10,11 +10,10 @@ import Button from 'react-bootstrap/Button'
 import { Box, Typography } from '@mui/material';
 import { AutoDismissAlertProps } from '../core/AutoDismissAlert'
 interface SignUpProps {
-  msgAlert: (msg: AutoDismissAlertProps) => void,
-  setUser: (user: string) => void
+  msgAlert: (msg: AutoDismissAlertProps) => void
 }
 
-const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
+const SignUp = ({ msgAlert }: SignUpProps) => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [shouldNavigate, setShouldNavigate] = useState(false)
@@ -25,9 +24,8 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
     try {
       await signUp(userName, password)
       const res = await signIn(userName, password)
-      setUser(res.data.user)
+      
       msgAlert({
-       
         message: Message.Alert.SignUp.Success,
         variant: 'success'
       })
