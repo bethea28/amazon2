@@ -49,9 +49,9 @@ const SignIn = ({ msgAlert }: SignInProps) => {
     }
   }
 
-  if (isLoggedIn) {
-    navigate("/")
-  }
+  // if (isLoggedIn()) {
+  //   navigate("/")
+  // }
 
   return (
     <Box>

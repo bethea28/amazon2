@@ -7,13 +7,13 @@ type UserContextData = {
     sessionId: string | undefined;
     loginUser: (response: TokenData) => Promise<void> | undefined;
     logoutUser: () => Promise<void>;
-    isLoggedIn: boolean;
+    isLoggedIn: () => boolean;
 }
 
 const initialValues = {
     user: undefined,
     sessionId: undefined,
-    isLoggedIn: false
+    isLoggedIn: () => false
 }
 
 const UserContext = createContext<any>(initialValues)

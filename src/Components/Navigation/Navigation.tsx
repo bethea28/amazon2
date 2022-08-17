@@ -31,7 +31,7 @@ const drawerWidth = 240;
 
 export default function NavigationBar(props: Props) {
 
-  const {sessionId, isLoggedIn, logoutUser} = React.useContext(UserContext)
+  const {sessionId, logoutUser} = React.useContext(UserContext)
   const navigate = useNavigate()
 
   const { window } = props;
@@ -55,11 +55,11 @@ export default function NavigationBar(props: Props) {
   
     React.useEffect(() => {
 
-    }, [isLoggedIn, sessionId])
+    }, [sessionId])
 
     const logoutSessionUser = async () => {
       await logoutUser()
-      .then(() => {navigate("/projects")})
+      .then(() => {navigate("/")})
     }
 
   let sessionLinks;

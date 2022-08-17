@@ -5,7 +5,7 @@ const setTheCookie = (cookieName: string, value: string, expiresIn: number ) => 
 }
 
 const getTheCookie = (cookieName: string) => {
-    getCookie(cookieName)
+    return getCookie(cookieName)
 }
 
 const removeTheCookie = (cookieName: string) => {
