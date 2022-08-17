@@ -5,7 +5,7 @@ import UserData from "../../types/User";
 type UserContextData = {
     user: UserData | undefined;
     sessionId: string | undefined;
-    loginUser: (response: TokenData) => Promise<void> | void;
+    loginUser: (response: TokenData) => Promise<void>;
     logoutUser: () => Promise<void> | void;
     isLoggedIn: boolean | undefined;
 }
@@ -13,7 +13,7 @@ type UserContextData = {
 const initialValues = {
     user: undefined,
     sessionId: undefined,
-    loginUser: () => {},
+    loginUser: async () => {},
     logoutUser: () => {},
     isLoggedIn: false
 }

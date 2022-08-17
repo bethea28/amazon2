@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Navigate } from 'react-router-dom'
 import UserData, { Interests } from '../../types/User'
 import UserContext from '../../context/user/UserContext'
 
@@ -32,7 +32,7 @@ export default function ProfileForm() {
 
   useEffect(() => {
     fetchUser()
-  }, [])
+  }, [userId])
 
   const fetchUser = async () => {
     await UserService.getProfile(userId).then((response) => {

@@ -19,7 +19,7 @@ const SignIn = ({ msgAlert }: SignInProps) => {
 
   const navigate = useNavigate()
 
-  let { loginUser, isLoggedIn } = useContext(UserContext)
+  let { loginUser } = useContext(UserContext)
 
   const onSignIn = async (event: FormEvent) => {
     event.preventDefault()
@@ -37,7 +37,7 @@ const SignIn = ({ msgAlert }: SignInProps) => {
         variant: 'success'
       })
 
-      navigate(`/`)
+      navigate(`/`, {replace: true})
 
     } catch (error: unknown) {
       setUserName('')

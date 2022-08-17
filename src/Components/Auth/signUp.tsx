@@ -1,4 +1,4 @@
-import React, { FormEvent, FormEventHandler, useState, useContext } from 'react'
+import React, { FormEvent, FormEventHandler, useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signUp, signIn } from '../../services/AuthService'
 import { Message } from '../core/messages'
@@ -19,7 +19,7 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
 
   const navigate = useNavigate()
 
-  const {sessionId, loginUser, isLoggedIn} = useContext(UserContext)
+  const { loginUser } = useContext(UserContext)
 
   const onSignUp: FormEventHandler = async event => {
     event.preventDefault()
@@ -30,14 +30,14 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
 
       if (res.data) {
         loginUser(res.data)
+        navigate(`/profile/d8ff08d1-6f3b-4e38-b6fb-218e88663891/edit`)
+        // navigate(`/profile/${res.data.userId}/edit`)
       }
 
       msgAlert({
         message: Message.Alert.SignUp.Success,
         variant: 'success'
       })
-
-      navigate(`/profile/${sessionId}/edit`)
 
     } catch (error: unknown) {
       setUserName('')
