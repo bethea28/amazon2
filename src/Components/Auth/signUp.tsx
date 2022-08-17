@@ -1,22 +1,25 @@
-import React, { FormEvent, FormEventHandler, useState } from 'react'
-import { Navigate } from 'react-router-dom'
-
+import React, { FormEvent, FormEventHandler, useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { signUp, signIn } from '../../services/AuthService'
 import { Message } from '../core/messages'
-
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-
 import { Box, Typography } from '@mui/material';
 import { AutoDismissAlertProps } from '../core/AutoDismissAlert'
+import UserContext from '../../context/user/UserContext'
+
 interface SignUpProps {
   msgAlert: (msg: AutoDismissAlertProps) => void
 }
 
 const SignUp = ({ msgAlert }: SignUpProps) => {
+
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
-  const [shouldNavigate, setShouldNavigate] = useState(false)
+
+  const navigate = useNavigate()
+
+  const {sessionId, loginUser, isLoggedIn} = useContext(UserContext)
 
   const onSignUp: FormEventHandler = async event => {
     event.preventDefault()
@@ -24,12 +27,18 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
     try {
       await signUp(userName, password)
       const res = await signIn(userName, password)
-      
+
+      if (res.data) {
+        await loginUser(res.data)
+      }
+
       msgAlert({
         message: Message.Alert.SignUp.Success,
         variant: 'success'
       })
-      setShouldNavigate(true)
+
+      navigate(`/profile/${sessionId}/edit`)
+
     } catch (error: unknown) {
       setUserName('')
       setPassword('')
@@ -40,9 +49,9 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
     }
   }
 
-  if (shouldNavigate) {
-    return <Navigate to='/' />
-  }
+  // if (isLoggedIn) {
+  //   navigate("/")
+  // }
 
   return (
     <Box>

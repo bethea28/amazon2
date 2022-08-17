@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { useNavigate, useParams } from 'react-router-dom'
 import UserData, { Interests } from '../../types/User'
+import UserContext from '../../context/user/UserContext'
 
 import {
   Container,
@@ -26,6 +27,8 @@ export default function ProfileForm() {
 
   const [userProfile, setUserProfile] = useState<UserData>()
   const [interests, setInterests] = useState<Interests>({})
+
+  const { sessionId } = useContext(UserContext)
 
   useEffect(() => {
     fetchUser()
@@ -82,6 +85,10 @@ export default function ProfileForm() {
     }
     setInterests(interestsObject)
     event.target.defaultChecked = !event.target.defaultChecked
+  }
+
+  if (userId !== sessionId) {
+    navigate("/*")
   }
 
   return (

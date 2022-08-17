@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -16,6 +16,8 @@ import {
 } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu";
 import DiscoverNavBar from '../Discover/DiscoverNavBar'
+import UserContext from '../../context/user/UserContext'
+import { SettingsApplicationsRounded } from "@mui/icons-material";
 
 interface Props {
   /**
@@ -29,9 +31,8 @@ const drawerWidth = 240;
 
 export default function NavigationBar(props: Props) {
 
-  // To update to sessionUser when user is logged in
-  let sessionUser;
-  let userId;
+  const {sessionId, isLoggedIn, logoutUser} = React.useContext(UserContext)
+  const navigate = useNavigate()
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -52,23 +53,35 @@ export default function NavigationBar(props: Props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
   
+    React.useEffect(() => {
+
+    }, [isLoggedIn, sessionId])
+
+    const logoutSessionUser = async () => {
+      await logoutUser()
+      .then(() => {navigate("/projects")})
+    }
+
   let sessionLinks;
-  if(sessionUser) {
+  if (sessionId) {
     sessionLinks = (
       <>
         <NavLink to='/createProject' className="navbar">
           Create a New Project
         </NavLink>
-        <NavLink to={`/profile/${userId}`} className="navbar">
+        <NavLink to={`/profile/${sessionId}`} className="navbar">
           Profile
         </NavLink>
+        <Button variant="contained" onClick={logoutSessionUser}>
+          Logout
+        </Button>
       </>
     )
   } else {
     sessionLinks = (
       <>
         <NavLink to='/signin' className="navbar">
-          Log In
+          Sign In
         </NavLink>
         <NavLink to='/signup' className="navbar">
           Register
