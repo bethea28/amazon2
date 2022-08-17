@@ -1,26 +1,16 @@
 import { createContext } from 'react'
-import { Dispatch, SetStateAction } from "react";
+import TokenData from '../../types/Tokens';
 import UserData from "../../types/User";
 
-type SessionData = {
+type UserContextData = {
     user: UserData | undefined;
-    setUser: Dispatch<SetStateAction<UserData | undefined>>;
     sessionId: string | undefined;
-    setSessionId: Dispatch<SetStateAction<string | undefined>>;
-    accessToken: string | undefined,
-    setAccessToken: Dispatch<SetStateAction<string | undefined>>;
+    loginUser: (response: TokenData) => Promise<void>;
+    logoutUser: () => Promise<void>;
+    isLoggedIn: () => boolean;
 }
 
-const initialValues = {
-    user: undefined,
-    sessionId: "",
-    accessToken: "",
-    setUser: (): void => {},
-    setSessionId: (): void => {},
-    setAccessToken: (): void => {}
-}
-
-const UserContext = createContext<SessionData>(initialValues)
+const UserContext = createContext<UserContextData | undefined>(undefined)
 UserContext.displayName = 'UserContext'
 
 export default UserContext;
