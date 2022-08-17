@@ -23,7 +23,6 @@ export default function Profile() {
   const { userId } = useParams()
 
   const { sessionId } = useContext(UserContext)
-  // let sessionId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
 
   console.log(sessionId, "SESSION!!")
 

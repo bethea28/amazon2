@@ -25,8 +25,7 @@ const SignIn = ({ msgAlert }: SignInProps) => {
     setCookie("accessToken", accessToken, {expires: 1})
   }
 
-  const {user, setUser, sessionId, setSessionId, accessToken, setAccessToken} = useContext(UserContext)
-
+  const {user, sessionId, loginUser, logoutUser, isLoggedIn} = useContext(UserContext)
 
 
   const onSignIn = async (event: FormEvent) => {
@@ -35,12 +34,9 @@ const SignIn = ({ msgAlert }: SignInProps) => {
     try {
       const res = await signIn(userName, password)
 
-      if (res.data) {
-        setAccessToken(res.data.accessToken)
-        setSessionId("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
-        setAccessCookie(res.data.accessToken)
-        await fetchUser(res.data.userId)
-      }
+      // if (res.data) {
+      //   loginUser(res.data)
+      // }
 
       msgAlert({
         message: Message.Alert.SignIn.Success,
@@ -58,10 +54,6 @@ const SignIn = ({ msgAlert }: SignInProps) => {
       })
     }
   }
-
-  const fetchUser = async (userId: string | undefined) => {
-    await UserService.getProfile(userId)
-      .then((response) => setUser(response.data))}
 
   // if (user) {
   //   navigate("/")

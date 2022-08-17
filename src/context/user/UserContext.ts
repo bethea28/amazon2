@@ -10,7 +10,13 @@ type UserContextData = {
     isLoggedIn: () => boolean;
 }
 
-const UserContext = createContext<UserContextData | undefined>(undefined)
+const initialValues = {
+    user: undefined,
+    sessionId: undefined,
+    isLoggedIn: () => false
+}
+
+const UserContext = createContext<Partial<UserContextData>>(initialValues)
 UserContext.displayName = 'UserContext'
 
 export default UserContext;

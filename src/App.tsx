@@ -19,6 +19,7 @@ import ProjectsByCategories from "./Components/Discover/ProjectsByCategories";
 import TrasactionForm from "./Components/Transactions/Transactions";
 import AllProjects from "./Components/Discover/AllProjects";
 import About from "./Components/Footer/About";
+import PageNotFound from "./Components/PageNotFound";
 
 function App() {
   const [msgAlerts, setMsgAlerts] = useState<
@@ -29,7 +30,7 @@ function App() {
     const id = uuid();
     setMsgAlerts((msgAlerts) => [...msgAlerts, { message, variant, id }]);
   };
-  
+
   return (
     <UserProvider>
       <BrowserRouter>
@@ -66,6 +67,7 @@ function App() {
                 />
                 <Route path='/transaction' element={<TrasactionForm />} />
                 <Route path='/about' element={<About />} />
+                <Route path= '*' element={<PageNotFound />} />
               </Routes>
             </header>
           </Box>
