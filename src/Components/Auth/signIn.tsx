@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import {
@@ -37,14 +37,14 @@ const SignIn = ({ msgAlert }: SignInProps) => {
 
       if (res.data) {
         await loginUser(res.data)
+
+        msgAlert({
+          message: Message.Alert.SignIn.Success,
+          variant: 'success'
+        })
+
+        navigate(`/`, {replace: true})
       }
-
-      msgAlert({
-        message: Message.Alert.SignIn.Success,
-        variant: 'success'
-      })
-
-      navigate(`/`, {replace: true})
 
     } catch (error: unknown) {
       msgAlert({

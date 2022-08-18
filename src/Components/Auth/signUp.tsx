@@ -41,12 +41,12 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
         await loginUser(res.data)
         navigate(`/profile/d8ff08d1-6f3b-4e38-b6fb-218e88663891/edit`)
         // navigate(`/profile/${res.data.idUser}/edit`)
-      }
 
-      msgAlert({
-        message: Message.Alert.SignUp.Success,
-        variant: 'success'
-      })
+        msgAlert({
+          message: Message.Alert.SignUp.Success,
+          variant: 'success'
+        })
+      }
 
     } catch (error: unknown) {
       msgAlert({
