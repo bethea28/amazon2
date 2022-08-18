@@ -30,13 +30,13 @@ const UserProvider = ({ children }: any) => {
     }, [])
 
     const loginUser = async (response: TokenData) => {
-        setSessionId("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
-        // setSessionId(response.data.userId)
+        // setSessionId("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
+        setSessionId(response.userId)
         setTheCookie("accessToken", response.accessToken, response.expiresIn)
-        setTheCookie("userId", "d8ff08d1-6f3b-4e38-b6fb-218e88663891", response.expiresIn )
-        // setTheCookie("userId", response.userId, response.expiresIn )
-        await fetchUser("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
-        // fetchUser(response.data.userId)
+        // setTheCookie("userId", "d8ff08d1-6f3b-4e38-b6fb-218e88663891", response.expiresIn )
+        setTheCookie("userId", response.userId, response.expiresIn )
+        // await fetchUser("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
+        fetchUser(response.userId)
         tokenInCookies()
     }
 

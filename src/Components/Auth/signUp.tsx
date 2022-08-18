@@ -30,8 +30,8 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
 
       if (res.data) {
         loginUser(res.data)
-        navigate(`/profile/d8ff08d1-6f3b-4e38-b6fb-218e88663891/edit`)
-        // navigate(`/profile/${res.data.userId}/edit`)
+        // navigate(`/profile/d8ff08d1-6f3b-4e38-b6fb-218e88663891/edit`)
+        navigate(`/profile/${res.data.userId}/edit`)
       }
 
       msgAlert({

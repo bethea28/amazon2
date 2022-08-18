@@ -19,7 +19,7 @@ const SignIn = ({ msgAlert }: SignInProps) => {
 
   const navigate = useNavigate()
 
-  let { loginUser } = useContext(UserContext)
+  const { loginUser } = useContext(UserContext)
 
   const onSignIn = async (event: FormEvent) => {
     event.preventDefault()
