@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
-import { useNavigate, useParams, Navigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import UserData, { Interests } from '../../types/User'
 import UserContext from '../../context/user/UserContext'
 
@@ -18,6 +18,8 @@ import {
   Card
 } from '@mui/material'
 import UserService from '../../services/UserService'
+import PageNotFound from '../PageNotFound'
+
 
 export default function ProfileForm() {
 
@@ -88,7 +90,9 @@ export default function ProfileForm() {
   }
 
   if (userId !== sessionId) {
-    navigate("/*")
+    return (
+      <PageNotFound />
+    )
   }
 
   return (
