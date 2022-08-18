@@ -1,37 +1,39 @@
-import React, { FormEvent, useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import { useForm } from 'react-hook-form'
 import {
   TextField,
   Grid,
   Container,
   Paper,
   Typography,
+  Button
 } from '@mui/material'
 import { signIn } from '../../services/AuthService'
 import { Message } from '../core/messages'
 import { AutoDismissAlertProps } from '../core/AutoDismissAlert'
 import UserContext from '../../context/user/UserContext'
+import AuthData from '../../types/Auth'
 
 export interface SignInProps {
   msgAlert: (msg: AutoDismissAlertProps) => void,
 }
 
 const SignIn = ({ msgAlert }: SignInProps) => {
-  const [userName, setUserName] = useState('')
-  const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
 
   const { loginUser } = useContext(UserContext)
 
-  const onSignIn = async (event: FormEvent) => {
-    event.preventDefault()
+  const {
+    register,
+    handleSubmit
+  } = useForm<AuthData>()
+
+  const onSignIn = async (data: AuthData) => {
 
     try {
-      
-      const res = await signIn(userName, password)
+      const res = await signIn(data)
 
       if (res.data) {
         await loginUser(res.data)
@@ -45,8 +47,6 @@ const SignIn = ({ msgAlert }: SignInProps) => {
       navigate(`/`, {replace: true})
 
     } catch (error: unknown) {
-      setUserName('')
-      setPassword('')
       msgAlert({
         message: Message.Alert.SignIn.Failure,
         variant: 'error'
@@ -57,37 +57,43 @@ const SignIn = ({ msgAlert }: SignInProps) => {
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
       <Paper elevation={3} style={{ padding: 20 }}>
-        <Typography variant='h4' align='left' margin='dense'>
-          Sign In
-        </Typography>
-        <Form onSubmit={onSignIn}>
-          <Form.Group controlId='userName'>
-            <Form.Label className='label'>User Name</Form.Label>
-            <Form.Control
-              required
-              type='userName'
+        <Grid margin={2} width={350}>
+          <Typography variant='h4' align='left' margin='dense'>
+            Sign In
+          </Typography>
+        </Grid>
+        <form onSubmit={handleSubmit(onSignIn)}>
+          <Grid container direction='column'>
+            <TextField
+              {...register('userName', {
+                required: 'User Name is required',
+              })}
+              variant='outlined'
+              label='User Name'
               name='userName'
-              value={userName}
-              placeholder='Enter userName'
-              onChange={event => setUserName(event.target.value)}
+              size='small'
+              margin='dense'
+              fullWidth
             />
-          </Form.Group>
-          <Form.Group controlId='password'>
-            <Form.Label className='label'>Password</Form.Label>
-            <Form.Control
-              className='input'
-              required
-              name='password'
-              value={password}
+            <TextField
+              {...register('password', {
+                required: 'Password is required',
+              })}
+              variant='outlined'
               type='password'
-              placeholder='Password'
-              onChange={event => setPassword(event.target.value)}
+              label='Password'
+              name='password'
+              size='small'
+              margin='dense'
+              fullWidth
             />
-          </Form.Group>
-          <Button className='start-btn' type='submit'>
-            Submit
-          </Button>
-        </Form>
+            <Grid item alignSelf='center' margin={1}>
+              <Button type='submit' variant='contained' color='primary'>
+                Submit
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
       </Paper>
     </Container>
   )

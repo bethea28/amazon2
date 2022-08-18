@@ -29,7 +29,7 @@ const UserProvider = ({ children }: any) => {
     }, [])
 
     const loginUser = async (response: TokenData) => {
-        // Commented out code to be added and hard coded values to be removed once backend has been merged
+        // Temporary: Commented out code to be added and hard coded values to be removed once backend has been merged
 
         setSessionId("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
         // setSessionId(response.idUser)
