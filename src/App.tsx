@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import UserProvider from "./context/user/UserProvider";
 import NavigationBar from "./Components/Navigation/Navigation";
 import CommentForm from "./Components/Comments/CommentForm";
 import Homepage from "./Components/Homepage/Homepage";
@@ -17,21 +18,21 @@ import CreateProjectForm from "./Components/Project/CreateProjectForm";
 import ProjectsByCategories from "./Components/Discover/ProjectsByCategories";
 import TrasactionForm from "./Components/Transactions/Transactions";
 import AllProjects from "./Components/Discover/AllProjects";
-
+import About from "./Components/Footer/About";
+import PageNotFound from "./Components/PageNotFound";
 
 function App() {
-  const [user, setUser] = useState<string | null>(null);
   const [msgAlerts, setMsgAlerts] = useState<
     (AutoDismissAlertProps & { id: string })[]
   >([]);
-
-  const clearUser = () => setUser(null);
 
   const msgAlert = ({ message, variant }: AutoDismissAlertProps) => {
     const id = uuid();
     setMsgAlerts((msgAlerts) => [...msgAlerts, { message, variant, id }]);
   };
+
   return (
+    <UserProvider>
       <BrowserRouter>
         <NavigationBar />
         <Grid container spacing={0} justifyContent='center' alignItems='center'>
@@ -45,11 +46,11 @@ function App() {
                 <Route path='/' element={<Homepage />} />
                 <Route
                   path='/signup'
-                  element={<Signup setUser={setUser} msgAlert={msgAlert} />}
+                  element={<Signup msgAlert={msgAlert} />}
                 />
                 <Route
                   path='/signin'
-                  element={<SignIn setUser={setUser} msgAlert={msgAlert} />}
+                  element={<SignIn msgAlert={msgAlert} />}
                 />
                 <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
@@ -65,12 +66,15 @@ function App() {
                   element={<ProjectsByCategories />}
                 />
                 <Route path='/transaction' element={<TrasactionForm />} />
+                <Route path='/about' element={<About />} />
+                <Route path= '*' element={<PageNotFound />} />
               </Routes>
             </header>
           </Box>
         </Grid>
         <Footer />
       </BrowserRouter>
+    </UserProvider>
   );
 }
 

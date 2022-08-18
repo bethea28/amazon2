@@ -1,22 +1,13 @@
 import axiosInstance from '../apiConfig'
+import AuthData from '../types/Auth'
 
 
-export const signUp = (userName: string, password: string) => {
-  return axiosInstance.post('/users/', 
-    {
-      userName,
-      password
-    }
-  )
+export const signUp = (data: AuthData) => {
+  return axiosInstance.post('/users/', data)
 }
 
-export const signIn = (userName: string, password: string) => {
-  return axiosInstance.post( '/users/signin/', 
-    {
-      userName,
-      password
-    }
-  )
+export const signIn = (data: AuthData) => {
+  return axiosInstance.post( '/users/signin/', data)
 }
 
 
