@@ -24,9 +24,9 @@ const Homepage = () => {
     .then((response) => {setAllProjects(response.data)})
   }
 
-  let top3;
+  let topThreeProjects;
   if (allProjects) {
-    top3 = allProjects.slice(0, 3);
+    topThreeProjects = allProjects.slice(0, 3);
   }
 
   return (
@@ -62,9 +62,9 @@ const Homepage = () => {
           }}
         >
       <Grid container justifyContent='center' alignItems='center' marginTop={2}>
-      {top3 &&
-        top3.length > 0 &&
-        top3.map((project) => {
+      {topThreeProjects &&
+        topThreeProjects.length > 0 &&
+        topThreeProjects.map((project) => {
           return (
             <Grid key={project.projectId} marginBottom={2}>
               <ProjectCard {...project} />
@@ -87,9 +87,9 @@ const Homepage = () => {
           }}
         >
       <Grid container justifyContent='center' alignItems='center' marginTop={2}>
-      {top3 &&
-        top3.length > 0 &&
-        top3.map((project) => {
+      {topThreeProjects &&
+        topThreeProjects.length > 0 &&
+        topThreeProjects.map((project) => {
           return (
             <Grid key={project.projectId} marginBottom={2}>
               <ProjectCard {...project} />

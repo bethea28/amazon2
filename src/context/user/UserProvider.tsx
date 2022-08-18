@@ -11,6 +11,8 @@ const UserProvider = ({ children }: any) => {
     const [sessionId, setSessionId] = useState<string | undefined>()
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>()
 
+    
+
     const tokenInCookies = () => {
         if (getTheCookie("accessToken")) {
             setIsLoggedIn(true)
@@ -22,21 +24,20 @@ const UserProvider = ({ children }: any) => {
     useEffect(() => {
         const userId = getTheCookie("userId")
         if (userId) {
-            fetchUser(userId)
-            setSessionId(userId)
-            setIsLoggedIn(true)
-            tokenInCookies()
+            fetchDataOnRefresh(userId)
         }   
     }, [])
 
     const loginUser = async (response: TokenData) => {
-        // setSessionId("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
-        setSessionId(response.userId)
+        // Commented out code to be added and hard coded values to be removed once backend has been merged
+
+        setSessionId("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
+        // setSessionId(response.idUser)
+        setTheCookie("userId", "d8ff08d1-6f3b-4e38-b6fb-218e88663891", response.expiresIn )
+        // setTheCookie("userId", response.idUser, response.expiresIn )
         setTheCookie("accessToken", response.accessToken, response.expiresIn)
-        // setTheCookie("userId", "d8ff08d1-6f3b-4e38-b6fb-218e88663891", response.expiresIn )
-        setTheCookie("userId", response.userId, response.expiresIn )
-        // await fetchUser("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
-        fetchUser(response.userId)
+        await fetchUser("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
+        // await fetchUser(response.idUser)
         tokenInCookies()
     }
 
@@ -51,6 +52,13 @@ const UserProvider = ({ children }: any) => {
     const fetchUser = async (userId: string | undefined) => {
         await UserService.getProfile(userId)
           .then((response) => setUser(response.data))}
+
+    const fetchDataOnRefresh = async (userId: string) => {
+        await fetchUser(userId)
+        setSessionId(userId)
+        setIsLoggedIn(true)
+        tokenInCookies()
+    }
 
     return ( 
     <UserContext.Provider value = {{ user, sessionId, loginUser, logoutUser, isLoggedIn }}>

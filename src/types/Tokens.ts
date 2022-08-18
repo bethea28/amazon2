@@ -4,5 +4,5 @@ export default interface TokenData {
     refreshToken: string,
     tokenType: string,
     expiresIn: number,
-    userId: string
+    idUser: string
   }

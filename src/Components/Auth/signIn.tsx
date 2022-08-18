@@ -2,8 +2,13 @@ import React, { FormEvent, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { Box, Typography } from '@mui/material'
-import { FormControl } from '@mui/material';
+import {
+  TextField,
+  Grid,
+  Container,
+  Paper,
+  Typography,
+} from '@mui/material'
 import { signIn } from '../../services/AuthService'
 import { Message } from '../core/messages'
 import { AutoDismissAlertProps } from '../core/AutoDismissAlert'
@@ -29,7 +34,7 @@ const SignIn = ({ msgAlert }: SignInProps) => {
       const res = await signIn(userName, password)
 
       if (res.data) {
-        loginUser(res.data)
+        await loginUser(res.data)
       }
 
       msgAlert({
@@ -50,9 +55,11 @@ const SignIn = ({ msgAlert }: SignInProps) => {
   }
 
   return (
-    <Box>
-      <Box>
-        <Typography>Sign In</Typography>
+    <Container maxWidth='xs' style={{ margin: 20 }}>
+      <Paper elevation={3} style={{ padding: 20 }}>
+        <Typography variant='h4' align='left' margin='dense'>
+          Sign In
+        </Typography>
         <Form onSubmit={onSignIn}>
           <Form.Group controlId='userName'>
             <Form.Label className='label'>User Name</Form.Label>
@@ -81,8 +88,8 @@ const SignIn = ({ msgAlert }: SignInProps) => {
             Submit
           </Button>
         </Form>
-      </Box>
-    </Box>
+      </Paper>
+    </Container>
   )
 }
 

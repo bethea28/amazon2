@@ -51,10 +51,6 @@ export default function NavigationBar(props: Props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-  
-    React.useEffect(() => {
-
-    }, [isLoggedIn])
 
     const logoutSessionUser = async () => {
       logoutUser()
