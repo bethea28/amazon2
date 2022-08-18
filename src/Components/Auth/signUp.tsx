@@ -27,7 +27,7 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
       const res = await signIn(userName, password)
       setUser(res.data.user)
       msgAlert({
-       
+
         message: Message.Alert.SignUp.Success,
         variant: 'success'
       })
@@ -43,7 +43,7 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
   }
 
   if (shouldNavigate) {
-    return <Navigate to='/' />
+    return <Navigate to='/registerAvatar' />
   }
 
   return (
@@ -73,7 +73,7 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
               onChange={event => setPassword(event.target.value)}
             />
           </Form.Group>
-         
+
           <Button className='start-btn' type='submit'>
             Submit
           </Button>

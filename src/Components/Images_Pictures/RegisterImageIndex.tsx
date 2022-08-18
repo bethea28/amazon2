@@ -57,7 +57,7 @@ export const RegisterImageIndex: FunctionComponent = () => {
 
 
         // const currUserId = localStorage.getItem('userId');
-        UserService.updateProfile(userData, '123');
+        UserService.updateProfile(userData, '149bac07-2242-4226-b89a-3fd9bd449802');
     }
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
