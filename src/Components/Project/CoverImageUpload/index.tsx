@@ -1,10 +1,9 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
 import { useDropzone } from 'react-dropzone'
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { uploadToS3 } from "../../services/UploadService";
-import UserService from "../../services/UserService";
-import UserData from '../../types/User'
+import { uploadToS3 } from "../../../services/UploadService";
+
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
 const dialogStyle = {
     backgroundColor: "#E9F3FF",
@@ -39,7 +38,7 @@ const completeBtnStyle = {
     fontWeight: 600,
 }
 
-export const RegisterImageIndex: FunctionComponent = () => {
+export const ProjectImageIndex: FunctionComponent = () => {
     const [uploadedImage, setUploadedImage] = useState<string>('');
 
     const onDrop = async (files: File[]) => {
@@ -50,33 +49,27 @@ export const RegisterImageIndex: FunctionComponent = () => {
         }
 
         const uploadedS3URL = await uploadToS3(data);
-        console.log('Uploaded image url..', uploadedS3URL);
+        console.log('Uploaded image url..', uploadedS3URL)
 
-        const userData = {} as UserData;
-        userData.avatar = uploadedS3URL;
-
-
-        // const currUserId = localStorage.getItem('userId');
-        UserService.updateProfile(userData, '149bac07-2242-4226-b89a-3fd9bd449802');
+        // Todo: Update the image url in Project data model coverImage and call projectService.updateProject()
     }
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
     return (
-        <Grid container p={2} justifyContent="center">
-            <Grid item xs={12} sm={5} lg={4} sx={dialogStyle} p={2}>
+        <Grid container justifyContent="center">
+            <Grid item p={1} sx={dialogStyle} >
                 <Grid container gap={2}>
                     <Grid item xs={12}>
-                        <Typography variant="h6">Register</Typography>
+                        <Typography variant="h6">Create New Project</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="body1">Upload Avatar</Typography>
+                        <Typography variant="body1">Upload Cover Images</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
-                                {!uploadedImage ? <Box sx={imagePlaceholder} /> :
-                                    <Box sx={imageStyle} component="img" alt="image-placeholder" src={uploadedImage} />}
+                                {!uploadedImage ? <Box sx={imagePlaceholder} /> : <Box sx={imageStyle} component="img" alt="image-placeholder" src={uploadedImage} />}
                             </Grid>
                             <Grid item xs={6}>
                                 <Grid container spacing={1}>
@@ -110,7 +103,7 @@ export const RegisterImageIndex: FunctionComponent = () => {
                             </Grid>
                             <Grid item>
                                 <Button disableElevation variant="contained" sx={completeBtnStyle}>
-                                    Complete
+                                    Next
                                 </Button>
                             </Grid>
                         </Grid>
@@ -121,4 +114,4 @@ export const RegisterImageIndex: FunctionComponent = () => {
     );
 };
 
-export default RegisterImageIndex
+export default ProjectImageIndex
