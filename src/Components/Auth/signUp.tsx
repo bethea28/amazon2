@@ -1,40 +1,54 @@
-import React, { FormEvent, FormEventHandler, useState } from 'react'
-import { Navigate } from 'react-router-dom'
-
+import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import {
+  TextField,
+  Grid,
+  Container,
+  Paper,
+  Typography,
+  Button
+} from '@mui/material'
 import { signUp, signIn } from '../../services/AuthService'
 import { Message } from '../core/messages'
-
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-
-import { Box, Typography } from '@mui/material';
 import { AutoDismissAlertProps } from '../core/AutoDismissAlert'
+import UserContext from '../../context/user/UserContext'
+import AuthData from '../../types/Auth'
+
 interface SignUpProps {
-  msgAlert: (msg: AutoDismissAlertProps) => void,
-  setUser: (user: string) => void
+  msgAlert: (msg: AutoDismissAlertProps) => void
 }
 
-const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
-  const [userName, setUserName] = useState('')
-  const [password, setPassword] = useState('')
-  const [shouldNavigate, setShouldNavigate] = useState(false)
+const SignUp = ({ msgAlert }: SignUpProps) => {
 
-  const onSignUp: FormEventHandler = async event => {
-    event.preventDefault()
+  const navigate = useNavigate()
+
+  const { loginUser } = useContext(UserContext)
+
+  const {
+    register,
+    handleSubmit
+  } = useForm<AuthData>()
+
+  const onSignUp = async (data: AuthData) => {
 
     try {
-      await signUp(userName, password)
-      const res = await signIn(userName, password)
-      setUser(res.data.user)
-      msgAlert({
+      await signUp(data)
+      const res = await signIn(data)
 
-        message: Message.Alert.SignUp.Success,
-        variant: 'success'
-      })
-      setShouldNavigate(true)
+      if (res.data) {
+        // Temporary: Commented out code to be added and hard coded values to be removed once backend has been merged
+        await loginUser(res.data)
+        navigate(`/profile/d8ff08d1-6f3b-4e38-b6fb-218e88663891/edit`)
+        // navigate(`/profile/${res.data.idUser}/edit`)
+
+        msgAlert({
+          message: Message.Alert.SignUp.Success,
+          variant: 'success'
+        })
+      }
+
     } catch (error: unknown) {
-      setUserName('')
-      setPassword('')
       msgAlert({
         message: Message.Alert.SignUp.Failure,
         variant: 'error'
@@ -42,44 +56,53 @@ const SignUp = ({ msgAlert, setUser }: SignUpProps) => {
     }
   }
 
-  if (shouldNavigate) {
+  if (useNavigate) {
     return <Navigate to='/registerAvatar' />
   }
 
-  return (
-    <Box>
-      <Box>
-        <h3>Sign Up</h3>
-        <Form onSubmit={onSignUp}>
-          <Form.Group controlId='userName'>
-            <Form.Label className='label'>User Name</Form.Label>
-            <Form.Control
-              required
-              type='userName'
-              name='userName'
-              value={userName}
-              placeholder='Enter userName'
-              onChange={event => setUserName(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group controlId='password'>
-            <Form.Label className='label'>Password</Form.Label>
-            <Form.Control
-              required
-              name='password'
-              value={password}
-              type='password'
-              placeholder='Password'
-              onChange={event => setPassword(event.target.value)}
-            />
-          </Form.Group>
 
-          <Button className='start-btn' type='submit'>
-            Submit
-          </Button>
-        </Form>
-      </Box>
-    </Box>
+  return (
+    <Container maxWidth='xs' style={{ margin: 20 }}>
+      <Paper elevation={3} style={{ padding: 20 }}>
+        <Grid margin={2} width={350}>
+          <Typography variant='h4' align='left' margin='dense'>
+            Sign Up
+          </Typography>
+        </Grid >
+        <form onSubmit={handleSubmit(onSignUp)}>
+          <Grid container direction='column'>
+            <TextField
+              {...register('userName', {
+                required: 'User Name is required',
+              })}
+              variant='outlined'
+              label='User Name'
+              name='userName'
+              size='small'
+              margin='dense'
+              fullWidth
+            />
+            <TextField
+              {...register('password', {
+                required: 'Password is required',
+              })}
+              variant='outlined'
+              type='password'
+              label='Password'
+              name='password'
+              size='small'
+              margin='dense'
+              fullWidth
+            />
+            <Grid item alignSelf='center' margin={1}>
+              <Button type='submit' variant='contained' color='primary'>
+                Submit
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+    </Container>
   )
 }
 

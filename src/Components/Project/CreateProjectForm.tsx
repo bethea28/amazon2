@@ -47,7 +47,7 @@ export default function ProjectForm() {
               </Typography>
               <select {...register('category', { required: true })}>
                 {categories.map((category) => (
-                  <option value={category}>{category}</option>
+                  <option value={category} key={category}>{category}</option>
                 ))}
               </select>
             </Grid>

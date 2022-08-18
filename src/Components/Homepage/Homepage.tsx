@@ -1,26 +1,9 @@
-import * as React from "react";
+import React, { useEffect, useState } from 'react'
 import { Button, Grid, Typography } from "@mui/material";
-import ProjectCard from "./Card";
-import { useNavigate } from 'react-router-dom'
-
-const data = [
-  {
-    projectName: "nameOne",
-    projectDescription: "descONe",
-    userName: "nameOne",
-  },
-  {
-    projectName: "nameTwo",
-    projectDescription: "descTwo",
-    userName: "nameTwo",
-  },
-  {
-    projectName: "nameThree",
-    projectDescription: "descThree",
-    userName: "nameThree",
-  },
-];
-
+import ProjectCard from "../Project/ProjectCard";
+import { useNavigate } from 'react-router-dom';
+import ProjectData from '../../types/Project'
+import ProjectService from '../../services/ProjectService'
 
 const Homepage = () => {
 
@@ -28,6 +11,22 @@ const Homepage = () => {
 
   const exploreProjects = () => {
     navigate(`/projects`)
+  }
+
+  const [allProjects, setAllProjects] = useState<Array<ProjectData> | []>()
+
+  useEffect(() => {
+    fetchProjects()
+  }, [])
+
+  const fetchProjects = async () => {
+    await ProjectService.getAllProjects()
+    .then((response) => {setAllProjects(response.data)})
+  }
+
+  let topThreeProjects;
+  if (allProjects) {
+    topThreeProjects = allProjects.slice(0, 3);
   }
 
   return (
@@ -62,9 +61,17 @@ const Homepage = () => {
             flexDirection: "row",
           }}
         >
-          <Grid>
-            <ProjectCard data={data} />
-          </Grid>
+      <Grid container justifyContent='center' alignItems='center' marginTop={2}>
+      {topThreeProjects &&
+        topThreeProjects.length > 0 &&
+        topThreeProjects.map((project) => {
+          return (
+            <Grid key={project.projectId} marginBottom={2}>
+              <ProjectCard {...project} />
+            </Grid>
+          )
+        })}
+      </Grid>
         </Grid>
 
         <Grid marginTop={16} marginBottom={2}>
@@ -79,9 +86,17 @@ const Homepage = () => {
             flexDirection: "row",
           }}
         >
-          <Grid>
-            <ProjectCard data={data} />
-          </Grid>
+      <Grid container justifyContent='center' alignItems='center' marginTop={2}>
+      {topThreeProjects &&
+        topThreeProjects.length > 0 &&
+        topThreeProjects.map((project) => {
+          return (
+            <Grid key={project.projectId} marginBottom={2}>
+              <ProjectCard {...project} />
+            </Grid>
+          )
+        })}
+      </Grid>
         </Grid>
       </Grid>
     </>

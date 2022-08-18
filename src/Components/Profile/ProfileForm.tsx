@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { useNavigate, useParams } from 'react-router-dom'
 import UserData, { Interests } from '../../types/User'
+import UserContext from '../../context/user/UserContext'
 
 import {
   Container,
@@ -17,7 +18,8 @@ import {
   Card
 } from '@mui/material'
 import UserService from '../../services/UserService'
-import { BorderAllOutlined } from '@mui/icons-material'
+import PageNotFound from '../PageNotFound'
+
 
 export default function ProfileForm() {
 
@@ -28,9 +30,11 @@ export default function ProfileForm() {
   const [userProfile, setUserProfile] = useState<UserData>()
   const [interests, setInterests] = useState<Interests>({})
 
+  const { sessionId } = useContext(UserContext)
+
   useEffect(() => {
     fetchUser()
-  }, [])
+  }, [userId])
 
   const fetchUser = async () => {
     await UserService.getProfile(userId).then((response) => {
@@ -55,12 +59,16 @@ export default function ProfileForm() {
 
     try {
       return await UserService.updateProfile(data, userId).then(() => {
-        navigate(`/profile/${userId}`)
+        toProfile()
       })
     } catch (e) {
       throw e
     }
   })
+
+  const toProfile = () => {
+    navigate(`/profile/${userId}`)
+  }
 
   /** handles the checkbox changes of the user's interests
    * if the particular interest checkbox has now been unselected, to update the value of the interest in the interests object to false
@@ -81,6 +89,12 @@ export default function ProfileForm() {
     event.target.defaultChecked = !event.target.defaultChecked
   }
 
+  if (userId !== sessionId) {
+    return (
+      <PageNotFound />
+    )
+  }
+
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
       <Paper elevation={3} style={{ padding: 20, minWidth: 350 }}>
@@ -94,7 +108,7 @@ export default function ProfileForm() {
             <ErrorMessage
               errors={errors}
               name='name'
-              render={({ message }) => <Typography> {message}</Typography>}
+              render={({ message }) => <Typography style={{color: 'red'}}> {message}</Typography>}
             />
             {userProfile && (
               <TextField
@@ -160,6 +174,9 @@ export default function ProfileForm() {
           <Grid item alignSelf='center'>
             <Button variant='contained' onClick={onSubmit} >
               Save Changes
+            </Button>
+            <Button variant='outlined' onClick={toProfile} style={{marginLeft: 10}}>
+              Back to Profile
             </Button>
           </Grid>
         </Grid>

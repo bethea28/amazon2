@@ -1,7 +1,6 @@
 import axiosInstance from '../apiConfig'
 import UserData from '../types/User'
 
-
 async function getProfile(userId: string | undefined) {
     try {
         return await axiosInstance.get<UserData>(`/users/${userId}`)
