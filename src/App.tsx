@@ -35,48 +35,6 @@ function App() {
   };
 
   return (
-<<<<<<< HEAD
-    <BrowserRouter>
-      <NavigationBar />
-      <Grid container spacing={0} justifyContent='center' alignItems='center'>
-        <Box>
-          <header className='App-header'>
-            {msgAlerts.map((msgAlert) => (
-              <AutoDismissAlert key={msgAlert.id} {...msgAlert} />
-            ))}
-
-            <Routes>
-              <Route path='/' element={<Homepage />} />
-              <Route
-                path='/signup'
-                element={<Signup setUser={setUser} msgAlert={msgAlert} />}
-              />
-              <Route
-                path='/signin'
-                element={<SignIn setUser={setUser} msgAlert={msgAlert} />}
-              />
-              <Route path='/profile/:userId' element={<Profile />} />
-              <Route path='/profile/:userId/edit' element={<ProfileForm />} />
-              <Route path='/createProject' element={<CreateProjectForm />} />
-              <Route path='/projects' element={<AllProjects />} />
-              <Route path='/projects/:projectId' element={<CommentForm />} />
-              <Route
-                path='/projects/:projectId/:commentId'
-                element={<CommentForm />}
-              />
-              <Route
-                path='/categories/:projectCategory'
-                element={<ProjectsByCategories />}
-              />
-              <Route path='/transaction' element={<TransactionForm />} />
-              <Route path="/registerAvatar" element={<RegisterImageIndex />} />
-            </Routes>
-          </header>
-        </Box>
-      </Grid>
-      <Footer />
-    </BrowserRouter>
-=======
     <UserProvider>
       <BrowserRouter>
         <NavigationBar />
@@ -112,7 +70,7 @@ function App() {
                 />
                 <Route path='/transaction' element={<TrasactionForm />} />
                 <Route path='/about' element={<About />} />
-                <Route path= '*' element={<PageNotFound />} />
+                <Route path='*' element={<PageNotFound />} />
               </Routes>
             </header>
           </Box>
@@ -120,7 +78,6 @@ function App() {
         <Footer />
       </BrowserRouter>
     </UserProvider>
->>>>>>> main
   );
 }
 

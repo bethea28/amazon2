@@ -56,7 +56,7 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
     }
   }
 
-  if (useNavigate) {
+  if (ShouldNavigate) {
     return <Navigate to='/registerAvatar' />
   }
 
