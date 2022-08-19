@@ -45,80 +45,80 @@ export default function Profile() {
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
       <Paper elevation={3} style={{ padding: 20, minWidth: 400, backgroundColor: userBGColor }}>
-        <Grid margin={2} sx={{ display: 'flex ' }}>
-        <Typography variant='h5'>Profile</Typography>
-            {canEdit && <IconButton aria-label='edit' size='large'>
-              <Link to={`/profile/${userId}/edit`}>
-                <EditIcon />
-              </Link>
-            </IconButton>}
+        <Grid margin={2} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography variant='h5'>Profile</Typography>
+          {canEdit && <IconButton aria-label='edit' size='medium' >
+            <Link to={`/profile/${userId}/edit`}>
+              <EditIcon />
+            </Link>
+          </IconButton>}
         </Grid>
         <Grid container spacing={2} margin={2} sx={{ display: 'flex', flexDirection:'column' }}>
-        <Box sx={{ display: 'flex ' }}>
-          <Avatar
-            alt='user'
-            variant='square'
-            sx={{ width: 70, height: 70, alignSelf: 'center' }}
-          />
-          <Grid marginLeft={3}>
-            <Typography variant='body1'>
-              {userProfile && userProfile.name}
-            </Typography>
-            <Typography variant='body1'>
-              {userProfile && userProfile.username}
-            </Typography>
-            <Typography variant='body2' sx={{marginTop: 1}}>
-              {userProfile && userProfile.bio}
-            </Typography>
-          </Grid>
-        </Box>
+          <Box sx={{ display: 'flex ' }}>
+            <Avatar
+              alt='user'
+              variant='square'
+              sx={{ width: 70, height: 70, alignSelf: 'center' }}
+            />
+            <Grid marginLeft={3}>
+              <Typography variant='body1'>
+                {userProfile && userProfile.name}
+              </Typography>
+              <Typography variant='body1'>
+                {userProfile && userProfile.username}
+              </Typography>
+              <Typography variant='body2' sx={{marginTop: 1}}>
+                {userProfile && userProfile.bio}
+              </Typography>
+            </Grid>
+          </Box>
 
-        <Grid item>
-          <Typography variant='h6'>Interests</Typography>
-          <List sx={{ fontSize: 14}}>
-            {userProfile &&
-              Object.entries(userProfile.interests).map(function ([
-                field,
-                isInterested,
-              ]) {
-                if (isInterested) {
+          <Grid item>
+            <Typography variant='h6'>Interests</Typography>
+            <List sx={{ fontSize: 14}}>
+              {userProfile &&
+                Object.entries(userProfile.interests).map(function ([
+                  field,
+                  isInterested,
+                ]) {
+                  if (isInterested) {
+                    return (
+                      <ListItem dense key={field}>
+                        {field}
+                      </ListItem>
+                    )
+                  }
+                })}
+            </List>
+          </Grid>
+
+          <Grid item>
+            <Typography variant='h6'>Projects Posted</Typography>
+            {userProjects && !userProjects.length && (
+              <Typography variant='body2'> No projects yet! </Typography>
+            )}
+            <List sx={{ fontSize: 14}}>
+              {userProjects &&
+                userProjects.length > 0 &&
+                userProjects.map((project) => {
                   return (
-                    <ListItem dense key={field}>
-                      {field}
+                    <ListItem dense key={project.projectId}>
+                      <Link to={`/projects/${project.projectId}`} className="internalLinks">
+                        {project.projectName}
+                      </Link>
                     </ListItem>
                   )
-                }
-              })}
-          </List>
-        </Grid>
+                })}
+            </List>
+          </Grid>
 
-        <Grid item>
-          <Typography variant='h6'>Projects Posted</Typography>
-          {userProjects && !userProjects.length && (
-            <Typography variant='body2'> No projects yet! </Typography>
-          )}
-          <List sx={{ fontSize: 14}}>
-            {userProjects &&
-              userProjects.length > 0 &&
-              userProjects.map((project) => {
-                return (
-                  <ListItem dense key={project.projectId}>
-                    <Link to={`/projects/${project.projectId}`} className="internalLinks">
-                      {project.projectName}
-                    </Link>
-                  </ListItem>
-                )
-              })}
-          </List>
-        </Grid>
+          <Grid item>
+            <Typography variant='h6'>Projects Backed</Typography>
+          </Grid>
 
-        <Grid item>
-          <Typography variant='h6'>Projects Backed</Typography>
-        </Grid>
-
-        <Grid item>
-          <Typography variant='h6'>Projects Liked</Typography>
-        </Grid>
+          <Grid item>
+            <Typography variant='h6'>Projects Liked</Typography>
+          </Grid>
         </Grid>
       </Paper>
     </Container>
