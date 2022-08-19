@@ -44,7 +44,7 @@ export default function Profile() {
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
-      <Paper elevation={3} style={{ padding: 20, minWidth: 350, backgroundColor: userBGColor }}>
+      <Paper elevation={3} style={{ padding: 20, minWidth: 400, backgroundColor: userBGColor }}>
         <Grid margin={2} sx={{ display: 'flex ' }}>
         <Typography variant='h5'>Profile</Typography>
             {canEdit && <IconButton aria-label='edit' size='large'>
@@ -53,30 +53,29 @@ export default function Profile() {
               </Link>
             </IconButton>}
         </Grid>
-
+        <Grid container spacing={2} margin={2} sx={{ display: 'flex', flexDirection:'column' }}>
         <Box sx={{ display: 'flex ' }}>
           <Avatar
             alt='user'
-            src='blank-profile-picture.webp'
             variant='square'
-            style={{ marginRight: '14px' }}
+            sx={{ width: 70, height: 70, alignSelf: 'center' }}
           />
-          <Grid>
-            <Typography variant='body2'>
+          <Grid marginLeft={3}>
+            <Typography variant='body1'>
               {userProfile && userProfile.name}
             </Typography>
-            <Typography variant='body2'>
+            <Typography variant='body1'>
               {userProfile && userProfile.username}
             </Typography>
-            <Typography variant='body2'>
+            <Typography variant='body2' sx={{marginTop: 1}}>
               {userProfile && userProfile.bio}
             </Typography>
           </Grid>
         </Box>
 
-        <Grid>
+        <Grid item>
           <Typography variant='h6'>Interests</Typography>
-          <List>
+          <List sx={{ fontSize: 14}}>
             {userProfile &&
               Object.entries(userProfile.interests).map(function ([
                 field,
@@ -93,12 +92,12 @@ export default function Profile() {
           </List>
         </Grid>
 
-        <Grid>
+        <Grid item>
           <Typography variant='h6'>Projects Posted</Typography>
           {userProjects && !userProjects.length && (
             <Typography variant='body2'> No projects yet! </Typography>
           )}
-          <List>
+          <List sx={{ fontSize: 14}}>
             {userProjects &&
               userProjects.length > 0 &&
               userProjects.map((project) => {
@@ -113,12 +112,13 @@ export default function Profile() {
           </List>
         </Grid>
 
-        <Grid>
+        <Grid item>
           <Typography variant='h6'>Projects Backed</Typography>
         </Grid>
 
-        <Grid>
+        <Grid item>
           <Typography variant='h6'>Projects Liked</Typography>
+        </Grid>
         </Grid>
       </Paper>
     </Container>

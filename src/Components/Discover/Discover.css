@@ -16,14 +16,15 @@
 
 .internalLinks {
     text-decoration: none;
+    color: #1976d2;
 }
 
-.internalLinks:visited {
+/* .internalLinks:visited {
     color: black
-}
+} */
 
 .internalLinks:hover {
-    color: #1976d2;
+    color: rgba(0, 0, 0, 0.75)
 }
 
 li {
