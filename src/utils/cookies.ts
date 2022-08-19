@@ -1,8 +1,8 @@
 import { setCookie, getCookie, removeCookie } from 'typescript-cookie';
 
-const in30Minutes = 1/48;
-const setTheCookie = (cookieName: string, value: string, expiresIn: number ) => {
-    setCookie(cookieName, value, {expires: expiresIn, path: ""})
+const in1Hour = 1/24;
+const setTheCookie = (cookieName: string, value: string ) => {
+    setCookie(cookieName, value, {expires: in1Hour, path: ""})
 }
 
 const getTheCookie = (cookieName: string) => {
