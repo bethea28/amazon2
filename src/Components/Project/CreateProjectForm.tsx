@@ -13,13 +13,17 @@ import {
   Paper,
   Typography,
 } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 export default function ProjectForm() {
+
+  const navigate = useNavigate()
+
   const { register, handleSubmit, control } = useForm<ProjectData>()
 
   /** handles the submission of general details for a project */
   const onSubmit = async (data: ProjectData) => {
-    return await projectService.createProject(data)
+    return await projectService.createProject(data).then(() => navigate("/projects"))
   }
 
   return (
