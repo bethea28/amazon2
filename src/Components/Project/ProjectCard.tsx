@@ -39,8 +39,7 @@ const ProjectCard = (data: ProjectData) => {
             </Link>
             <CardContent>
               <Typography variant='body2' color='textSecondary' component='p'>
-                By User Name
-                {/* {data.userId.username} */}
+                By {data.username}
               </Typography>
             </CardContent>
           </CardActionArea>
