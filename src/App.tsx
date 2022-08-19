@@ -67,7 +67,7 @@ function App() {
                 />
                 <Route path='/transaction' element={<TrasactionForm />} />
                 <Route path='/about' element={<About />} />
-                <Route path= '*' element={<PageNotFound />} />
+                <Route path='*' element={<PageNotFound />} />
               </Routes>
             </header>
           </Box>
