@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext }  from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -13,13 +13,26 @@ import {
   Paper,
   Typography,
 } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import UserContext from '../../context/user/UserContext'
 
 export default function ProjectForm() {
+
+  const navigate = useNavigate()
+
   const { register, handleSubmit, control } = useForm<ProjectData>()
+
+  const { user, sessionId } = useContext(UserContext)
 
   /** handles the submission of general details for a project */
   const onSubmit = async (data: ProjectData) => {
-    return await projectService.createProject(data)
+
+    if (user) {
+      data.userId = sessionId
+      data.username = user.username
+    }
+
+    return await projectService.createProject(data).then(() => navigate("/projects"))
   }
 
   return (

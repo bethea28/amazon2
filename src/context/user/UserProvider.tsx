@@ -33,9 +33,9 @@ const UserProvider = ({ children }: any) => {
 
         setSessionId("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
         // setSessionId(response.idUser)
-        setTheCookie("userId", "d8ff08d1-6f3b-4e38-b6fb-218e88663891", response.expiresIn )
-        // setTheCookie("userId", response.idUser, response.expiresIn )
-        setTheCookie("accessToken", response.accessToken, response.expiresIn)
+        setTheCookie("userId", "d8ff08d1-6f3b-4e38-b6fb-218e88663891" )
+        // setTheCookie("userId", response.idUser )
+        setTheCookie("accessToken", response.accessToken)
         await fetchUser("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
         // await fetchUser(response.idUser)
         tokenInCookies()

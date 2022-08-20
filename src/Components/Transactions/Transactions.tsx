@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
   Grid,
   Button,
@@ -14,6 +14,7 @@ import {
 } from '@mui/material'
 import { useForm, Controller, useFormContext } from 'react-hook-form'
 import TransactionService from '../../services/transactionService'
+import UserContext from '../../context/user/UserContext'
 
 interface PaymentInput {
   amount: number
@@ -39,10 +40,14 @@ export default function TrasactionForm() {
 
   //CONTROL: on form submission states
   const [status, setStatus] = useState('IN_PROCESSING')
+
+  const { sessionId } = useContext(UserContext)
+
   const onSubmit = async (data: PaymentInput) => {
     //Open Pop up Dialog display Transaction Result
     setOpen(true)
     data.projectId = 'hello'
+    data.userId = sessionId
 
     // Back End points to deal with: /data.date = new Date; data.status = 'COMPLETE';
 
