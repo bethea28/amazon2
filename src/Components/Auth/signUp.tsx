@@ -56,9 +56,9 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
     }
   }
 
-  if (ShouldNavigate) {
-    return <Navigate to='/registerAvatar' />
-  }
+  // if (ShouldNavigate) {
+  //   return <Navigate to='/registerAvatar' />
+  // }
 
 
   return (

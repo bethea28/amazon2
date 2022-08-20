@@ -68,7 +68,7 @@ function App() {
                   path='/categories/:projectCategory'
                   element={<ProjectsByCategories />}
                 />
-                <Route path='/transaction' element={<TrasactionForm />} />
+                <Route path='/transaction' element={<TransactionForm />} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<PageNotFound />} />
               </Routes>
