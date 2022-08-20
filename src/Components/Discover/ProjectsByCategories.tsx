@@ -1,35 +1,43 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { Typography, Grid } from '@mui/material'
 import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
 import ProjectCard from '../Project/ProjectCard'
 
-export default function AllProjects() {
+export default function ProjectsByCategories() {
+  const { projectCategory } = useParams()
 
-  const [allProjects, setAllProjects] = useState<Array<ProjectData> | []>()
+  const [categoryProjects, setCategoryProjects] = useState<Array<ProjectData> | []>()
 
   useEffect(() => {
     fetchProjects()
-  }, [])
+  }, [projectCategory])
 
   const fetchProjects = async () => {
-    await ProjectService.getAllProjects()
-    .then((response) => {setAllProjects(response.data)})
+    await ProjectService.getProjectsByCategory(projectCategory)
+    .then((response) => {setCategoryProjects(response.data)})
   }
 
   return (
+    
     <Grid container justifyContent='center' alignItems='center' flexDirection='column'>
       <Grid marginTop={2}>
         <Typography sx={{ fontWeight: "bold" }} variant='h3'>
-          All Projects
+          {projectCategory}
         </Typography>
       </Grid>
+      {categoryProjects && !categoryProjects.length && (
+        <Typography gutterBottom variant='h5'>
+          No projects yet for {projectCategory}
+        </Typography>
+      )}
       <Grid container justifyContent='center' alignItems='center' marginTop={2}>
-      {allProjects &&
-        allProjects.length > 0 &&
-        allProjects.map((project) => {
+      {categoryProjects &&
+        categoryProjects.length > 0 &&
+        categoryProjects.map((project) => {
           return (
-            <Grid key={project.projectId} marginBottom={2}>
+            <Grid key={project.projectId}>
               <ProjectCard {...project} />
             </Grid>
           )

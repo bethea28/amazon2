@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import UserProvider from "./context/user/UserProvider";
 import NavigationBar from "./Components/Navigation/Navigation";
 import CommentForm from "./Components/Comments/CommentForm";
 import Homepage from "./Components/Homepage/Homepage";
@@ -12,25 +13,31 @@ import AutoDismissAlert, {
   AutoDismissAlertProps,
 } from "./Components/core/AutoDismissAlert";
 import { v4 as uuid } from "uuid";
-import { Box, Typography, Link, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
+<<<<<<< HEAD
 import AllProjects from "./Components/Discover/AllProjects";
 import TransactionForm from "./Components/Transactions/Transactions";
+=======
+import ProjectsByCategories from "./Components/Discover/ProjectsByCategories";
+import TrasactionForm from "./Components/Transactions/Transactions";
+import AllProjects from "./Components/Discover/AllProjects";
+import About from "./Components/Footer/About";
+import PageNotFound from "./Components/PageNotFound";
+>>>>>>> 6c7c5c0d7299f1f853f120b5c75ae573a420fb68
 
 function App() {
-  const [user, setUser] = useState<string | null>(null);
   const [msgAlerts, setMsgAlerts] = useState<
     (AutoDismissAlertProps & { id: string })[]
   >([]);
-
-  const clearUser = () => setUser(null);
 
   const msgAlert = ({ message, variant }: AutoDismissAlertProps) => {
     const id = uuid();
     setMsgAlerts((msgAlerts) => [...msgAlerts, { message, variant, id }]);
   };
+
   return (
-    <>
+    <UserProvider>
       <BrowserRouter>
         <NavigationBar />
         <Grid container spacing={0} justifyContent='center' alignItems='center'>
@@ -42,16 +49,28 @@ function App() {
 
               <Routes>
                 <Route path='/' element={<Homepage />} />
+                <Route
+                  path='/signup'
+                  element={<Signup msgAlert={msgAlert} />}
+                />
+                <Route
+                  path='/signin'
+                  element={<SignIn msgAlert={msgAlert} />}
+                />
+                <Route path='/profile/:userId' element={<Profile />} />
+                <Route path='/profile/:userId/edit' element={<ProfileForm />} />
+                <Route path='/createProject' element={<CreateProjectForm />} />
                 <Route path='/projects' element={<AllProjects />} />
-                <Route path='/projects/projectId' element={<CommentForm />} />
+                <Route path='/projects/:projectId' element={<CommentForm />} />
                 <Route
                   path='/projects/:projectId/:commentId'
                   element={<CommentForm />}
                 />
                 <Route
-                  path='/signup'
-                  element={<Signup setUser={setUser} msgAlert={msgAlert} />}
+                  path='/categories/:projectCategory'
+                  element={<ProjectsByCategories />}
                 />
+<<<<<<< HEAD
                 <Route
                   path='/signin'
                   element={<SignIn setUser={setUser} msgAlert={msgAlert} />}
@@ -60,20 +79,18 @@ function App() {
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
                 <Route path='/transaction' element={<TransactionForm />} />
+=======
+                <Route path='/transaction' element={<TrasactionForm />} />
+                <Route path='/about' element={<About />} />
+                <Route path='*' element={<PageNotFound />} />
+>>>>>>> 6c7c5c0d7299f1f853f120b5c75ae573a420fb68
               </Routes>
-              <Link
-                className='App-link'
-                href='https://reactjs.org'
-                target='_blank'
-                rel='noopener noreferrer'
-              ></Link>
             </header>
-            <CommentForm />
           </Box>
         </Grid>
         <Footer />
       </BrowserRouter>
-    </>
+    </UserProvider>
   );
 }
 
