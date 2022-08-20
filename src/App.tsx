@@ -15,16 +15,11 @@ import AutoDismissAlert, {
 import { v4 as uuid } from "uuid";
 import { Box, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
-<<<<<<< HEAD
-import AllProjects from "./Components/Discover/AllProjects";
-import TransactionForm from "./Components/Transactions/Transactions";
-=======
 import ProjectsByCategories from "./Components/Discover/ProjectsByCategories";
 import TrasactionForm from "./Components/Transactions/Transactions";
 import AllProjects from "./Components/Discover/AllProjects";
 import About from "./Components/Footer/About";
 import PageNotFound from "./Components/PageNotFound";
->>>>>>> 6c7c5c0d7299f1f853f120b5c75ae573a420fb68
 
 function App() {
   const [msgAlerts, setMsgAlerts] = useState<
@@ -60,6 +55,8 @@ function App() {
                 <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
+                <Route path='/transaction' element={<TransactionForm />} />
+=======
                 <Route path='/projects' element={<AllProjects />} />
                 <Route path='/projects/:projectId' element={<CommentForm />} />
                 <Route
@@ -70,20 +67,9 @@ function App() {
                   path='/categories/:projectCategory'
                   element={<ProjectsByCategories />}
                 />
-<<<<<<< HEAD
-                <Route
-                  path='/signin'
-                  element={<SignIn setUser={setUser} msgAlert={msgAlert} />}
-                />
-                <Route path='/profile/:userId' element={<Profile />} />
-                <Route path='/profile/:userId/edit' element={<ProfileForm />} />
-                <Route path='/createProject' element={<CreateProjectForm />} />
-                <Route path='/transaction' element={<TransactionForm />} />
-=======
                 <Route path='/transaction' element={<TrasactionForm />} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<PageNotFound />} />
->>>>>>> 6c7c5c0d7299f1f853f120b5c75ae573a420fb68
               </Routes>
             </header>
           </Box>

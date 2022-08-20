@@ -1,10 +1,6 @@
 import axiosInstance from '../apiConfig'
 import ProjectData from "../types/Project"
-<<<<<<< HEAD
-import UserData from '../types/User';
-=======
 import { getTheCookie } from "../utils/cookies";
->>>>>>> 6c7c5c0d7299f1f853f120b5c75ae573a420fb68
 
 const createProject = async (data: ProjectData) => {
   try {
@@ -17,11 +13,7 @@ const createProject = async (data: ProjectData) => {
   }
 };
 
-<<<<<<< HEAD
-const getProjectById = async (projectId: any) => {
-=======
 const getProject = async (projectId: string) => {
->>>>>>> 6c7c5c0d7299f1f853f120b5c75ae573a420fb68
   try {
     return await axiosInstance.get<ProjectData>(`/projects/${projectId}`);
   } catch (error) {
