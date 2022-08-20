@@ -120,7 +120,7 @@ export default function ProfileForm() {
                   },
                 })}
                 variant='outlined'
-                label='Name'
+                label='Name*'
                 name='name'
                 size='small'
                 margin='dense'

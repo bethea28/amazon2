@@ -1,17 +1,22 @@
 import axiosInstance from "../apiConfig";
 import TransactionType from "../types/transactions";
+import { getTheCookie } from "../utils/cookies";
 
 async function createTransaction(transactiondata: TransactionType) {
     try{
        const { data } = await axiosInstance.post<TransactionType>(
-        "http://localhost:8083/transaction",
-        transactiondata
+        "/transaction", transactiondata, {
+            headers: {
+                Authorization: `Bearer ${getTheCookie("accessToken")}`
+            }
+        }
        );
        return data;
     }  catch(error) {
         throw "error";
     }
 }
+
 
 const TransactionService = {
     createTransaction

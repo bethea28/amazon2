@@ -1,10 +1,14 @@
 import axiosInstance from '../apiConfig'
 import ProjectData from "../types/Project"
+import { getTheCookie } from "../utils/cookies";
 
 const createProject = async (data: ProjectData) => {
   try {
-    return await axiosInstance.post<ProjectData>('/projects', data,);
-  } catch (error) {
+    return await axiosInstance.post<ProjectData>('/projects', data, {
+      headers: {
+        Authorization: `Bearer ${getTheCookie("accessToken")}`
+      }
+  })} catch (error) {
     throw error;
   }
 };
@@ -44,16 +48,22 @@ const getProjectsByCategory = async (projectCategory: string | undefined) => {
 
 const updateProject = async (projectId: string, data: ProjectData) => {
   try {
-    return await axiosInstance.put<any>(`/projects/${projectId}`, data);
-  } catch (error) {
+    return await axiosInstance.put<any>(`/projects/${projectId}`, data, {
+      headers: {
+        Authorization: `Bearer ${getTheCookie("accessToken")}`
+      }
+  })} catch (error) {
     throw error;
   }
 };
 
 const removeProject = async (projectId: any) => {
   try {
-    return await axiosInstance.delete<any>(`/projects/${projectId}`);
-  } catch (error) {
+    return await axiosInstance.delete<any>(`/projects/${projectId}`, {
+      headers: {
+        Authorization: `Bearer ${getTheCookie("accessToken")}`
+      }
+  })} catch (error) {
     throw error;
   }
 };
