@@ -50,9 +50,9 @@ const findProjectByName = async (name: string) => {
   }
 };
 
-const addLike = async (projectId: string, likedByUserId: string) => {
+const addLike = async (projectId: string) => {
   try {
-    return await axiosInstance.patch<ProjectData>(`/${projectId}/addLike/${likedByUserId}`);
+    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`);
   } catch (error) {
     throw error;
   }

@@ -3,6 +3,7 @@ import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
 import UserService from "../../services/UserService";
 import UserData from "../../types/User";
+// import { useParams } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -19,9 +20,10 @@ const ProjectDetails = () => {
 
     const [currentProject, setCurrentProject] = useState<ProjectData>();
     const [userProfile, setUserProfile] = useState<UserData>();
+    // const { projectId } = useParams();
 
     // To be updated once we have current user and project:
-    let loggedInUserId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
+    // let loggedInUserId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"
     let projectId = "552c252b-236b-4ec3-bbde-1de4cc35067e"
 
     useEffect(() => {
@@ -50,7 +52,8 @@ const ProjectDetails = () => {
     }, [])
 
     const likeProject = async () => {
-        return await projectService.addLike(projectId, loggedInUserId);
+        // const { currentUser } = useAuth() currentUser.accessToken
+        return await projectService.addLike(projectId);
     };
 
     return (
