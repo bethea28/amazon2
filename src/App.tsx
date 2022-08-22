@@ -57,7 +57,6 @@ function App() {
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
                 <Route path='/transaction' element={<TransactionForm />} />
-=======
                 <Route path='/projects' element={<AllProjects />} />
                 <Route path='/projects/:projectId' element={<ProjectDetails />} />
                 <Route

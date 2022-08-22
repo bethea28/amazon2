@@ -19,9 +19,6 @@ const ProjectDetails = () => {
     const [currentProject, setCurrentProject] = useState<ProjectData>();
     const { projectId } = useParams();
 
-    // To be updated once we have current user and project:
-    // let projectId = "552c252b-236b-4ec3-bbde-1de4cc35067e"
-
     useEffect(() => {
         const fetchProject = async () => {
             if (projectId) {
