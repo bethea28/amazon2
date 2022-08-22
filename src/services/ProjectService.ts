@@ -13,7 +13,7 @@ const createProject = async (data: ProjectData) => {
   }
 };
 
-const getProject = async (projectId: string) => {
+const getProjectById = async (projectId: string) => {
   try {
     return await axiosInstance.get<ProjectData>(`/projects/${projectId}`);
   } catch (error) {
@@ -76,15 +76,24 @@ const findProjectByName = async (name: string) => {
   }
 };
 
+const addLike = async (projectId: string) => {
+  try {
+    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`);
+  } catch (error) {
+    throw error;
+  }
+};
+
 const ProjectService = {
   createProject,
-  getProject,
+  getProjectById,
   getAllProjects,
   getProjectsByUser,
   getProjectsByCategory,
   updateProject,
   removeProject,
-  findProjectByName
+  findProjectByName,
+  addLike
 };
 
 export default ProjectService;
