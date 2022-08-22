@@ -15,8 +15,9 @@ import AutoDismissAlert, {
 import { v4 as uuid } from "uuid";
 import { Box, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
+import ProjectDetails from "./Components/Project/ProjectDetails";
 import ProjectsByCategories from "./Components/Discover/ProjectsByCategories";
-import TrasactionForm from "./Components/Transactions/Transactions";
+import TransactionForm from "./Components/Transactions/Transactions";
 import AllProjects from "./Components/Discover/AllProjects";
 import About from "./Components/Footer/About";
 import PageNotFound from "./Components/PageNotFound";
@@ -58,7 +59,7 @@ function App() {
                 <Route path='/transaction' element={<TransactionForm />} />
 =======
                 <Route path='/projects' element={<AllProjects />} />
-                <Route path='/projects/:projectId' element={<CommentForm />} />
+                <Route path='/projects/:projectId' element={<ProjectDetails />} />
                 <Route
                   path='/projects/:projectId/:commentId'
                   element={<CommentForm />}
@@ -67,7 +68,7 @@ function App() {
                   path='/categories/:projectCategory'
                   element={<ProjectsByCategories />}
                 />
-                <Route path='/transaction' element={<TrasactionForm />} />
+                <Route path='/transaction' element={<TransactionForm />} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<PageNotFound />} />
               </Routes>
