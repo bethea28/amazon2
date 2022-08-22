@@ -29,15 +29,10 @@ const UserProvider = ({ children }: any) => {
     }, [])
 
     const loginUser = async (response: TokenData) => {
-        // Temporary: Commented out code to be added and hard coded values to be removed once backend has been merged
-
-        setSessionId("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
-        // setSessionId(response.idUser)
-        setTheCookie("userId", "d8ff08d1-6f3b-4e38-b6fb-218e88663891" )
-        // setTheCookie("userId", response.idUser )
+        setSessionId(response.idUser)
+        setTheCookie("userId", response.idUser )
         setTheCookie("accessToken", response.accessToken)
-        await fetchUser("d8ff08d1-6f3b-4e38-b6fb-218e88663891")
-        // await fetchUser(response.idUser)
+        await fetchUser(response.idUser)
         tokenInCookies()
     }
 
