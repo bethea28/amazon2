@@ -3,6 +3,7 @@ import { Grid, Typography, Box, Button } from "@mui/material";
 import { useDropzone } from 'react-dropzone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { uploadToS3 } from "../../../services/UploadService";
+import { UpdatetoDDB } from "../../../services/UploadtoDynaoDBService";
 import UserService from "../../../services/UserService";
 import UserData from '../../../types/User'
 
@@ -56,8 +57,13 @@ export const RegisterImageIndex: FunctionComponent = () => {
         userData.avatar = uploadedS3URL;
 
 
+
         // const currUserId = localStorage.getItem('userId');
         UserService.updateProfile(userData, '149bac07-2242-4226-b89a-3fd9bd449802');
+
+        UpdatetoDDB(uploadedS3URL);
+
+
     }
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
