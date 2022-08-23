@@ -40,7 +40,7 @@ const ProjectDetails = () => {
             <Grid container spacing={6} justifyItems={"center"}>
                 <Grid item>
                     <Paper style={{ padding: 20 }}>
-                        {currentProject?.images.map(src =>
+                        {currentProject && currentProject.images.map(src =>
                             <img alt='project images' src={src} />
                         )}
                     </Paper>
@@ -51,30 +51,30 @@ const ProjectDetails = () => {
                             <CardActionArea>
                                 <CardContent>
                                     <Typography gutterBottom variant="h4">
-                                        {currentProject?.projectName}
+                                        {currentProject && currentProject.projectName}
                                     </Typography>
                                     <Typography gutterBottom variant='h5'>
-                                        {currentProject?.category}
+                                        {currentProject && currentProject.category}
                                     </Typography>
                                     <Typography gutterBottom variant='h6'>
-                                        {currentProject?.description}
+                                        {currentProject && currentProject.description}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        By {currentProject?.username}
+                                        By {currentProject && currentProject.username}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Amount
-                                        {currentProject?.targetFundingAmount}
+                                        {currentProject && currentProject.targetFundingAmount}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Date
-                                        {currentProject?.targetFundingDate.toDateString()}
+                                        {currentProject && currentProject.targetFundingDate.toDateString()}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -87,7 +87,7 @@ const ProjectDetails = () => {
                                     Like
                                 </Button>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    {currentProject?.likedBy?.length ?? 0} likes
+                                    {currentProject && (currentProject.likedBy == null ? 0 : currentProject.likedBy.length)} likes
                                 </Typography>
                             </CardActions>
                         </Card>
