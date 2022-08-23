@@ -40,7 +40,7 @@ const ProjectDetails = () => {
             <Grid container spacing={6} justifyItems={"center"}>
                 <Grid item>
                     <Paper style={{ padding: 20 }}>
-                        {currentProject?.images.map(src =>
+                        {currentProject && currentProject.images.map(src =>
                             <img alt='project images' src={src} />
                         )}
                     </Paper>
