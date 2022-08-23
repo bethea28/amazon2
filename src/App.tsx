@@ -18,6 +18,7 @@ import AutoDismissAlert, {
 import { v4 as uuid } from "uuid";
 import { Box, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
+import ProjectDetails from "./Components/Project/ProjectDetails";
 import ProjectsByCategories from "./Components/Discover/ProjectsByCategories";
 import TransactionForm from "./Components/Transactions/Transactions";
 import AllProjects from "./Components/Discover/AllProjects";
@@ -58,8 +59,9 @@ function App() {
                 <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
+                <Route path='/transaction' element={<TransactionForm />} />
                 <Route path='/projects' element={<AllProjects />} />
-                <Route path='/projects/:projectId' element={<CommentForm />} />
+                <Route path='/projects/:projectId' element={<ProjectDetails />} />
                 <Route
                   path='/projects/:projectId/:commentId'
                   element={<CommentForm />}
