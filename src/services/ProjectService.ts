@@ -88,7 +88,7 @@ const addLike = async (projectId: string) => {
 const getNewProjects = async () => {
   try {
     //endpoint URL placeholder/////////////////////////
-    return await axiosInstance.get<Array<ProjectData>>('/projects/__PLACEHOLDER__');
+    return await axiosInstance.get<Array<ProjectData>>('/projects');
     ////////////////////////////////////////////////
   } catch (error) {
     throw error;

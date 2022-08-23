@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
 import Carousel from 'react-material-ui-carousel';
-
+import Settings, { DefaultSettingsT, SettingsT } from '../CarouselSettings/Settings'
 const NewProjects = () => {
 
-  
+  const [settings, setSettings] = useState<SettingsT>(DefaultSettingsT);
   
     const [newProjects, setNewProjects] = useState<Array<ProjectData> | []>()
   
@@ -23,7 +23,7 @@ const NewProjects = () => {
     
     let newestProjects;
     if (newProjects) {
-      newestProjects = newProjects.slice(0, 3);
+      newestProjects = newProjects.slice(0, 9);
     }
   
     return (
@@ -36,19 +36,19 @@ const NewProjects = () => {
 </Grid>
 
 <Grid
-  container
-  sx={{
-    flexDirection: "row",
-  }}
+  style={{ marginTop: "50px", color: "#494949" }}
 >
-<Carousel>
+<Carousel
+{...settings}>
 {newestProjects &&
         newestProjects.length > 0 &&
         newestProjects.map((project) => {
           return (
+            
             <Grid key={project.projectId} marginBottom={2}>
               <ProjectCard {...project} />
             </Grid>
+          
           )
         })}
 </Carousel>

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
 import Carousel from 'react-material-ui-carousel';
-
+import NewProjects from './NewProjects';
 
 const Homepage = () => {
 
@@ -51,26 +51,11 @@ const Homepage = () => {
       </Grid>
 
       <Grid>
-        <Grid marginTop={16} marginBottom={2}>
-          <Typography sx={{ fontWeight: "bold" }} variant='caption'>
-            THE LATEST
-          </Typography>
-        </Grid>
 
-        <Carousel
+        <Grid
         >
-      <Grid container justifyContent='center' alignItems='center' marginTop={2}>
-      {topThreeProjects &&
-        topThreeProjects.length > 0 &&
-        topThreeProjects.map((project) => {
-          return (
-            <Grid key={project.projectId} marginBottom={2}>
-              <ProjectCard {...project} />
-            </Grid>
-          )
-        })}
-      </Grid>
-        </Carousel>
+          <NewProjects/>
+        </Grid>
 
         <Grid marginTop={16} marginBottom={2}>
           <Typography sx={{ fontWeight: "bold" }} variant='caption'>
