@@ -4,6 +4,8 @@ import ProjectCard from "../Project/ProjectCard";
 import { useNavigate } from 'react-router-dom';
 import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
+import Carousel from 'react-material-ui-carousel';
+
 
 const Homepage = () => {
 
@@ -55,11 +57,7 @@ const Homepage = () => {
           </Typography>
         </Grid>
 
-        <Grid
-          container
-          sx={{
-            flexDirection: "row",
-          }}
+        <Carousel
         >
       <Grid container justifyContent='center' alignItems='center' marginTop={2}>
       {topThreeProjects &&
@@ -72,7 +70,7 @@ const Homepage = () => {
           )
         })}
       </Grid>
-        </Grid>
+        </Carousel>
 
         <Grid marginTop={16} marginBottom={2}>
           <Typography sx={{ fontWeight: "bold" }} variant='caption'>
