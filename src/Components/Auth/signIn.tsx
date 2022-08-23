@@ -65,7 +65,6 @@ const SignIn = ({ msgAlert }: SignInProps) => {
     setFormError(false)
   }, [watch('userName'), watch('password')])
 
-
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
       <Paper elevation={3} style={{ padding: 20 }}>
@@ -87,7 +86,7 @@ const SignIn = ({ msgAlert }: SignInProps) => {
               size='small'
               margin='dense'
               fullWidth
-              error={Object.keys(errors).length !== 0}
+              error={errors["userName"] !== undefined}
               helperText={errors.userName ? errors.userName.message : null}
             />
             <TextField
@@ -101,7 +100,7 @@ const SignIn = ({ msgAlert }: SignInProps) => {
               size='small'
               margin='dense'
               fullWidth
-              error={Object.keys(errors).length !== 0}
+              error={errors["password"] !== undefined}
               helperText={errors.password ? errors.password.message : null}
             />
             <Grid item alignSelf='center' margin={1}>

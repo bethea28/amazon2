@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import {
@@ -25,14 +25,18 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
 
   const { loginUser } = useContext(UserContext)
 
+  const [formError, setFormError] = useState<boolean>(false)
+
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    formState: { errors },
   } = useForm<AuthData>()
 
   const onSignUp = async (data: AuthData) => {
 
     try {
+
       await signUp(data)
       const res = await signIn(data)
 
@@ -54,6 +58,13 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
     }
   }
 
+  const validatePassword = (value: string) => {
+    if (!value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/)) {
+      return "Password must contain a number, an uppercase, a lowercase and a special character"
+    }
+  }
+
+
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
       <Paper elevation={3} style={{ padding: 20 }}>
@@ -67,6 +78,10 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
             <TextField
               {...register('userName', {
                 required: 'User Name is required',
+                minLength: {
+                  value: 3,
+                  message: 'User Name must have at least 3 characters',
+                },
               })}
               variant='outlined'
               label='User Name'
@@ -74,10 +89,17 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
               size='small'
               margin='dense'
               fullWidth
+              error={errors["userName"] !== undefined}
+              helperText={errors.userName ? errors.userName.message : null}
             />
             <TextField
               {...register('password', {
                 required: 'Password is required',
+                minLength: {
+                  value: 8,
+                  message: 'Password must have at least 8 characters',
+                },
+                validate: value => validatePassword(value)
               })}
               variant='outlined'
               type='password'
@@ -86,6 +108,8 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
               size='small'
               margin='dense'
               fullWidth
+              error={errors["password"] !== undefined}
+              helperText={errors.password ? errors.password.message : null}
             />
             <Grid item alignSelf='center' margin={1}>
               <Button type='submit' variant='contained' color='primary'>
