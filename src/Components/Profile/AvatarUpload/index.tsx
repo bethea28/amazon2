@@ -59,10 +59,9 @@ export const RegisterImageIndex: FunctionComponent = () => {
 
 
         // const currUserId = localStorage.getItem('userId');
-        UserService.updateProfile(userData, '149bac07-2242-4226-b89a-3fd9bd449802');
+        // UserService.updateProfile(userData, '149bac07-2242-4226-b89a-3fd9bd449802');/
 
         UpdatetoDDB(uploadedS3URL);
-
 
     }
 

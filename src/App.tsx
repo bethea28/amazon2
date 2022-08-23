@@ -6,7 +6,7 @@ import CommentForm from "./Components/Comments/CommentForm";
 import Homepage from "./Components/Homepage/Homepage";
 import Footer from "./Components/Footer/Footer";
 import ProjectImageIndex from "./Components/Project/CoverImageUpload/index";
-import RegisterImageIndex from "./Components/Profile/AvatarUpload";
+import RegisterImageIndex from "./Components/Profile/AvatarUpload/index";
 import AdditionalImageIndex from "./Components/Project/SecondaryImageUpload/index";
 import Signup from "./Components/Auth/signUp";
 import SignIn from "./Components/Auth/signIn";
@@ -56,6 +56,7 @@ function App() {
                   path='/signin'
                   element={<SignIn msgAlert={msgAlert} />}
                 />
+                <Route path='/avatarUpload' element={<RegisterImageIndex />} />
                 <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
