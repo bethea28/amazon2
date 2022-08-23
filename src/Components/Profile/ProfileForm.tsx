@@ -48,8 +48,8 @@ export default function ProfileForm() {
     formState: { errors },
   } = useForm<UserData>()
 
-  /** handles the submission of the changes on user's profile 
-    * @param data   The updated user's name, bio and interests from the form 
+  /** handles the submission of the changes on user's profile
+    * @param data   The updated user's name, bio and interests from the form
                     which has been obtained by using "register" of the useForm hook
     * @return       Sends HTTP request to Update the user's profile using the updated @param data and the @param userId to be updated
                     Redirects to profile page on successful update
@@ -98,17 +98,17 @@ export default function ProfileForm() {
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
       <Paper elevation={3} style={{ padding: 20, minWidth: 350 }}>
-      <Grid margin={2}>
-        <Typography variant='h5'>
-          Edit Profile
-        </Typography>
-      </Grid>
+        <Grid margin={2}>
+          <Typography variant='h5'>
+            Edit Profile
+          </Typography>
+        </Grid>
         <Grid container direction='column' spacing={3} >
           <Grid item>
             <ErrorMessage
               errors={errors}
               name='name'
-              render={({ message }) => <Typography style={{color: 'red'}}> {message}</Typography>}
+              render={({ message }) => <Typography style={{ color: 'red' }}> {message}</Typography>}
             />
             {userProfile && (
               <TextField
@@ -144,38 +144,38 @@ export default function ProfileForm() {
             )}
           </Grid>
           <Grid item>
-          <Typography variant='body2' sx={{color: 'rgb(133, 133, 133)'}}>Interests</Typography>
-          <Card variant='outlined' style={{padding: 15}}>
-            <FormGroup>
-              {userProfile &&
-                Object.entries(userProfile.interests).map(
-                  ([field, isInterested]) => {
-                    return (
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            defaultChecked={isInterested}
-                            {...register('interests')}
-                            name={field}
-                            key={field}
-                            value={field}
-                            onChange={handleChange}
-                          />
-                        }
-                        label={field}
-                        key={field}
-                      />
-                    )
-                  }
-                )}
-            </FormGroup>
+            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Interests</Typography>
+            <Card variant='outlined' style={{ padding: 15 }}>
+              <FormGroup>
+                {userProfile &&
+                  Object.entries(userProfile.interests).map(
+                    ([field, isInterested]) => {
+                      return (
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              defaultChecked={isInterested}
+                              {...register('interests')}
+                              name={field}
+                              key={field}
+                              value={field}
+                              onChange={handleChange}
+                            />
+                          }
+                          label={field}
+                          key={field}
+                        />
+                      )
+                    }
+                  )}
+              </FormGroup>
             </Card>
           </Grid>
           <Grid item alignSelf='center'>
             <Button variant='contained' onClick={onSubmit} >
               Save Changes
             </Button>
-            <Button variant='outlined' onClick={toProfile} style={{marginLeft: 10}}>
+            <Button variant='outlined' onClick={toProfile} style={{ marginLeft: 10 }}>
               Back to Profile
             </Button>
           </Grid>

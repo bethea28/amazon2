@@ -54,6 +54,11 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
     }
   }
 
+  // if (ShouldNavigate) {
+  //   return <Navigate to='/registerAvatar' />
+  // }
+
+
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
       <Paper elevation={3} style={{ padding: 20 }}>

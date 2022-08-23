@@ -1,13 +1,14 @@
 export default interface ProjectData {
-  projectId?: string,
-  userId?: string,
-  username: string,
-  createdAt?: Date,
-  projectName?: string,
-  description?: string,
-  targetFundingAmount: number,
-  targetFundingDate: Date,
-  category: string,
-  images: Array<string>,
-  likedBy: Array<string>
+  projectId?: string;
+  userId?: string;
+  createdAt?: Date;
+  username: string;
+  projectName?: string;
+  description?: string;
+  targetFundingAmount: number;
+  targetFundingDate: Date;
+  category: string;
+  coverImage?: string;
+  images: Array<string>;
+  likedBy: Array<string>;
 }
