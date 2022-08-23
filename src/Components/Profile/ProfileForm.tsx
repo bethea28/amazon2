@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { ErrorMessage } from '@hookform/error-message'
 import { useNavigate, useParams } from 'react-router-dom'
 import UserData, { Interests } from '../../types/User'
 import UserContext from '../../context/user/UserContext'
@@ -105,11 +104,6 @@ export default function ProfileForm() {
       </Grid>
         <Grid container direction='column' spacing={3} >
           <Grid item>
-            <ErrorMessage
-              errors={errors}
-              name='name'
-              render={({ message }) => <Typography style={{color: 'red'}}> {message}</Typography>}
-            />
             {userProfile && (
               <TextField
                 {...register('name', {
@@ -126,7 +120,10 @@ export default function ProfileForm() {
                 margin='dense'
                 defaultValue={userProfile.name}
                 fullWidth
+                error={Object.keys(errors).length !== 0}
+                helperText={errors.name ? errors.name.message : null}
               />
+              
             )}
           </Grid>
           <Grid item>
