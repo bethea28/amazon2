@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import {
@@ -7,7 +7,8 @@ import {
   Container,
   Paper,
   Typography,
-  Button
+  Button,
+  Alert
 } from '@mui/material'
 import { signUp, signIn } from '../../services/AuthService'
 import { Message } from '../core/messages'
@@ -31,6 +32,7 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    watch
   } = useForm<AuthData>()
 
   const onSignUp = async (data: AuthData) => {
@@ -51,6 +53,9 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
       }
 
     } catch (error: unknown) {
+
+      setFormError(true)
+
       msgAlert({
         message: Message.Alert.SignUp.Failure,
         variant: 'error'
@@ -58,12 +63,15 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
     }
   }
 
+  useEffect(() => {
+    setFormError(false)
+  }, [watch('userName'), watch('password')])
+
   const validatePassword = (value: string) => {
-    if (!value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/)) {
+    if (!value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.\[\]{}\(\)?\-\"!@#%&\/,><\':;|_~`])/)) {
       return "Password must contain a number, an uppercase, a lowercase and a special character"
     }
   }
-
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
@@ -73,6 +81,7 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
             Sign Up
           </Typography>
         </Grid >
+        {formError && <Alert severity="error">{Message.Alert.SignUp.Failure}</Alert>}
         <form onSubmit={handleSubmit(onSignUp)}>
           <Grid container direction='column'>
             <TextField
@@ -98,6 +107,10 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
                 minLength: {
                   value: 8,
                   message: 'Password must have at least 8 characters',
+                },
+                maxLength: {
+                  value: 99,
+                  message: 'Password must have less than 99 characters',
                 },
                 validate: value => validatePassword(value)
               })}
