@@ -38,13 +38,13 @@ const ProjectDetails = () => {
     return (
         <Container maxWidth="lg">
             <Grid container spacing={6} justifyItems={"center"}>
-                <Grid item>
+                {/* <Grid item>
                     <Paper style={{ padding: 20 }}>
                         {currentProject && currentProject.images.map(src =>
                             <img alt='project images' src={src} />
                         )}
                     </Paper>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                     <Paper style={{ padding: 20 }}>
                         <Card variant='outlined'>
@@ -74,7 +74,7 @@ const ProjectDetails = () => {
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Date
-                                        {currentProject && currentProject.targetFundingDate.toDateString()}
+                                        {currentProject && currentProject.targetFundingDate.toString()}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>

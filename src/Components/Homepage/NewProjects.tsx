@@ -48,6 +48,7 @@ const NewProjects = () => {
             <Grid key={project.projectId} marginBottom={2}>
               <ProjectCard {...project} />
             </Grid>
+            
           
           )
         })}
