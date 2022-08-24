@@ -69,7 +69,7 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
 
   const validatePassword = (value: string) => {
     if (!value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.\[\]{}\(\)?\-\"!@#%&\/,><\':;|_~`])/)) {
-      return "Password must contain a number, an uppercase, a lowercase and a special character"
+      return "Password must contain a lowercase letter, an uppercase letter, a number and a special character"
     }
   }
 

@@ -14,7 +14,8 @@ import {
   FormControlLabel,
   Button,
   Typography,
-  Card
+  Card,
+  Alert
 } from '@mui/material'
 import UserService from '../../services/UserService'
 import PageNotFound from '../PageNotFound'
@@ -28,6 +29,7 @@ export default function ProfileForm() {
 
   const [userProfile, setUserProfile] = useState<UserData>()
   const [interests, setInterests] = useState<Interests>({})
+  const [warning, setWarning] = useState<string>("")
 
   const { sessionId } = useContext(UserContext)
 
@@ -60,8 +62,16 @@ export default function ProfileForm() {
       return await UserService.updateProfile(data, userId).then(() => {
         toProfile()
       })
-    } catch (e) {
-      throw e
+    } catch (error: any) {
+      if (error) {
+        if (error.response.status == 401) {
+          setWarning("You are not authorised")
+        }
+
+        else {
+          setWarning("Sorry, the server encountered an unexpected condition that prevented it from fulfilling the request")
+        }
+      }
     }
   })
 
@@ -103,6 +113,7 @@ export default function ProfileForm() {
         </Typography>
       </Grid>
         <Grid container direction='column' spacing={3} >
+        {warning && <Alert severity="warning">{warning}</Alert>}
           <Grid item>
             {userProfile && (
               <TextField
