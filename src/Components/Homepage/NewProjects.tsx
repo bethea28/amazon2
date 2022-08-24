@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Grid, Typography, Box} from "@mui/material";
 import ProjectCard from "../Project/ProjectCard";
-import { useNavigate } from 'react-router-dom';
 import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
 import Carousel from 'react-material-ui-carousel';
@@ -21,11 +20,8 @@ const NewProjects = () => {
       .then((response) => {setNewProjects(response.data)})
     }
     
-    let newestProjects;
-    if (newProjects) {
-      newestProjects = newProjects.slice(0, 9);
-    }
-  
+
+
     return (
       <Box>
 
@@ -40,16 +36,14 @@ const NewProjects = () => {
 >
 <Carousel
 {...settings}>
-{newestProjects &&
-        newestProjects.length > 0 &&
-        newestProjects.map((project) => {
+{newProjects &&
+        newProjects.length > 0 &&
+        newProjects.map((project) => {
           return (
             
             <Grid key={project.projectId} marginBottom={2}>
-              <ProjectCard {...project} />
-            </Grid>
-            
-          
+              <ProjectCard {...project}/>
+            </Grid> 
           )
         })}
 </Carousel>

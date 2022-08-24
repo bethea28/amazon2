@@ -87,9 +87,7 @@ const addLike = async (projectId: string) => {
 //*********Call to GET Newest Projects**** */
 const getNewProjects = async () => {
   try {
-    //endpoint URL placeholder/////////////////////////
-    return await axiosInstance.get<Array<ProjectData>>('/projects');
-    ////////////////////////////////////////////////
+    return await axiosInstance.get<Array<ProjectData>>('/projects/newest');
   } catch (error) {
     throw error;
   }
