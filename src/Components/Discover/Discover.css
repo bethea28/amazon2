@@ -20,9 +20,9 @@
 }
 
 .internalLinks:hover {
-    color: rgba(0, 0, 0, 0.75)
+    opacity: 0.75
 }
 
-li {
+a, li {
     font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
