@@ -22,6 +22,8 @@ interface SignUpProps {
 
 const SignUp = ({ msgAlert }: SignUpProps) => {
 
+  const passwordValidationRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.\[\]{}\(\)?\-\"!@#%&\/,><\':;|_~`])/
+
   const navigate = useNavigate()
 
   const { loginUser } = useContext(UserContext)
@@ -68,7 +70,7 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
   }, [watch('userName'), watch('password')])
 
   const validatePassword = (value: string) => {
-    if (!value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.\[\]{}\(\)?\-\"!@#%&\/,><\':;|_~`])/)) {
+    if (!value.match(passwordValidationRegex)) {
       return "Password must contain a lowercase letter, an uppercase letter, a number and a special character"
     }
   }
