@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import {
@@ -7,7 +7,8 @@ import {
   Container,
   Paper,
   Typography,
-  Button
+  Button,
+  Alert
 } from '@mui/material'
 import { signUp, signIn } from '../../services/AuthService'
 import { Message } from '../core/messages'
@@ -21,18 +22,25 @@ interface SignUpProps {
 
 const SignUp = ({ msgAlert }: SignUpProps) => {
 
+  const passwordValidationRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.\[\]{}\(\)?\-\"!@#%&\/,><\':;|_~`])/
+
   const navigate = useNavigate()
 
   const { loginUser } = useContext(UserContext)
 
+  const [formError, setFormError] = useState<boolean>(false)
+
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    formState: { errors },
+    watch
   } = useForm<AuthData>()
 
   const onSignUp = async (data: AuthData) => {
 
     try {
+
       await signUp(data)
       const res = await signIn(data)
 
@@ -47,6 +55,9 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
       }
 
     } catch (error: unknown) {
+
+      setFormError(true)
+
       msgAlert({
         message: Message.Alert.SignUp.Failure,
         variant: 'error'
@@ -54,10 +65,15 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
     }
   }
 
-  // if (ShouldNavigate) {
-  //   return <Navigate to='/registerAvatar' />
-  // }
+  useEffect(() => {
+    setFormError(false)
+  }, [watch('userName'), watch('password')])
 
+  const validatePassword = (value: string) => {
+    if (!value.match(passwordValidationRegex)) {
+      return "Password must contain a lowercase letter, an uppercase letter, a number and a special character"
+    }
+  }
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
@@ -67,11 +83,16 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
             Sign Up
           </Typography>
         </Grid >
+        {formError && <Alert severity="error">{Message.Alert.SignUp.Failure}</Alert>}
         <form onSubmit={handleSubmit(onSignUp)}>
           <Grid container direction='column'>
             <TextField
               {...register('userName', {
                 required: 'User Name is required',
+                minLength: {
+                  value: 3,
+                  message: 'User Name must have at least 3 characters',
+                },
               })}
               variant='outlined'
               label='User Name'
@@ -79,10 +100,21 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
               size='small'
               margin='dense'
               fullWidth
+              error={errors["userName"] !== undefined}
+              helperText={errors.userName ? errors.userName.message : null}
             />
             <TextField
               {...register('password', {
                 required: 'Password is required',
+                minLength: {
+                  value: 8,
+                  message: 'Password must have at least 8 characters',
+                },
+                maxLength: {
+                  value: 99,
+                  message: 'Password must have less than 99 characters',
+                },
+                validate: value => validatePassword(value)
               })}
               variant='outlined'
               type='password'
@@ -91,6 +123,8 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
               size='small'
               margin='dense'
               fullWidth
+              error={errors["password"] !== undefined}
+              helperText={errors.password ? errors.password.message : null}
             />
             <Grid item alignSelf='center' margin={1}>
               <Button type='submit' variant='contained' color='primary'>

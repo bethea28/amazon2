@@ -40,7 +40,7 @@ export default function Profile() {
       .then((response) => {setUserProjects(response.data)})
   } 
 
-  const userBGColor = canEdit ? "rgb(235, 243, 254)" : "white";
+  const userBGColor = canEdit ? "#E9F3FF" : "white";
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
@@ -55,11 +55,14 @@ export default function Profile() {
         </Grid>
         <Grid container spacing={2} margin={2} sx={{ display: 'flex', flexDirection:'column' }}>
           <Box sx={{ display: 'flex ' }}>
-            <Avatar
-              alt='user'
-              variant='square'
-              sx={{ width: 70, height: 70, alignSelf: 'center' }}
-            />
+            <Grid marginLeft={2} sx={{ alignSelf: 'center'}}>
+              <Avatar
+                alt='user'
+                variant='square'
+                sx={{ width: 70, height: 70}}
+              />
+              <Link to={`/avatarUpload`} style={{fontSize: '12px'}} className="internalLinks">Edit avatar</Link>
+            </Grid>
             <Grid marginLeft={3}>
               <Typography variant='body1'>
                 {userProfile && userProfile.name}
@@ -116,9 +119,6 @@ export default function Profile() {
             <Typography variant='h6'>Projects Backed</Typography>
           </Grid>
 
-          <Grid item>
-            <Typography variant='h6'>Projects Liked</Typography>
-          </Grid>
         </Grid>
       </Paper>
     </Container>
