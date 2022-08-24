@@ -119,9 +119,6 @@ export default function Profile() {
             <Typography variant='h6'>Projects Backed</Typography>
           </Grid>
 
-          <Grid item>
-            <Typography variant='h6'>Projects Liked</Typography>
-          </Grid>
         </Grid>
       </Paper>
     </Container>

@@ -62,7 +62,7 @@ export default function NavigationBar(props: Props) {
     sessionLinks = (
       <>
         <NavLink to='/createProject' className="navbar">
-          Create a New Project
+          Create Project
         </NavLink>
         <NavLink to={`/profile/${sessionId}`} className="navbar">
           Profile
