@@ -67,6 +67,9 @@ export default function NavigationBar(props: Props) {
         <NavLink to={`/profile/${sessionId}`} className="navbar">
           Profile
         </NavLink>
+        <NavLink to={`/users/${sessionId}/projects`} className="navbar">
+          My Projects
+        </NavLink>
         <Button variant="contained" onClick={logoutSessionUser}>
           Logout
         </Button>

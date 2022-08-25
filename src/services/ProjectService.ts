@@ -48,7 +48,7 @@ const getProjectsByCategory = async (projectCategory: string | undefined) => {
 
 const updateProject = async (projectId: string, data: ProjectData) => {
   try {
-    return await axiosInstance.put<any>(`/projects/${projectId}`, data, {
+    return await axiosInstance.put<ProjectData>(`/projects/${projectId}`, data, {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
       }
@@ -57,7 +57,7 @@ const updateProject = async (projectId: string, data: ProjectData) => {
   }
 };
 
-const removeProject = async (projectId: any) => {
+const removeProject = async (projectId: string) => {
   try {
     return await axiosInstance.delete<any>(`/projects/${projectId}`, {
       headers: {
@@ -78,7 +78,7 @@ const findProjectByName = async (name: string) => {
 
 const addLike = async (projectId: string) => {
   try {
-    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`);
+    return await axiosInstance.patch<ProjectData>(`/projects/${projectId}/likes`);
   } catch (error) {
     throw error;
   }
