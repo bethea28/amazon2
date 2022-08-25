@@ -1,12 +1,4 @@
-import React from 'react';
-import {
-    FormControlLabel,
-    Radio,
-    RadioGroup,
-    Slider,
-    Typography,
-    Switch,
-} from '@mui/material';
+
 
 export interface SettingsT {
     autoPlay: boolean,
@@ -33,14 +25,13 @@ export const DefaultSettingsT: SettingsT = {
     swipe: true
 }
 
-interface SettingsProps
-{
+interface SettingsProps {
     settings: SettingsT,
     setSettings: Function
 }
 
 
-const Settings = ({settings, setSettings}: SettingsProps) => {
+const Settings = ({ settings, setSettings }: SettingsProps) => {
 
     /** Default function for Switches */
     const toggler = (event: any) => {
