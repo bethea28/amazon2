@@ -62,7 +62,6 @@ function App() {
                 <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
-                <Route path='/transaction' element={<TransactionForm />} />
                 <Route path='/projects' element={<AllProjects />} />
                 <Route path='/projects/:projectId' element={<ProjectDetails />} />
                 <Route
@@ -77,7 +76,7 @@ function App() {
                   path='/users/:userId/projects'
                   element={<MyProjects />}
                 />
-                <Route path='/transaction' element={<TransactionForm />} />
+                <Route path='/projects/:projectId/transaction' element={<TransactionForm />} />
                 <Route path='/milestones' element={<Milestones />} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<PageNotFound />} />

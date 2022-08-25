@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { useParams } from 'react-router-dom'
 import {
   Grid,
   Button,
@@ -16,21 +17,13 @@ import {
 import { useForm, Controller, useFormContext } from 'react-hook-form'
 import TransactionService from '../../services/transactionService'
 import UserContext from '../../context/user/UserContext'
+import { PaymentInput } from '../../types/transactions'
 
-interface PaymentInput {
-  amount: number
-  firstName: string
-  lastName: string
-  creditNumber: string
-  expDate: string
-  userId?: string
-  projectId: string
-  date?: Date
-  status?: string
-}
 
 export default function TrasactionForm() {
   //PM to be added: projectIdInput: string
+
+  const { projectId } = useParams()
 
   //CONTROL: pop up dialog
   const { control, handleSubmit, formState: { errors } } = useForm<PaymentInput>()
@@ -47,7 +40,7 @@ export default function TrasactionForm() {
   const onSubmit = async (data: PaymentInput) => {
     //Open Pop up Dialog display Transaction Result
     setOpen(true)
-    data.projectId = 'hello'
+    data.projectId = projectId
     data.userId = sessionId
 
     // Back End points to deal with: /data.date = new Date; data.status = 'COMPLETE';
@@ -100,10 +93,10 @@ export default function TrasactionForm() {
                 )}
                 name='amount'
                 rules={{ required: "Amount is required", 
-                        min: {
-                          value: 1,
-                          message: 'Amount cannot be less than 1',
-                        } }}
+                          min: {
+                            value: 1,
+                            message: 'Amount cannot be less than 1',
+                          } }}
                 control={control}
                 defaultValue={0}
                 
