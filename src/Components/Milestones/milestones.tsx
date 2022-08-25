@@ -39,7 +39,6 @@ export default function Milestones(){
     /*on form submission updates BE projects table with milestones input*/
     const onsubmit = async (data: ProjectMilestonesData) => {
         alert('You have submitted');
-        console.log(milestones);
         data.milestones = milestones;
        return await ProjectService.updateProjectMilestone(projectId, data);
     }
