@@ -24,6 +24,7 @@ import TransactionForm from "./Components/Transactions/Transactions";
 import AllProjects from "./Components/Discover/AllProjects";
 import About from "./Components/Footer/About";
 import PageNotFound from "./Components/PageNotFound";
+import Milestones from "./Components/Milestones/milestones";
 
 function App() {
   const [msgAlerts, setMsgAlerts] = useState<
@@ -72,6 +73,7 @@ function App() {
                   element={<ProjectsByCategories />}
                 />
                 <Route path='/transaction' element={<TransactionForm />} />
+                <Route path='/milestones' element={<Milestones />} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<PageNotFound />} />
               </Routes>
