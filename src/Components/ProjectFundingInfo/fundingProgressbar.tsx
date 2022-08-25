@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ProjectFundingInfoService from "../../services/ProjectFundingInfoService";
-import ProjectFundingInfoType from "../../types/ProjectFundingInfo";
 import { Box, LinearProgress, LinearProgressProps, Typography } from '@mui/material';
-
+import ProjectService from "../../services/ProjectService";
 
 function FundingProgressBar(props: LinearProgressProps & { value: number }) {
     return (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%', mr: 1 }}>
+        <Box sx={{ width: 100, mr: 1 }}>
           <LinearProgress variant="determinate" {...props} />
         </Box>
         <Box sx={{ minWidth: 35 }}>
@@ -20,51 +19,39 @@ function FundingProgressBar(props: LinearProgressProps & { value: number }) {
   }
 
 export default function FundingProgressInputView(){
-    //get project goal amout take in project ID via context
-    // get transactions total 
-    let projectId = "d8ff08d1-6f3b-4e38-b6fb-218e88663891"; //To do: React Context -> get project Id
-    let projectGoal = 100; //TO DO: api request project target amount , get project milestones , 
 
-    //percent calculated to measure funding progress
+    //NEED TO GET PROJECT ID FROM PARAMs
+    let projectIdTransaction = "hello"; //To do: React Context -> get project Id
+    let projectIdProject = "a87c7825-a0ab-4c98-aad1-8224216b6b03";
+
+    //total amount funded for a project
     const [progress, setProgress] = React.useState(0);
 
-    //types called from backend
-    const [fundinginfo, setFundingInfo] = useState<ProjectFundingInfoType>(
-        { totalamount: (0),
-        totaltransactions: (0),
-        projectId: ''
-        }
-        );
-    /*try{
-        useEffect(() => {
-            const fetchData = async () => {
-                await ProjectFundingInfoService.getProjectFundingInfo(projectId).then((response) => {
-                setFundingInfo(response.data);
-            })
-        }
-        fetchData()
-        }, []);
-        const percent = (fundinginfo.totalamount / projectGoal )*100;
-        console.log(percent);
-        setProgress(percent);
-        console.log(progress);
+    //set project target amount from projects table
+    const [fundinginfo, setFundingInfo] = useState(0);
 
-    } catch(error){
-        setProgress(10);
-    } */
-
+    //get totalfunded amount and project target funding amount form backent
     useEffect(() => {
-      setProgress(10);
+      const fetchData = async () => {
+        await ProjectFundingInfoService.getProjectFundingInfo(projectIdTransaction).then((response) => {
+        setProgress(response.data.totalFunding);
+      }) 
+      await ProjectService.getProjectById(projectIdProject).then((response) => {
+      setFundingInfo(response.data.targetFundingAmount);
+  }) 
+    }
+    fetchData();
     }, []);
-    //setProgress(10);
-    console.log(progress);
-     
+
     return(
         <Box sx={{ width: '100%' }}>
-            <FundingProgressBar value={progress} />
+            <FundingProgressBar value={(progress/fundinginfo) *100} />
         </Box>
     )
-    //card display with total funded amount
-    //create bar with milestones & funded amount\
 };
+
+
+//THINGS TO DO: get ccorrect project id
+//remove .THEN in asyn await compare with others
+//put line 78 in variable??
 

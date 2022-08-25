@@ -1,7 +1,7 @@
 export default interface ProjectFundingInfoType {
     projectId: string,
-    totalamount: number,
+    totalFunding: number,
     date?: string,
-    totaltransactions: number
+    totalTransactions: number
 }
 

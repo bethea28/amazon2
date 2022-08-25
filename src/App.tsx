@@ -25,6 +25,7 @@ import AllProjects from "./Components/Discover/AllProjects";
 import About from "./Components/Footer/About";
 import PageNotFound from "./Components/PageNotFound";
 import Milestones from "./Components/Milestones/milestones";
+import FundingProgressInputView from "./Components/ProjectFundingInfo/fundingProgressbar";
 
 function App() {
   const [msgAlerts, setMsgAlerts] = useState<
@@ -46,8 +47,8 @@ function App() {
               {msgAlerts.map((msgAlert) => (
                 <AutoDismissAlert key={msgAlert.id} {...msgAlert} />
               ))}
-
               <Routes>
+                <Route path='/fundinginfo' element={<FundingProgressInputView />} />
                 <Route path='/' element={<Homepage />} />
                 <Route
                   path='/signup'
@@ -72,7 +73,6 @@ function App() {
                   path='/categories/:projectCategory'
                   element={<ProjectsByCategories />}
                 />
-                <Route path='/transaction' element={<TransactionForm />} />
                 <Route path='/milestones' element={<Milestones />} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<PageNotFound />} />
