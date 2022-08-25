@@ -1,5 +1,5 @@
 import axiosInstance from "../apiConfig";
-import TransactionType from "../types/transactions";
+import TransactionType from "../types/Transactions";
 import { getTheCookie } from "../utils/cookies";
 
 async function createTransaction(transactiondata: TransactionType) {

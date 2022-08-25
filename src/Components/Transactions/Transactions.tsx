@@ -13,8 +13,8 @@ import {
   Dialog,
 } from '@mui/material'
 import { useForm, Controller, useFormContext } from 'react-hook-form'
-import TransactionService from '../../services/transactionService'
 import UserContext from '../../context/user/UserContext'
+import TransactionService from '../../services/TransactionServiceCall'
 
 interface PaymentInput {
   amount: number
