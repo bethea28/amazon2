@@ -112,7 +112,8 @@ const ProjectService = {
   removeProject,
   findProjectByName,
   updateProjectMilestone,
-  addLike
+  addLike,
+  getNewProjects
 };
 
 export default ProjectService;
