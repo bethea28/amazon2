@@ -26,6 +26,7 @@ import About from "./Components/Footer/About";
 import PageNotFound from "./Components/PageNotFound";
 import Milestones from "./Components/Milestones/milestones";
 import FundingProgressInputView from "./Components/ProjectFundingInfo/fundingProgressbar";
+import ProjectFundingInfo from "./Components/ProjectFundingInfo/fundingCard";
 
 function App() {
   const [msgAlerts, setMsgAlerts] = useState<
@@ -48,7 +49,7 @@ function App() {
                 <AutoDismissAlert key={msgAlert.id} {...msgAlert} />
               ))}
               <Routes>
-                <Route path='/fundinginfo' element={<FundingProgressInputView />} />
+                <Route path='/fundingcard' element={<ProjectFundingInfo />} />
                 <Route path='/' element={<Homepage />} />
                 <Route
                   path='/signup'
