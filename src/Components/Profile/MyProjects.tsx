@@ -20,8 +20,10 @@ export default function MyProjects() {
   }, [])
 
   const fetchUserProjects = async () => {
-    await ProjectService.getProjectsByUser(userId)
-    .then((response) => {setUserProjects(response.data)})
+    const response = await ProjectService.getProjectsByUser(userId)
+    if (response) {
+      setUserProjects(response.data)
+    }
   }
 
   return (
