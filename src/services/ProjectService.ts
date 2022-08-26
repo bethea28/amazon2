@@ -93,6 +93,15 @@ const addLike = async (projectId: string) => {
   }
 };
 
+//*********Call to GET Newest Projects**** */
+const getNewProjects = async () => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>('/projects/newest');
+  } catch (error) {
+    throw error;
+  }
+};
+
 const ProjectService = {
   createProject,
   getProjectById,
@@ -103,7 +112,8 @@ const ProjectService = {
   removeProject,
   findProjectByName,
   updateProjectMilestone,
-  addLike
+  addLike,
+  getNewProjects
 };
 
 export default ProjectService;
