@@ -70,14 +70,6 @@ export const RegisterImageIndex: FunctionComponent = () => {
         }
     }
 
-    const toProfile = () => {
-        if (sessionId) {
-            navigate(`/profile/${sessionId}`)
-        } else {
-            navigate(`/*`)
-        }
-    }
-
     const uploadUserAvatar = async() => {
         try {
             if (S3URL) {
@@ -95,6 +87,14 @@ export const RegisterImageIndex: FunctionComponent = () => {
                 }
             }
           }
+    }
+
+    const toProfile = () => {
+        if (sessionId) {
+            navigate(`/profile/${sessionId}`)
+        } else {
+            navigate(`/*`)
+        }
     }
 
     useEffect(() => {

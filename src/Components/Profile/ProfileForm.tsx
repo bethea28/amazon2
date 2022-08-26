@@ -180,11 +180,11 @@ export default function ProfileForm() {
             </Card>
           </Grid>
           <Grid item alignSelf='center'>
-            <Button variant='contained' onClick={onSubmit} >
-              Save Changes
-            </Button>
-            <Button variant='outlined' onClick={toProfile} style={{ marginLeft: 10 }}>
+            <Button variant='outlined' onClick={toProfile}>
               Back to Profile
+            </Button>
+            <Button variant='contained' onClick={onSubmit} style={{ marginLeft: 15 }}>
+              Save Changes
             </Button>
           </Grid>
         </Grid>

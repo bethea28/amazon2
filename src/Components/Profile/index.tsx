@@ -36,12 +36,12 @@ export default function Profile() {
   }, [])
 
   const fetchUserAndProjects = async () => {
-    const response1 = await UserService.getProfile(userId)
-    setUserProfile(response1.data)
-    const response2 = await ProjectService.getProjectsByUser(userId)
-    setUserProjects(response2.data)
-    const response3 = await TransactionService.getProjectsBackedByUser(userId)
-    setBackedProjects(response3.data)
+    const userResponse = await UserService.getProfile(userId)
+    setUserProfile(userResponse.data)
+    const projectResponse = await ProjectService.getProjectsByUser(userId)
+    setUserProjects(projectResponse.data)
+    const backedProjectsResponse = await TransactionService.getProjectsBackedByUser(userId)
+    setBackedProjects(backedProjectsResponse.data)
   } 
 
   const userBGColor: string = canEdit ? "#E9F3FF" : "white";
@@ -130,9 +130,9 @@ export default function Profile() {
             <List sx={{ fontSize: 14}}>
               {backedProjects &&
                 backedProjects.length > 0 &&
-                backedProjects.map((transaction) => {
+                backedProjects.map((transaction, idx) => {
                   return (
-                    <ListItem dense key={transaction.projectId}>
+                    <ListItem dense key={idx}>
                       <Link to={`/projects/${transaction.projectId}`} className="internalLinks">
                         {transaction.projectId}
                       </Link>
