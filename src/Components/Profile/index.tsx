@@ -48,7 +48,7 @@ export default function Profile() {
     <Container maxWidth='xs' style={{ margin: 20 }}>
       <Paper elevation={3} style={{ padding: 20, minWidth: 400, backgroundColor: userBGColor }}>
         <Grid margin={2} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant='h5'>Profile</Typography>
+          <Typography variant='h4' margin={2}>Profile</Typography>
           {canEdit && <IconButton aria-label='edit' size='medium' >
             <Link to={`/profile/${userId}/edit`}>
               <EditIcon />
@@ -62,7 +62,7 @@ export default function Profile() {
                 variant='square'
                 src={userAvatar}
                 alt='User Avatar'
-                sx={{ width: 70, height: 70}}
+                sx={{ width: 100, height: 100}}
               />
               <Link to={`/avatarUpload`} style={{fontSize: '12px'}} className="internalLinks">Edit avatar</Link>
             </Grid>
