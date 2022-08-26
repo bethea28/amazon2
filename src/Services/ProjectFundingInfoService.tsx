@@ -2,7 +2,7 @@ import axios from "axios";
 import axiosInstance from "../apiConfig";
 import ProjectFundingInfoType from "../types/ProjectFundingInfo";
 
-async function getProjectFundingInfo(projectId: string){
+async function getProjectFundingInfo(projectId: string | undefined){
         return await axiosInstance.get<ProjectFundingInfoType>(
             `transaction/projects/${projectId}`
         )

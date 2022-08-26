@@ -14,7 +14,7 @@ const createProject = async (data: ProjectData) => {
   }
 };
 
-const getProjectById = async (projectId: string) => {
+const getProjectById = async (projectId: string | undefined) => {
   try {
     return await axiosInstance.get<ProjectData>(`/projects/${projectId}`);
   } catch (error) {
