@@ -6,6 +6,7 @@ import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
 import Carousel from 'react-material-ui-carousel';
 import NewProjects from './NewProjects';
+import TrendingProjects from './TrendingProjects';
 
 const Homepage = () => {
 
@@ -28,9 +29,9 @@ const Homepage = () => {
 
   let topThreeProjects;
   if (allProjects) {
-    topThreeProjects = allProjects.slice(0, 3);
+    topThreeProjects = allProjects.slice(0,3);
   }
-
+ 
   return (
     <>
       <Grid
@@ -50,25 +51,18 @@ const Homepage = () => {
         </Grid>
       </Grid>
 
-      <Grid>
-
-        <Grid
-        >
-          <NewProjects/>
-        </Grid>
 
         <Grid marginTop={16} marginBottom={2}>
           <Typography sx={{ fontWeight: "bold" }} variant='caption'>
-            TRENDING
+            THE LATEST
           </Typography>
         </Grid>
 
         <Grid
-          container
-          sx={{
-            flexDirection: "row",
-          }}
         >
+
+          <NewProjects/>
+        </Grid>
       <Grid container justifyContent='center' alignItems='center' marginTop={2}>
       {topThreeProjects &&
         topThreeProjects.length > 0 &&
@@ -79,9 +73,12 @@ const Homepage = () => {
             </Grid>
           )
         })}
-      </Grid>
+
+        <Grid>
+          {/* <Trending component here/>*/}
         </Grid>
       </Grid>
+  
     </>
   );
 };
