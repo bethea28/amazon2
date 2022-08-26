@@ -17,7 +17,8 @@ import UserData from '../../types/User'
 import ProjectService from '../../services/ProjectService'
 import ProjectData from '../../types/Project'
 import UserContext from '../../context/user/UserContext'
-// import image from '../../../public/black-profile-picture.webp'
+import TransactionType from '../../types/transactions'
+import TransactionService from '../../services/transactionService'
 
 export default function Profile() {
 
@@ -28,16 +29,19 @@ export default function Profile() {
 
   const [userProfile, setUserProfile] = useState<UserData>()
   const [userProjects, setUserProjects] = useState<Array<ProjectData> | []>()
+  const [backedProjects, setBackedProjects] = useState<Array<TransactionType> | []>()
 
   useEffect(() => {
     fetchUserAndProjects()
   }, [])
 
   const fetchUserAndProjects = async () => {
-    await UserService.getProfile(userId)
-      .then((response) => {setUserProfile(response.data)})
-      .then(() => ProjectService.getProjectsByUser(userId))
-      .then((response) => {setUserProjects(response.data)})
+    const response1 = await UserService.getProfile(userId)
+    setUserProfile(response1.data)
+    const response2 = await ProjectService.getProjectsByUser(userId)
+    setUserProjects(response2.data)
+    const response3 = await TransactionService.getProjectsBackedByUser(userId)
+    setBackedProjects(response3.data)
   } 
 
   const userBGColor: string = canEdit ? "#E9F3FF" : "white";
@@ -120,6 +124,22 @@ export default function Profile() {
 
           <Grid item>
             <Typography variant='h6'>Projects Backed</Typography>
+            {backedProjects && !backedProjects.length && (
+              <Typography variant='body2'> No backed projects yet! </Typography>
+            )}
+            <List sx={{ fontSize: 14}}>
+              {backedProjects &&
+                backedProjects.length > 0 &&
+                backedProjects.map((transaction) => {
+                  return (
+                    <ListItem dense key={transaction.projectId}>
+                      <Link to={`/projects/${transaction.projectId}`} className="internalLinks">
+                        {transaction.projectId}
+                      </Link>
+                    </ListItem>
+                  )
+                })}
+            </List>
           </Grid>
 
         </Grid>

@@ -17,9 +17,18 @@ async function createTransaction(transactiondata: TransactionType) {
     }
 }
 
+async function getProjectsBackedByUser(userId: string | undefined) {
+    try {
+        return await axiosInstance.get<Array<TransactionType>>(`/transaction/users/${userId}`)
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 const TransactionService = {
-    createTransaction
+    createTransaction,
+    getProjectsBackedByUser
 }
 
 export default TransactionService;
