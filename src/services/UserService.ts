@@ -23,11 +23,25 @@ async function updateProfile(data: UserData, userId: string | undefined) {
     }
 }
 
+async function updateAvatar(avatar: string , userId: string | undefined) {
+
+    try {
+        return await axiosInstance.patch<UserData>(`/users/${userId}/avatar`, avatar, {
+            headers: {
+                Authorization: `Bearer ${getTheCookie("accessToken")}`
+            }
+        })
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 
 const UserService = {
     getProfile,
-    updateProfile
+    updateProfile,
+    updateAvatar
 }
 
 export default UserService;

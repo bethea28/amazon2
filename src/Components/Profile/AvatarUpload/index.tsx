@@ -1,11 +1,11 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState, useContext } from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
 import { useDropzone } from 'react-dropzone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { uploadToS3 } from "../../../services/UploadService";
 import { UpdatetoDDB } from "../../../services/UploadtoDynaoDBService";
 import UserService from "../../../services/UserService";
-import UserData from '../../../types/User'
+import UserContext from '../../../context/user/UserContext'
 
 const dialogStyle = {
     backgroundColor: "#E9F3FF",
@@ -43,6 +43,8 @@ const completeBtnStyle = {
 export const RegisterImageIndex: FunctionComponent = () => {
     const [uploadedImage, setUploadedImage] = useState<string>('');
 
+    const { sessionId } = useContext(UserContext)
+
     const onDrop = async (files: File[]) => {
         const imageBlob = new Blob([files[0]], { type: files[0].type });
         setUploadedImage(URL.createObjectURL(imageBlob));
@@ -50,18 +52,15 @@ export const RegisterImageIndex: FunctionComponent = () => {
             file: files[0],
         }
 
-        const uploadedS3URL = await uploadToS3(data);
+        const uploadedS3URL : string = await uploadToS3(data);
         console.log('Uploaded image url..', uploadedS3URL);
 
-        const userData = {} as UserData;
-        userData.avatar = uploadedS3URL;
+        // const userData = {} as UserData;
+        // userData.avatar = uploadedS3URL;
 
+        UserService.updateAvatar(uploadedS3URL, sessionId);
 
-
-        // const currUserId = localStorage.getItem('userId');
-        // UserService.updateProfile(userData, '149bac07-2242-4226-b89a-3fd9bd449802');/
-
-        UpdatetoDDB(uploadedS3URL);
+        // UpdatetoDDB(uploadedS3URL);
 
     }
 

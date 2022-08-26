@@ -17,13 +17,13 @@ import UserData from '../../types/User'
 import ProjectService from '../../services/ProjectService'
 import ProjectData from '../../types/Project'
 import UserContext from '../../context/user/UserContext'
+// import image from '../../../public/black-profile-picture.webp'
 
 export default function Profile() {
 
   const { userId } = useParams()
 
   const { sessionId } = useContext(UserContext)
-
   const canEdit: boolean = userId === sessionId;
 
   const [userProfile, setUserProfile] = useState<UserData>()
@@ -40,7 +40,9 @@ export default function Profile() {
       .then((response) => {setUserProjects(response.data)})
   } 
 
-  const userBGColor = canEdit ? "#E9F3FF" : "white";
+  const userBGColor: string = canEdit ? "#E9F3FF" : "white";
+
+  const userAvatar: string = (userProfile && userProfile.avatar) ? userProfile.avatar : 'https://picsum.photos/400/300'
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
@@ -57,8 +59,9 @@ export default function Profile() {
           <Box sx={{ display: 'flex ' }}>
             <Grid marginLeft={2} sx={{ alignSelf: 'center'}}>
               <Avatar
-                alt='user'
                 variant='square'
+                src={userAvatar}
+                alt='User Avatar'
                 sx={{ width: 70, height: 70}}
               />
               <Link to={`/avatarUpload`} style={{fontSize: '12px'}} className="internalLinks">Edit avatar</Link>
