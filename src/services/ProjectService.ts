@@ -1,4 +1,5 @@
 import axiosInstance from '../apiConfig'
+import { ProjectMilestonesData } from '../types/Milestone';
 import ProjectData from "../types/Project"
 import { getTheCookie } from "../utils/cookies";
 
@@ -57,6 +58,14 @@ const updateProject = async (projectId: string, data: ProjectData) => {
   }
 };
 
+const updateProjectMilestone = async (projectId: any, data: ProjectMilestonesData) => {
+  try {
+    return await axiosInstance.patch<any>(`/projects/${projectId}/milestones`, data);
+  } catch(error){
+    throw error;
+  }
+}
+
 const removeProject = async (projectId: any) => {
   try {
     return await axiosInstance.delete<any>(`/projects/${projectId}`, {
@@ -84,6 +93,15 @@ const addLike = async (projectId: string) => {
   }
 };
 
+//*********Call to GET Newest Projects**** */
+const getNewProjects = async () => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>('/projects/newest');
+  } catch (error) {
+    throw error;
+  }
+};
+
 const ProjectService = {
   createProject,
   getProjectById,
@@ -93,7 +111,9 @@ const ProjectService = {
   updateProject,
   removeProject,
   findProjectByName,
-  addLike
+  updateProjectMilestone,
+  addLike,
+  getNewProjects
 };
 
 export default ProjectService;
