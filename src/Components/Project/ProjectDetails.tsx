@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
 import { useParams } from "react-router-dom";
@@ -13,11 +13,15 @@ import {
     Typography,
     Paper
 } from "@mui/material";
+import UserContext from "../../context/user/UserContext";
 
 const ProjectDetails = () => {
 
     const [currentProject, setCurrentProject] = useState<ProjectData>();
+
     const { projectId } = useParams();
+
+    const { user, sessionId } = useContext(UserContext);
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -32,9 +36,15 @@ const ProjectDetails = () => {
     }, [projectId])
 
     const likeProject = async () => {
-        return await projectService.addLike(projectId!);
-    };
 
+        if (user) {
+            user.id = sessionId
+        }
+        
+        let response = await projectService.addLike(projectId!, sessionId!);
+        setCurrentProject(response.data);
+    };
+    
     return (
         <Container maxWidth="lg">
             <Grid container spacing={6} justifyItems={"center"}>
