@@ -4,6 +4,7 @@ import ProjectCard from "../Project/ProjectCard";
 import { useNavigate } from 'react-router-dom';
 import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
+import TrendingProjects from './TrendingProjects';
 
 const Homepage = () => {
 
@@ -26,9 +27,9 @@ const Homepage = () => {
 
   let topThreeProjects;
   if (allProjects) {
-    topThreeProjects = allProjects.slice(0, 3);
+    topThreeProjects = allProjects.slice(0,3);
   }
-
+ 
   return (
     <>
       <Grid
@@ -48,7 +49,6 @@ const Homepage = () => {
         </Grid>
       </Grid>
 
-      <Grid>
         <Grid marginTop={16} marginBottom={2}>
           <Typography sx={{ fontWeight: "bold" }} variant='caption'>
             THE LATEST
@@ -71,34 +71,13 @@ const Homepage = () => {
             </Grid>
           )
         })}
+
+        <Grid>
+          {/* <Trending component here/>*/}
+        </Grid>
       </Grid>
         </Grid>
 
-        <Grid marginTop={16} marginBottom={2}>
-          <Typography sx={{ fontWeight: "bold" }} variant='caption'>
-            TRENDING
-          </Typography>
-        </Grid>
-
-        <Grid
-          container
-          sx={{
-            flexDirection: "row",
-          }}
-        >
-      <Grid container justifyContent='center' alignItems='center' marginTop={2}>
-      {topThreeProjects &&
-        topThreeProjects.length > 0 &&
-        topThreeProjects.map((project) => {
-          return (
-            <Grid key={project.projectId} marginBottom={2}>
-              <ProjectCard {...project} />
-            </Grid>
-          )
-        })}
-      </Grid>
-        </Grid>
-      </Grid>
     </>
   );
 };
