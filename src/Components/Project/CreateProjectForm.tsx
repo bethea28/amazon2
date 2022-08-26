@@ -1,4 +1,4 @@
-import React, { useContext, useState }  from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -35,9 +35,9 @@ export default function ProjectForm() {
         data.userId = sessionId
         data.username = user.username
       }
-  
+
       return await projectService.createProject(data).then(() => navigate(`/categories/${data.category}`))
-    } catch(error: any) {
+    } catch (error: any) {
 
       if (error) {
         if (error.response.status == 401) {
@@ -58,7 +58,7 @@ export default function ProjectForm() {
           Create New Project
         </Typography>
         <Grid container direction='column'>
-        {warning && <Alert severity="warning">{warning}</Alert>}
+          {warning && <Alert severity="warning">{warning}</Alert>}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Typography variant='h6' align='left' margin='dense'>
               Project Name
