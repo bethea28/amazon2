@@ -25,8 +25,8 @@ import AllProjects from "./Components/Discover/AllProjects";
 import About from "./Components/Footer/About";
 import PageNotFound from "./Components/PageNotFound";
 import Milestones from "./Components/Milestones/milestones";
-import FundingProgressInputView from "./Components/ProjectFundingInfo/fundingProgressbar";
 import ProjectFundingInfo from "./Components/ProjectFundingInfo/fundingCard";
+
 
 function App() {
   const [msgAlerts, setMsgAlerts] = useState<
@@ -63,7 +63,6 @@ function App() {
                 <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
-                <Route path='/transaction' element={<TransactionForm />} />
                 <Route path='/projects' element={<AllProjects />} />
                 <Route path='/projects/:projectId' element={<ProjectDetails />} />
                 <Route
@@ -75,6 +74,7 @@ function App() {
                   element={<ProjectsByCategories />}
                 />
                 <Route path='/milestones' element={<Milestones />} />
+                <Route path='/transaction' element={<TransactionForm/>} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<PageNotFound />} />
               </Routes>

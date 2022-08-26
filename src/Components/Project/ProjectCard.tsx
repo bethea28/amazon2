@@ -1,6 +1,6 @@
 import React from 'react'
 import ProjectData from '../../types/Project'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import {
   FavoriteBorderOutlined,
   MonetizationOnOutlined,
@@ -44,9 +44,11 @@ const ProjectCard = (data: ProjectData) => {
             </CardContent>
           </CardActionArea>
           <CardActions>
+          <NavLink to='/transaction' >
             <Button variant='outlined' size='small' color='primary'>
               Back
             </Button>
+          </NavLink>
             <IconButton>
               {/* funding component to be imported */}
               <MonetizationOnOutlined />
