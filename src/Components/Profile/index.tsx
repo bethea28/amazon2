@@ -36,12 +36,16 @@ export default function Profile() {
   }, [])
 
   const fetchUserAndProjects = async () => {
-    const userResponse = await UserService.getProfile(userId)
-    setUserProfile(userResponse.data)
+    const userResponse = UserService.getProfile(userId)
     const projectResponse = await ProjectService.getProjectsByUser(userId)
-    setUserProjects(projectResponse.data)
     const backedProjectsResponse = await TransactionService.getProjectsBackedByUser(userId)
-    setBackedProjects(backedProjectsResponse.data)
+
+    Promise.all([userResponse, projectResponse, backedProjectsResponse])
+      .then((values: any) => {
+        setUserProfile(values[0].data)
+        setUserProjects(values[1].data)
+        setBackedProjects(values[2].data)
+      })
   } 
 
   const userBGColor: string = canEdit ? "#E9F3FF" : "white";

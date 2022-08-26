@@ -42,13 +42,12 @@ export default function MyProjects() {
       <Grid container justifyContent='center' alignItems='center' marginTop={2}>
       {userProjects &&
         userProjects.length > 0 &&
-        userProjects.map((project) => {
-          return (
+        userProjects.map((project) => (
             <Grid key={project.projectId}>
               <ProjectCard {...project} />
             </Grid>
           )
-        })}
+        )}
       </Grid>
     </Grid>
   )

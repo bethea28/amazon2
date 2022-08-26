@@ -38,11 +38,13 @@ export default function ProfileForm() {
   }, [userId])
 
   const fetchUser = async () => {
-    await UserService.getProfile(userId).then((response) => {
+    const response = await UserService.getProfile(userId)
+    if (response.data) {
       setUserProfile(response.data)
       setInterests(response.data.interests)
-    })
+    }
   }
+  
   const {
     register,
     handleSubmit,

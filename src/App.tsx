@@ -1,10 +1,10 @@
 import React, { useState, Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserProvider from "./context/user/UserProvider";
-import NavigationBar from "./Components/Navigation/Navigation";
+import NavigationBar from "./Components/Navigation";
 import CommentForm from "./Components/Comments/CommentForm";
-import Homepage from "./Components/Homepage/Homepage";
-import Footer from "./Components/Footer/Footer";
+import Homepage from "./Components/Homepage";
+import Footer from "./Components/Footer";
 import ProjectImageIndex from "./Components/Project/CoverImageUpload/index";
 import RegisterImageIndex from "./Components/Profile/AvatarUpload/index";
 import AdditionalImageIndex from "./Components/Project/SecondaryImageUpload/index";
@@ -14,7 +14,7 @@ import Profile from "./Components/Profile";
 import ProfileForm from "./Components/Profile/ProfileForm";
 import AutoDismissAlert, {
   AutoDismissAlertProps,
-} from "./Components/core/AutoDismissAlert";
+} from "./utils/AutoDismissAlert";
 import { v4 as uuid } from "uuid";
 import { Box, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";

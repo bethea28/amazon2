@@ -46,24 +46,22 @@ export const RegisterImageIndex: FunctionComponent = () => {
 
     const [uploadedImage, setUploadedImage] = useState<string>('');
     const [warning, setWarning] = useState<string>()
-    const [S3URL, setS3URL] = useState<string>()
+    const [s3Url, setS3Url] = useState<string>()
 
     const { sessionId } = useContext(UserContext)
 
     const onDrop = async (files: File[]) => {
-        const imageBlob = new Blob([files[0]], { type: files[0].type });
-        
-        const data = {
-            file: files[0],
-        }
 
-        const fileType = data.file['type']
+        const file = files[0]
+        const imageBlob = new Blob([file], { type: file.type });
+
+        const fileType = file['type']
         const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jpg']
     
         if (validImageTypes.includes(fileType)) {
             setUploadedImage(URL.createObjectURL(imageBlob));
-            const uploadedS3URL = await uploadToS3(data);
-            setS3URL(uploadedS3URL)
+            const uploadedS3URL = await uploadToS3(file);
+            setS3Url(uploadedS3URL)
             console.log('Uploaded image url..', uploadedS3URL);
         } else {
             setWarning("Please upload a valid file type")
@@ -72,8 +70,8 @@ export const RegisterImageIndex: FunctionComponent = () => {
 
     const uploadUserAvatar = async() => {
         try {
-            if (S3URL) {
-                await UserService.updateAvatar(S3URL, sessionId);
+            if (s3Url) {
+                await UserService.updateAvatar(s3Url, sessionId);
                 toProfile()
             } else {
                 setWarning("Please select an image to upload")

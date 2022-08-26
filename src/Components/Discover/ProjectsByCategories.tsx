@@ -15,8 +15,10 @@ export default function ProjectsByCategories() {
   }, [projectCategory])
 
   const fetchProjects = async () => {
-    await ProjectService.getProjectsByCategory(projectCategory)
-    .then((response) => {setCategoryProjects(response.data)})
+    const response = await ProjectService.getProjectsByCategory(projectCategory)
+    if (response.data) {
+      setCategoryProjects(response.data)
+    }
   }
 
   return (
@@ -35,13 +37,12 @@ export default function ProjectsByCategories() {
       <Grid container justifyContent='center' alignItems='center' marginTop={2}>
       {categoryProjects &&
         categoryProjects.length > 0 &&
-        categoryProjects.map((project) => {
-          return (
+        categoryProjects.map((project) => (
             <Grid key={project.projectId}>
               <ProjectCard {...project} />
             </Grid>
           )
-        })}
+        )}
       </Grid>
     </Grid>
   )
