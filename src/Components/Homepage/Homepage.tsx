@@ -8,6 +8,7 @@ import Carousel from "react-material-ui-carousel";
 import NewProjects from "./NewProjects";
 import TrendingProjects from "./TrendingProjects";
 
+
 const Homepage = () => {
   const navigate = useNavigate();
 
