@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
 import { useParams } from "react-router-dom";
@@ -13,11 +13,15 @@ import {
     Typography,
     Paper
 } from "@mui/material";
+import UserContext from "../../context/user/UserContext";
 
 const ProjectDetails = () => {
 
     const [currentProject, setCurrentProject] = useState<ProjectData>();
+
     const { projectId } = useParams();
+
+    const { user, sessionId } = useContext(UserContext);
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -32,7 +36,13 @@ const ProjectDetails = () => {
     }, [projectId])
 
     const likeProject = async () => {
-        return await projectService.addLike(projectId!);
+
+        if (user) {
+            user.id = sessionId
+        }
+        
+        let response = await projectService.addLike(projectId!, sessionId!);
+        setCurrentProject(response.data);
     };
 
     return (
@@ -74,7 +84,7 @@ const ProjectDetails = () => {
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Date
-                                        {currentProject && currentProject.targetFundingDate.toDateString()}
+                                        {currentProject && currentProject.targetFundingDate.toString()}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -87,7 +97,7 @@ const ProjectDetails = () => {
                                     Like
                                 </Button>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    {currentProject && (currentProject.likedBy == null ? 0 : currentProject.likedBy.length)} likes
+                                    {currentProject && currentProject.likedCount} likes
                                 </Typography>
                             </CardActions>
                         </Card>
