@@ -14,7 +14,7 @@ import Profile from "./Components/Profile";
 import ProfileForm from "./Components/Profile/ProfileForm";
 import AutoDismissAlert, {
   AutoDismissAlertProps,
-} from "./utils/AutoDismissAlert";
+} from "./utils/Auth Alerts/AutoDismissAlert";
 import { v4 as uuid } from "uuid";
 import { Box, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
