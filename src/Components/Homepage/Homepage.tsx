@@ -29,11 +29,7 @@ const Homepage = () => {
     });
   };
 
-  let topThreeProjects;
-  if (allProjects) {
-    topThreeProjects = allProjects.slice(0,3);
-  }
- 
+  
   return (
     <>
       <Grid
@@ -55,44 +51,13 @@ const Homepage = () => {
         </Grid>
       </Grid>
 
-<<<<<<< HEAD
       <Grid>
         <NewProjects />
       </Grid>
       <Grid>
         <TrendingProjects />
       </Grid>
-=======
-        <Grid marginTop={16} marginBottom={2}>
-          <Typography sx={{ fontWeight: "bold" }} variant='caption'>
-            THE LATEST
-          </Typography>
-        </Grid>
 
-        <Grid
-          container
-          sx={{
-            flexDirection: "row",
-          }}
-        >
-      <Grid container justifyContent='center' alignItems='center' marginTop={2}>
-      {topThreeProjects &&
-        topThreeProjects.length > 0 &&
-        topThreeProjects.map((project) => {
-          return (
-            <Grid key={project.projectId} marginBottom={2}>
-              <ProjectCard {...project} />
-            </Grid>
-          )
-        })}
-
-        <Grid>
-          {/* <Trending component here/>*/}
-        </Grid>
-      </Grid>
-        </Grid>
-
->>>>>>> 8a766b871e30ccd6b867db27063cd0f4ff85e6d0
     </>
   );
 };
