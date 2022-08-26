@@ -5,7 +5,7 @@ import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
 import Carousel from 'react-material-ui-carousel';
 import Settings, { DefaultSettingsT, SettingsT } from '../../CarouselSettings/Settings'
-const NewProjects = () => {
+const NewProjects = () => { 
 
   const [settings, setSettings] = useState<SettingsT>(DefaultSettingsT);
   
