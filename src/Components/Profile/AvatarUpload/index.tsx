@@ -1,11 +1,12 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
-import { Grid, Typography, Box, Button } from "@mui/material";
+import React, { FunctionComponent, useEffect, useState, useContext } from "react";
+import { useNavigate } from 'react-router-dom'
+import { Grid, Typography, Box, Button, Alert } from "@mui/material";
 import { useDropzone } from 'react-dropzone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { uploadToS3 } from "../../../services/UploadService";
 import { UpdatetoDDB } from "../../../services/UploadtoDynaoDBService";
 import UserService from "../../../services/UserService";
-import UserData from '../../../types/User'
+import UserContext from '../../../context/user/UserContext'
 
 const dialogStyle = {
     backgroundColor: "#E9F3FF",
@@ -41,29 +42,62 @@ const completeBtnStyle = {
 }
 
 export const RegisterImageIndex: FunctionComponent = () => {
+    const navigate = useNavigate()
+
     const [uploadedImage, setUploadedImage] = useState<string>('');
+    const [warning, setWarning] = useState<string>()
+    const [s3Url, setS3Url] = useState<string>()
+
+    const { sessionId } = useContext(UserContext)
 
     const onDrop = async (files: File[]) => {
-        const imageBlob = new Blob([files[0]], { type: files[0].type });
-        setUploadedImage(URL.createObjectURL(imageBlob));
-        const data = {
-            file: files[0],
+
+        const file = files[0]
+        const imageBlob = new Blob([file], { type: file.type });
+
+        const fileType = file['type']
+        const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jpg']
+    
+        if (validImageTypes.includes(fileType)) {
+            setUploadedImage(URL.createObjectURL(imageBlob));
+            const uploadedS3URL = await uploadToS3(file);
+            setS3Url(uploadedS3URL)
+            console.log('Uploaded image url..', uploadedS3URL);
+        } else {
+            setWarning("Please upload a valid file type")
         }
-
-        const uploadedS3URL = await uploadToS3(data);
-        console.log('Uploaded image url..', uploadedS3URL);
-
-        const userData = {} as UserData;
-        userData.avatar = uploadedS3URL;
-
-
-
-        // const currUserId = localStorage.getItem('userId');
-        // UserService.updateProfile(userData, '149bac07-2242-4226-b89a-3fd9bd449802');/
-
-        UpdatetoDDB(uploadedS3URL);
-
     }
+
+    const uploadUserAvatar = async() => {
+        try {
+            if (s3Url) {
+                await UserService.updateAvatar(s3Url, sessionId);
+                toProfile()
+            } else {
+                setWarning("Please select an image to upload")
+            }
+        } catch (error: any) {
+            if (error) {
+                if (error.response.status == 401) {
+                    setWarning("You are not authorised. Please login to upload avatar.")
+                } else {
+                    setWarning("Sorry, the server encountered an unexpected condition that prevented it from fulfilling the request")
+                }
+            }
+          }
+    }
+
+    const toProfile = () => {
+        if (sessionId) {
+            navigate(`/profile/${sessionId}`)
+        } else {
+            navigate(`/*`)
+        }
+    }
+
+    useEffect(() => {
+        setWarning("")
+      }, [uploadedImage])
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
@@ -77,6 +111,7 @@ export const RegisterImageIndex: FunctionComponent = () => {
                     <Grid item xs={12}>
                         <Typography variant="body1">Upload Avatar</Typography>
                     </Grid>
+                    {warning && <Alert severity="warning">{warning}</Alert>}
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
@@ -109,12 +144,12 @@ export const RegisterImageIndex: FunctionComponent = () => {
                     <Grid item xs={12}>
                         <Grid container justifyContent="space-between" pt={6} alignItems="center">
                             <Grid item>
-                                <Button sx={backBtnStyle} startIcon={<KeyboardArrowLeftIcon />}>
+                                <Button sx={backBtnStyle} onClick={toProfile} startIcon={<KeyboardArrowLeftIcon/>}>
                                     Go Back
                                 </Button>
                             </Grid>
                             <Grid item>
-                                <Button disableElevation variant="contained" sx={completeBtnStyle}>
+                                <Button disableElevation variant="contained" onClick={uploadUserAvatar} sx={completeBtnStyle} >
                                     Complete
                                 </Button>
                             </Grid>
