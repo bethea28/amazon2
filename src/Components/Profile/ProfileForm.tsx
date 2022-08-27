@@ -38,11 +38,13 @@ export default function ProfileForm() {
   }, [userId])
 
   const fetchUser = async () => {
-    await UserService.getProfile(userId).then((response) => {
+    const response = await UserService.getProfile(userId)
+    if (response.data) {
       setUserProfile(response.data)
       setInterests(response.data.interests)
-    })
+    }
   }
+  
   const {
     register,
     handleSubmit,
@@ -180,11 +182,11 @@ export default function ProfileForm() {
             </Card>
           </Grid>
           <Grid item alignSelf='center'>
-            <Button variant='contained' onClick={onSubmit} >
-              Save Changes
-            </Button>
-            <Button variant='outlined' onClick={toProfile} style={{ marginLeft: 10 }}>
+            <Button variant='outlined' onClick={toProfile}>
               Back to Profile
+            </Button>
+            <Button variant='contained' onClick={onSubmit} style={{ marginLeft: 15 }}>
+              Save Changes
             </Button>
           </Grid>
         </Grid>

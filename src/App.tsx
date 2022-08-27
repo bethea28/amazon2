@@ -1,10 +1,10 @@
 import React, { useState, Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserProvider from "./context/user/UserProvider";
-import NavigationBar from "./Components/Navigation/Navigation";
+import NavigationBar from "./Components/Navigation";
 import CommentForm from "./Components/Comments/CommentForm";
-import Homepage from "./Components/Homepage/Homepage";
-import Footer from "./Components/Footer/Footer";
+import Homepage from "./Components/Homepage";
+import Footer from "./Components/Footer";
 import ProjectImageIndex from "./Components/Project/CoverImageUpload/index";
 import RegisterImageIndex from "./Components/Profile/AvatarUpload/index";
 import AdditionalImageIndex from "./Components/Project/SecondaryImageUpload/index";
@@ -14,7 +14,7 @@ import Profile from "./Components/Profile";
 import ProfileForm from "./Components/Profile/ProfileForm";
 import AutoDismissAlert, {
   AutoDismissAlertProps,
-} from "./Components/core/AutoDismissAlert";
+} from "./utils/Auth Alerts/AutoDismissAlert";
 import { v4 as uuid } from "uuid";
 import { Box, Grid } from "@mui/material";
 import CreateProjectForm from "./Components/Project/CreateProjectForm";
@@ -24,6 +24,7 @@ import TransactionForm from "./Components/Transactions/Transactions";
 import AllProjects from "./Components/Discover/AllProjects";
 import About from "./Components/Footer/About";
 import PageNotFound from "./Components/PageNotFound";
+import MyProjects from "./Components/Profile/MyProjects";
 import Milestones from "./Components/Milestones/milestones";
 import ProjectFundingInfo from "./Components/ProjectFundingInfo/fundingCard";
 
@@ -73,8 +74,12 @@ function App() {
                   path='/categories/:projectCategory'
                   element={<ProjectsByCategories />}
                 />
+                <Route
+                  path='/users/:userId/projects'
+                  element={<MyProjects />}
+                />
+                <Route path='/projects/:projectId/transaction' element={<TransactionForm />} />
                 <Route path='/milestones' element={<Milestones />} />
-                <Route path='/transaction' element={<TransactionForm/>} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<PageNotFound />} />
               </Routes>

@@ -11,7 +11,26 @@ const UserProvider = ({ children }: any) => {
     const [sessionId, setSessionId] = useState<string | undefined>()
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>()
 
+    const fetchUser = async (userId: string | undefined) => {
+        const response = await UserService.getProfile(userId)
+        if (response) {
+            setUser(response.data)
+        }
+    }
+
+    const fetchDataOnRefresh = async (userId: string) => {
+        await fetchUser(userId)
+        setSessionId(userId)
+        setIsLoggedIn(true)
+        tokenInCookies()
+    }
     
+    useEffect(() => {
+        const userId = getTheCookie("userId")
+        if (userId) {
+            fetchDataOnRefresh(userId)
+        }   
+    }, [])
 
     const tokenInCookies = () => {
         if (getTheCookie("accessToken")) {
@@ -20,13 +39,6 @@ const UserProvider = ({ children }: any) => {
             setIsLoggedIn(false)
         }
     }
-
-    useEffect(() => {
-        const userId = getTheCookie("userId")
-        if (userId) {
-            fetchDataOnRefresh(userId)
-        }   
-    }, [])
 
     const loginUser = async (response: TokenData) => {
         setSessionId(response.idUser)
@@ -41,17 +53,6 @@ const UserProvider = ({ children }: any) => {
         setUser(undefined)
         removeTheCookie("accessToken")
         removeTheCookie("userId")
-        tokenInCookies()
-    }
-
-    const fetchUser = async (userId: string | undefined) => {
-        await UserService.getProfile(userId)
-          .then((response) => setUser(response.data))}
-
-    const fetchDataOnRefresh = async (userId: string) => {
-        await fetchUser(userId)
-        setSessionId(userId)
-        setIsLoggedIn(true)
         tokenInCookies()
     }
 
