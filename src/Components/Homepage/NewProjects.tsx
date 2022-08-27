@@ -4,7 +4,7 @@ import ProjectCard from "../Project/ProjectCard";
 import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
 import Carousel from 'react-material-ui-carousel';
-import Settings, { DefaultSettingsT, SettingsT } from '../../CarouselSettings/Settings'
+import Settings, { DefaultSettingsT, SettingsT } from '../../utils/CarouselSettings/Settings'
 const NewProjects = () => { 
 
   const [settings, setSettings] = useState<SettingsT>(DefaultSettingsT);
