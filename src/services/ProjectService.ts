@@ -76,9 +76,9 @@ const findProjectByName = async (name: string) => {
   }
 };
 
-const addLike = async (projectId: string, userId: string) => {
+const addLike = async (projectId: string) => {
   try {
-    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`, userId, {
+    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`, {}, {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
       }      
