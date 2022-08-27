@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Box, Card } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Box, Card, TextField } from '@mui/material';
 import ProjectService from '../../services/ProjectService';
 import {ProjectMilestonesData} from '../../types/Milestone';
 import Milestone from './milestone';
@@ -21,8 +21,8 @@ export default function Milestones(){
       }));
     
     /*sets state for milestone array based on user input from select dropdown */
-    const handleChange = (event: SelectChangeEvent<number>) => {
-        setMilestones(Array(event.target.value as number).fill({
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setMilestones(Array(Number(event.target.value)).fill({
             name: '',
             description: '',
             amount: 0,
@@ -44,22 +44,25 @@ export default function Milestones(){
     }
 
     return(
+        <Box  component="form"
+        sx={{
+            '& .MuiTextField-root': { m: 1, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off">
         <Card>
-        <Box sx={{
-            width: 300,
-            height:200}}>
-            <FormControl fullWidth>
-                <InputLabel>Define Number of Project Milestones</InputLabel>
-                <Select
-                    value = {milestones.length}
-                    onChange ={handleChange}
+            <FormControl>
+                <TextField
+                select
+                label = "select"
+                value = {milestones.length}
+                onChange ={handleChange}
+                helperText = "Please select the number of Funding Milestones for your Project."
                 >
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem>
-                </Select>
-            </FormControl>
-        </Box>
+                </TextField>
         <form onSubmit={handleSubmit(onsubmit)}>
         <label> Milestones</label>
         {milestones.map((milestone, index) => {
@@ -73,6 +76,8 @@ export default function Milestones(){
                             />)})}
         <input type="submit" value="Submit" />
         </form>
+        </FormControl>
         </Card>
+        </Box>
     );
 }
