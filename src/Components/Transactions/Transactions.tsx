@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { useParams } from 'react-router-dom'
 import {
   Grid,
   Button,
@@ -11,28 +12,21 @@ import {
   Alert,
   AlertTitle,
   Dialog,
+  TextField,
 } from '@mui/material'
 import { useForm, Controller, useFormContext } from 'react-hook-form'
 import TransactionService from '../../services/transactionService'
 import UserContext from '../../context/user/UserContext'
+import { PaymentInput } from '../../types/transactions'
 
-interface PaymentInput {
-  amount: number
-  firstName: string
-  lastName: string
-  creditNumber: string
-  expDate: string
-  userId?: string
-  projectId: string
-  date?: Date
-  status?: string
-}
 
 export default function TrasactionForm() {
   //PM to be added: projectIdInput: string
 
+  const { projectId } = useParams()
+
   //CONTROL: pop up dialog
-  const { control, handleSubmit } = useForm<PaymentInput>()
+  const { control, handleSubmit, formState: { errors } } = useForm<PaymentInput>()
   const [open, setOpen] = React.useState(false)
   const handleClose = () => {
     setOpen(false)
@@ -46,7 +40,7 @@ export default function TrasactionForm() {
   const onSubmit = async (data: PaymentInput) => {
     //Open Pop up Dialog display Transaction Result
     setOpen(true)
-    data.projectId = 'hello'
+    data.projectId = projectId
     data.userId = sessionId
 
     // Back End points to deal with: /data.date = new Date; data.status = 'COMPLETE';
@@ -59,6 +53,15 @@ export default function TrasactionForm() {
       setStatus('ERROR')
     }
   }
+  
+  let regexpExpiry = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/
+
+  const validateExpiryDate= (value: string) => {
+    if (!value.match(regexpExpiry)) {
+      return "Invalid expiry credit card date format"
+    }
+  }
+
   return (
     <Grid
       container
@@ -74,81 +77,111 @@ export default function TrasactionForm() {
               <Typography gutterBottom variant='h5' component='div'>
                 Enter a Pledge Amount
               </Typography>
-              <Typography variant='body2' color='text.secondary'>
-                {' '}
-                Pledge Amount{' '}
-              </Typography>
               <Controller
                 render={({ field }) => (
-                  <Input
+                  <TextField
                     {...field}
+                    variant='outlined'
+                    label='Pledge Amount ($)'
                     onChange={(e) => field.onChange(e.target.value)}
+                    type='number'
+                    margin='dense'
+                    error={errors["amount"] !== undefined}
+                    helperText={errors.amount ? errors.amount.message : null}
+                    fullWidth
                   />
                 )}
                 name='amount'
+                rules={{ required: "Amount is required", 
+                          min: {
+                            value: 1,
+                            message: 'Amount cannot be less than 1',
+                          } }}
                 control={control}
                 defaultValue={0}
+                
               />
-              <Typography gutterBottom variant='h6' component='div'>
+              <Typography variant='h6' component='div' marginTop='15px'>
                 Card Information
-              </Typography>
-              <Typography variant='body2' color='text.secondary'>
-                {' '}
-                First Name{' '}
               </Typography>
               <Controller
                 render={({ field }) => (
-                  <Input
+                  <TextField
                     {...field}
+                    variant='outlined'
+                    label='First Name'
                     onChange={(e) => field.onChange(e.target.value)}
+                    margin='dense'
+                    error={errors["firstName"] !== undefined}
+                    helperText={errors.firstName ? errors.firstName.message : null}
+                    fullWidth
                   />
                 )}
                 name='firstName'
+                rules={{ required: "First Name is required" }}
                 control={control}
                 defaultValue=''
               />
-              <Typography variant='body2' color='text.secondary'>
-                {' '}
-                Last Name{' '}
-              </Typography>
               <Controller
                 render={({ field }) => (
-                  <Input
+                  <TextField
                     {...field}
+                    variant='outlined'
+                    label='Last Name'
                     onChange={(e) => field.onChange(e.target.value)}
+                    margin='dense'
+                    error={errors["lastName"] !== undefined}
+                    helperText={errors.lastName ? errors.lastName.message : null}
+                    fullWidth
                   />
                 )}
                 name='lastName'
+                rules={{ required: "Last Name is required" }}
                 control={control}
                 defaultValue=''
               />
-              <Typography variant='body2' color='text.secondary'>
-                {' '}
-                Credit Card Number{' '}
-              </Typography>
               <Controller
                 render={({ field }) => (
-                  <Input
+                  <TextField
                     {...field}
+                    variant='outlined'
+                    label='Credit Card Number'
                     onChange={(e) => field.onChange(e.target.value)}
+                    type='number'
+                    margin='dense'
+                    error={errors["creditNumber"] !== undefined}
+                    helperText={errors.creditNumber ? errors.creditNumber.message : null}
+                    fullWidth
                   />
                 )}
                 name='creditNumber'
+                rules={{ required: "Credit Card Number is required",
+                        minLength: {
+                          value: 13,
+                          message: 'The field length is invalid for Card Number',
+                        },
+                        maxLength: {
+                          value: 16,
+                          message: 'The field length is invalid for Card Number',
+                        } }}
                 control={control}
                 defaultValue=''
               />
-              <Typography variant='body2' color='text.secondary'>
-                {' '}
-                Expiration Date{' '}
-              </Typography>
               <Controller
                 render={({ field }) => (
-                  <Input
+                  <TextField
                     {...field}
+                    variant='outlined'
+                    label='Expiration Date (MM/YY)'
                     onChange={(e) => field.onChange(e.target.value)}
+                    margin='dense'
+                    error={errors["expDate"] !== undefined}
+                    helperText={errors.expDate ? errors.expDate.message : null}
+                    fullWidth
                   />
                 )}
                 name='expDate'
+                rules={{ required: "Expiration Date is required", validate: value => validateExpiryDate(value) }}
                 control={control}
                 defaultValue=''
               />

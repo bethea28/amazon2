@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { ErrorMessage } from '@hookform/error-message'
 import { useNavigate, useParams } from 'react-router-dom'
 import UserData, { Interests } from '../../types/User'
 import UserContext from '../../context/user/UserContext'
@@ -15,7 +14,8 @@ import {
   FormControlLabel,
   Button,
   Typography,
-  Card
+  Card,
+  Alert
 } from '@mui/material'
 import UserService from '../../services/UserService'
 import PageNotFound from '../PageNotFound'
@@ -29,6 +29,7 @@ export default function ProfileForm() {
 
   const [userProfile, setUserProfile] = useState<UserData>()
   const [interests, setInterests] = useState<Interests>({})
+  const [warning, setWarning] = useState<string>("")
 
   const { sessionId } = useContext(UserContext)
 
@@ -37,19 +38,21 @@ export default function ProfileForm() {
   }, [userId])
 
   const fetchUser = async () => {
-    await UserService.getProfile(userId).then((response) => {
+    const response = await UserService.getProfile(userId)
+    if (response.data) {
       setUserProfile(response.data)
       setInterests(response.data.interests)
-    })
+    }
   }
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<UserData>()
 
-  /** handles the submission of the changes on user's profile 
-    * @param data   The updated user's name, bio and interests from the form 
+  /** handles the submission of the changes on user's profile
+    * @param data   The updated user's name, bio and interests from the form
                     which has been obtained by using "register" of the useForm hook
     * @return       Sends HTTP request to Update the user's profile using the updated @param data and the @param userId to be updated
                     Redirects to profile page on successful update
@@ -61,8 +64,16 @@ export default function ProfileForm() {
       return await UserService.updateProfile(data, userId).then(() => {
         toProfile()
       })
-    } catch (e) {
-      throw e
+    } catch (error: any) {
+      if (error) {
+        if (error.response.status == 401) {
+          setWarning("You are not authorised")
+        }
+
+        else {
+          setWarning("Sorry, the server encountered an unexpected condition that prevented it from fulfilling the request")
+        }
+      }
     }
   })
 
@@ -98,25 +109,21 @@ export default function ProfileForm() {
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
       <Paper elevation={3} style={{ padding: 20, minWidth: 350 }}>
-      <Grid margin={2}>
-        <Typography variant='h5'>
-          Edit Profile
-        </Typography>
-      </Grid>
+        <Grid margin={2}>
+          <Typography variant='h5'>
+            Edit Profile
+          </Typography>
+        </Grid>
         <Grid container direction='column' spacing={3} >
+        {warning && <Alert severity="warning">{warning}</Alert>}
           <Grid item>
-            <ErrorMessage
-              errors={errors}
-              name='name'
-              render={({ message }) => <Typography style={{color: 'red'}}> {message}</Typography>}
-            />
             {userProfile && (
               <TextField
                 {...register('name', {
                   required: 'Name is required',
                   minLength: {
                     value: 3,
-                    message: 'Name should be at least 3 characters',
+                    message: 'Name must have at least 3 characters',
                   },
                 })}
                 variant='outlined'
@@ -126,7 +133,10 @@ export default function ProfileForm() {
                 margin='dense'
                 defaultValue={userProfile.name}
                 fullWidth
+                error={errors["name"] !== undefined}
+                helperText={errors.name ? errors.name.message : null}
               />
+              
             )}
           </Grid>
           <Grid item>
@@ -144,39 +154,39 @@ export default function ProfileForm() {
             )}
           </Grid>
           <Grid item>
-          <Typography variant='body2' sx={{color: 'rgb(133, 133, 133)'}}>Interests</Typography>
-          <Card variant='outlined' style={{padding: 15}}>
-            <FormGroup>
-              {userProfile &&
-                Object.entries(userProfile.interests).map(
-                  ([field, isInterested]) => {
-                    return (
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            defaultChecked={isInterested}
-                            {...register('interests')}
-                            name={field}
-                            key={field}
-                            value={field}
-                            onChange={handleChange}
-                          />
-                        }
-                        label={field}
-                        key={field}
-                      />
-                    )
-                  }
-                )}
-            </FormGroup>
+            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Interests</Typography>
+            <Card variant='outlined' style={{ padding: 15 }}>
+              <FormGroup>
+                {userProfile &&
+                  Object.entries(userProfile.interests).map(
+                    ([field, isInterested]) => {
+                      return (
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              defaultChecked={isInterested}
+                              {...register('interests')}
+                              name={field}
+                              key={field}
+                              value={field}
+                              onChange={handleChange}
+                            />
+                          }
+                          label={field}
+                          key={field}
+                        />
+                      )
+                    }
+                  )}
+              </FormGroup>
             </Card>
           </Grid>
           <Grid item alignSelf='center'>
-            <Button variant='contained' onClick={onSubmit} >
-              Save Changes
-            </Button>
-            <Button variant='outlined' onClick={toProfile} style={{marginLeft: 10}}>
+            <Button variant='outlined' onClick={toProfile}>
               Back to Profile
+            </Button>
+            <Button variant='contained' onClick={onSubmit} style={{ marginLeft: 15 }}>
+              Save Changes
             </Button>
           </Grid>
         </Grid>
