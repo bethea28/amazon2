@@ -16,8 +16,8 @@ import {
 } from '@mui/material'
 import { useForm, Controller, useFormContext } from 'react-hook-form'
 import UserContext from '../../context/user/UserContext'
-import TransactionService from '../../services/TransactionServiceCall'
-import { PaymentInput } from '../../types/transactions'
+import { PaymentInput } from '../../types/Transactions'
+import TransactionService from '../../services/TransactionService'
 
 
 export default function TrasactionForm() {

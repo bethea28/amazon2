@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -79,10 +79,12 @@ const ProjectDetails = () => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
+                            <NavLink to={`/projects/${projectId}/transaction`}  >
                                 <Button variant='outlined' size="small" color="primary">
                                     {/* funding component to be imported */}
                                     Back this project
                                 </Button>
+                            </NavLink>
                                 <Button type="submit" onClick={likeProject} variant='outlined' size="small">
                                     Like
                                 </Button>
