@@ -52,91 +52,113 @@ export const RegisterImageIndex: FunctionComponent = () => {
 
     const onDrop = async (files: File[]) => {
 
-        const uploadedS3URL = await uploadToS3(data);
-        console.log('Uploaded image url..', uploadedS3URL);
+        const file = files[0]
+        const imageBlob = new Blob([file], { type: file.type });
 
-        const userData = {} as UserData;
-        userData.avatar = uploadedS3URL;
+        const fileType = file['type']
+        const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jpg']
 
+        if (validImageTypes.includes(fileType)) {
+            setUploadedImage(URL.createObjectURL(imageBlob));
+            const uploadedS3URL = await uploadToS3(file);
+            setS3Url(uploadedS3URL)
+            console.log('Uploaded image url..', uploadedS3URL);
+        } else {
+            setWarning("Please upload a valid file type")
+        }
+    }
 
-
-        // const currUserId = localStorage.getItem('userId');
-        // UserService.updateProfile(userData, '149bac07-2242-4226-b89a-3fd9bd449802');/
-
-        UpdatetoDDB(uploadedS3URL);
-
-        const toProfile = () => {
-            if (sessionId) {
-                navigate(`/profile/${sessionId}`)
+    const uploadUserAvatar = async () => {
+        try {
+            if (s3Url) {
+                await UserService.updateAvatar(s3Url, sessionId);
+                toProfile()
             } else {
-                navigate(`/*`)
+                setWarning("Please select an image to upload")
+            }
+        } catch (error: any) {
+            if (error) {
+                if (error.response.status == 401) {
+                    setWarning("You are not authorized. Please login to upload avatar.")
+                } else {
+                    setWarning("Sorry, the server encountered an unexpected condition that prevented it from fulfilling the request")
+                }
             }
         }
+    }
 
-        useEffect(() => {
-            setWarning("")
-        }, [uploadedImage])
+    const toProfile = () => {
+        if (sessionId) {
+            navigate(`/profile/${sessionId}`)
+        } else {
+            navigate(`/*`)
+        }
+    }
 
-        const { getRootProps, getInputProps } = useDropzone({ onDrop })
+    useEffect(() => {
+        setWarning("")
+    }, [uploadedImage])
 
-        return (
-            <Grid container p={2} justifyContent="center">
-                <Grid item xs={12} sm={5} lg={4} sx={dialogStyle} p={2}>
-                    <Grid container gap={2}>
-                        <Grid item xs={12}>
-                            <Typography variant="h6">Register</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant="body1">Upload Avatar</Typography>
-                        </Grid>
-                        {warning && <Alert severity="warning">{warning}</Alert>}
-                        <Grid item xs={12}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={6}>
-                                    {!uploadedImage ? <Box sx={imagePlaceholder} /> :
-                                        <Box sx={imageStyle} component="img" alt="image-placeholder" src={uploadedImage} />}
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Grid container spacing={1}>
-                                        <Grid item xs={12} {...getRootProps()}>
-                                            <input {...getInputProps()} />
-                                            <Button
-                                                sx={uploadBtnStyle}
-                                                onClick={() => onDrop}
-                                                disableElevation
-                                                variant="outlined"
-                                                fullWidth
-                                            >
-                                                Upload Image
-                                            </Button>
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <Typography variant="body2">
-                                                Format must be JPG or PNG and smaller than 1 MB
-                                            </Typography>
-                                        </Grid>
+    const { getRootProps, getInputProps } = useDropzone({ onDrop })
+
+    return (
+        <Grid container p={2} justifyContent="center">
+            <Grid item xs={12} sm={5} lg={4} sx={dialogStyle} p={2}>
+                <Grid container gap={2}>
+                    <Grid item xs={12}>
+                        <Typography variant="h6">Register</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="body1">Upload Avatar</Typography>
+                    </Grid>
+                    {warning && <Alert severity="warning">{warning}</Alert>}
+                    <Grid item xs={12}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                {!uploadedImage ? <Box sx={imagePlaceholder} /> :
+                                    <Box sx={imageStyle} component="img" alt="image-placeholder" src={uploadedImage} />}
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={12} {...getRootProps()}>
+                                        <input {...getInputProps()} />
+                                        <Button
+                                            sx={uploadBtnStyle}
+                                            onClick={() => onDrop}
+                                            disableElevation
+                                            variant="outlined"
+                                            fullWidth
+                                        >
+                                            Upload Image
+                                        </Button>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography variant="body2">
+                                            Format must be JPG or PNG and smaller than 1 MB
+                                        </Typography>
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Grid container justifyContent="space-between" pt={6} alignItems="center">
-                                <Grid item>
-                                    <Button sx={backBtnStyle} onClick={toProfile} startIcon={<KeyboardArrowLeftIcon />}>
-                                        Go Back
-                                    </Button>
-                                </Grid>
-                                <Grid item>
-                                    <Button disableElevation variant="contained" onClick={uploadUserAvatar} sx={completeBtnStyle} >
-                                        Complete
-                                    </Button>
-                                </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Grid container justifyContent="space-between" pt={6} alignItems="center">
+                            <Grid item>
+                                <Button sx={backBtnStyle} onClick={toProfile} startIcon={<KeyboardArrowLeftIcon />}>
+                                    Go Back
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button disableElevation variant="contained" onClick={uploadUserAvatar} sx={completeBtnStyle} >
+                                    Complete
+                                </Button>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        );
-    };
+        </Grid>
+    );
+};
 
-    export default RegisterImageIndex
+export default RegisterImageIndex
