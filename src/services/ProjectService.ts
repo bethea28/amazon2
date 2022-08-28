@@ -1,15 +1,16 @@
-import axiosInstance from '../apiConfig'
+import axiosInstance from '../apiConfig';
 import { ProjectMilestonesData } from '../types/Milestone';
-import ProjectData from "../types/Project"
-import { getTheCookie } from "../utils/cookies";
+import ProjectData from '../types/Project';
+import { getTheCookie } from '../utils/cookies';
 
 const createProject = async (data: ProjectData) => {
   try {
     return await axiosInstance.post<ProjectData>('/projects', data, {
       headers: {
-        Authorization: `Bearer ${getTheCookie("accessToken")}`
-      }
-  })} catch (error) {
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
+    });
+  } catch (error) {
     throw error;
   }
 };
@@ -58,9 +59,10 @@ const updateProject = async (projectId: string, data: ProjectData) => {
   try {
     return await axiosInstance.put<ProjectData>(`/projects/${projectId}`, data, {
       headers: {
-        Authorization: `Bearer ${getTheCookie("accessToken")}`
-      }
-  })} catch (error) {
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
+    });
+  } catch (error) {
     throw error;
   }
 };
@@ -68,18 +70,19 @@ const updateProject = async (projectId: string, data: ProjectData) => {
 const updateProjectMilestone = async (projectId: any, data: ProjectMilestonesData) => {
   try {
     return await axiosInstance.patch<any>(`/projects/${projectId}/milestones`, data);
-  } catch(error){
+  } catch (error) {
     throw error;
   }
-}
+};
 
 const removeProject = async (projectId: string) => {
   try {
     return await axiosInstance.delete<any>(`/projects/${projectId}`, {
       headers: {
-        Authorization: `Bearer ${getTheCookie("accessToken")}`
-      }
-  })} catch (error) {
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
+    });
+  } catch (error) {
     throw error;
   }
 };
@@ -109,6 +112,22 @@ const getNewProjects = async () => {
   }
 };
 
+async function ProjectImages(avatar: array | undefined, projectId: string | undefined) {
+  try {
+    return await axiosInstance.patch<UserData>(`/projects/${projectId}/avatar`, avatar, {
+      headers: {
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
+    });
+
+    // 1 - change avatar after I create the service on the BE
+    // 2 - figure out what to use instead of UserData
+    // 3 - figure out what is needed for authorization
+  } catch (error) {
+    throw error;
+  }
+}
+
 const ProjectService = {
   createProject,
   getProjectById,
@@ -121,7 +140,8 @@ const ProjectService = {
   updateProjectMilestone,
   addLike,
   getNewProjects,
-  getTrendingProjectsBasedOnLikeCount
+  ProjectImages,
+  getTrendingProjectsBasedOnLikeCount,
 };
 
 export default ProjectService;
