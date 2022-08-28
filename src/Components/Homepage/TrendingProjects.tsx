@@ -5,29 +5,27 @@ import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
 import Carousel from 'react-material-ui-carousel';
 import Settings, { DefaultSettingsT, SettingsT } from '../../utils/CarouselSettings/Settings'
-const NewProjects = () => { 
+const TrendingProjects = () => {
 
   const [settings, setSettings] = useState<SettingsT>(DefaultSettingsT);
   
-    const [newProjects, setNewProjects] = useState<Array<ProjectData> | []>()
+    const [trendingProjects, setTrendingProjects]=useState<Array<ProjectData> | []>()
   
     useEffect(() => {
       fetchProjects()
     }, [])
   
     const fetchProjects = async () => {
-      const response= await ProjectService.getNewProjects()
-         setNewProjects(response.data)
+      const response= await ProjectService.getTrendingProjectsBasedOnLikeCount()
+         setTrendingProjects(response.data)
     }
     
-
-
     return (
       <Box>
 
 <Grid marginTop={16} marginBottom={2}>
   <Typography sx={{ fontWeight: "bold" }} variant='caption'>
-    THE LATEST
+    TRENDING PROJECTS
   </Typography>
 </Grid>
 
@@ -36,9 +34,9 @@ const NewProjects = () => {
 >
 <Carousel
 {...settings}>
-{newProjects &&
-        newProjects.length > 0 &&
-        newProjects.map((project) => {
+{trendingProjects &&
+        trendingProjects.length > 0 &&
+        trendingProjects.map((project) => {
           return (
             
             <Grid key={project.projectId} marginBottom={2}>
@@ -53,4 +51,4 @@ const NewProjects = () => {
 )
 }
 
-export default NewProjects
+export default TrendingProjects

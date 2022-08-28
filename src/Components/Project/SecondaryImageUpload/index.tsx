@@ -42,13 +42,12 @@ export const AdditionalImageIndex: FunctionComponent = () => {
     const [uploadedImage, setUploadedImage] = useState<string>('');
 
     const onDrop = async (files: File[]) => {
-        const imageBlob = new Blob([files[0]], { type: files[0].type });
-        setUploadedImage(URL.createObjectURL(imageBlob));
-        const data = {
-            file: files[0],
-        }
 
-        const uploadedS3URL = await uploadToS3(data);
+        const file = files[0]
+        const imageBlob = new Blob([file], { type: file.type });
+        setUploadedImage(URL.createObjectURL(imageBlob));
+
+        const uploadedS3URL = await uploadToS3(file);
         console.log('Uploaded image url..', uploadedS3URL)
 
         // Todo: Update the image url in Project data model images and call projectService.updateProject()

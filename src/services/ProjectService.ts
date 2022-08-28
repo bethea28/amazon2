@@ -30,6 +30,14 @@ const getAllProjects = async () => {
   }
 };
 
+const getTrendingProjectsBasedOnLikeCount = async () => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>('projects/trending/likeCount');
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getProjectsByUser = async (userId: string | undefined) => {
   try {
     return await axiosInstance.get<Array<ProjectData>>(`/projects/users/${userId}`);
@@ -46,10 +54,9 @@ const getProjectsByCategory = async (projectCategory: string | undefined) => {
   }
 };
 
-
 const updateProject = async (projectId: string, data: ProjectData) => {
   try {
-    return await axiosInstance.put<any>(`/projects/${projectId}`, data, {
+    return await axiosInstance.put<ProjectData>(`/projects/${projectId}`, data, {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
       }
@@ -66,7 +73,7 @@ const updateProjectMilestone = async (projectId: any, data: ProjectMilestonesDat
   }
 }
 
-const removeProject = async (projectId: any) => {
+const removeProject = async (projectId: string) => {
   try {
     return await axiosInstance.delete<any>(`/projects/${projectId}`, {
       headers: {
@@ -87,7 +94,7 @@ const findProjectByName = async (name: string) => {
 
 const addLike = async (projectId: string) => {
   try {
-    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`);
+    return await axiosInstance.patch<ProjectData>(`/projects/${projectId}/likes`);
   } catch (error) {
     throw error;
   }
@@ -113,7 +120,8 @@ const ProjectService = {
   findProjectByName,
   updateProjectMilestone,
   addLike,
-  getNewProjects
+  getNewProjects,
+  getTrendingProjectsBasedOnLikeCount
 };
 
 export default ProjectService;

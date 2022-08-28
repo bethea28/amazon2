@@ -11,8 +11,8 @@ import {
   Alert
 } from '@mui/material'
 import { signIn } from '../../services/AuthService'
-import { Message } from '../core/messages'
-import { AutoDismissAlertProps } from '../core/AutoDismissAlert'
+import { Message } from '../../utils/Auth Alerts/messages'
+import { AutoDismissAlertProps } from '../../utils/Auth Alerts/AutoDismissAlert'
 import UserContext from '../../context/user/UserContext'
 import AuthData from '../../types/Auth'
 
