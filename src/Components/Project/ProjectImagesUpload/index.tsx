@@ -2,11 +2,10 @@ import React, { FunctionComponent, useContext, useEffect, useState } from "react
 import { Grid, Typography, Box, Button, Alert } from "@mui/material";
 import { useDropzone } from 'react-dropzone'
 import { uploadToS3 } from "../../../services/UploadService";
-
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserContext from "../../../context/user/UserContext";
-import UserService from "../../../services/UserService";
+import ProjectService from "../../../services/ProjectService";
 
 const dialogStyle = {
     backgroundColor: "#E9F3FF",
@@ -43,6 +42,7 @@ const completeBtnStyle = {
 
 export const AdditionalImageIndex: FunctionComponent = () => {
     const navigate = useNavigate()
+    const { projectId } = useParams()
 
     const [uploadedImage, setUploadedImage] = useState<string>('');
     const [warning, setWarning] = useState<string>()
@@ -68,11 +68,11 @@ export const AdditionalImageIndex: FunctionComponent = () => {
         }
     }
 
-    const uploadUserAvatar = async () => {
+    const uploadProjectImages = async () => {
         try {
             if (s3Url) {
-                await UserService.updateAvatar(s3Url, sessionId);
-                toProfile()
+                await ProjectService.projectImages(s3Url, projectId);
+                toProject()
             } else {
                 setWarning("Please select project images to upload")
             }
@@ -87,9 +87,9 @@ export const AdditionalImageIndex: FunctionComponent = () => {
         }
     }
 
-    const toProfile = () => {
-        if (sessionId) {
-            navigate(`/profile/${sessionId}`)
+    const toProject = () => {
+        if (projectId) {
+            navigate(`/projects/${projectId}`)
         } else {
             navigate(`/*`)
         }
@@ -134,7 +134,7 @@ export const AdditionalImageIndex: FunctionComponent = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Typography variant="body2">
-                                            Format must be JPG, GIF, JPEG, WEBP or PNG and smaller than 1 MB
+                                            Format must be JPG, GIF, JPEG, WebP or PNG and smaller than 1 MB
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -144,12 +144,12 @@ export const AdditionalImageIndex: FunctionComponent = () => {
                     <Grid item xs={12}>
                         <Grid container justifyContent="space-between" pt={6} alignItems="center">
                             <Grid item>
-                                <Button sx={backBtnStyle} onClick={toProfile} startIcon={<KeyboardArrowLeftIcon />}>
+                                <Button sx={backBtnStyle} onClick={toProject} startIcon={<KeyboardArrowLeftIcon />}>
                                     Go Back
                                 </Button>
                             </Grid>
                             <Grid item>
-                                <Button disableElevation variant="contained" onClick={uploadUserAvatar} sx={completeBtnStyle} >
+                                <Button disableElevation variant="contained" onClick={uploadProjectImages} sx={completeBtnStyle} >
                                     Complete
                                 </Button>
                             </Grid>

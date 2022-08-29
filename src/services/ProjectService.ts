@@ -112,17 +112,13 @@ const getNewProjects = async () => {
   }
 };
 
-async function ProjectImages(avatar: array | undefined, projectId: string | undefined) {
+async function projectImages(images: string | undefined, projectId: string | undefined) {
   try {
-    return await axiosInstance.patch<UserData>(`/projects/${projectId}/avatar`, avatar, {
+    return await axiosInstance.patch<ProjectData>(`/projects/${projectId}/images`, images, {
       headers: {
         Authorization: `Bearer ${getTheCookie('accessToken')}`,
       },
     });
-
-    // 1 - change avatar after I create the service on the BE
-    // 2 - figure out what to use instead of UserData
-    // 3 - figure out what is needed for authorization
   } catch (error) {
     throw error;
   }
@@ -140,7 +136,7 @@ const ProjectService = {
   updateProjectMilestone,
   addLike,
   getNewProjects,
-  ProjectImages,
+  projectImages,
   getTrendingProjectsBasedOnLikeCount,
 };
 
