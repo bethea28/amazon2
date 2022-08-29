@@ -13,6 +13,8 @@ import {
     Typography,
     Paper
 } from "@mui/material";
+import CommentForm from "../Comments/CommentForm";
+import ProjectComments from "../Comments/ProjectComments";
 
 const ProjectDetails = () => {
 
@@ -96,8 +98,9 @@ const ProjectDetails = () => {
                     </Paper>
                 </Grid>
             </Grid>
+            {<CommentForm />}
+            {<ProjectComments />}
         </Container>
-
     )
 }
 export default ProjectDetails;

@@ -3,33 +3,19 @@ import { useForm } from 'react-hook-form'
 import { Typography, Grid, TextField, Button } from '@mui/material'
 import commentService from '../../services/CommentService'
 import CommentData from '../../types/Comment';
-import { useNavigate } from 'react-router-dom'
-import UserContext from '../../context/user/UserContext'
-
+import { useNavigate, useParams } from 'react-router-dom'
 
 const CommentForm = () => {
 
+  const { projectId } = useParams();
+
   const navigate = useNavigate()
 
-  const { register, handleSubmit, control, formState: { errors }, watch } = useForm<CommentData>();
-
-
-  const { user, sessionId } = useContext(UserContext);
-
-  const [warning, setWarning] = useState<string>("");
-
+  const { register, handleSubmit } = useForm<CommentData>();
 
   const onSubmit = async (data: CommentData) => {
-
-    try {
-      if (user) {
-        data.userId = sessionId
-        data.username = user.username
-      }
-      return await commentService.saveComment(data).then(() => navigate(`/users/${data.userId}/projects`))
-    } catch (error) {
-      
-    }
+    await commentService.saveComment(data).then(() => navigate(`/projects/${projectId}`))
+    console.log(data);
   }
 
   return (
@@ -49,7 +35,7 @@ const CommentForm = () => {
 
         <Grid item xs={6} md={20} marginBottom={2}>
           <TextField
-            {...register('commentText')}
+            {...register('content')}
             sx={{ width: 300 }}
             id='outlined-basic'
             label='Comment'
