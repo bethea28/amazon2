@@ -76,7 +76,7 @@ function App() {
                   path='/users/:userId/projects'
                   element={<MyProjects />}
                 />
-                <Route path='/projects/:projectId/transaction' element={<TransactionForm />} />
+                <Route path='/projects/:projectId/transactions' element={<TransactionForm />} />
                 <Route path='projects/:projectId/milestones' element={<Milestones />} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<PageNotFound />} />

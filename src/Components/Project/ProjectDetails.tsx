@@ -81,7 +81,7 @@ const ProjectDetails = () => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                            <NavLink to={`/projects/${projectId}/transaction`}  >
+                            <NavLink to={`/projects/${projectId}/transactions`}  >
                                 <Button variant='outlined' size="small" color="primary">
                                     {/* funding component to be imported */}
                                     Back this project

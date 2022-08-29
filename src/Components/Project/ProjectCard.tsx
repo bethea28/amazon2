@@ -44,7 +44,7 @@ const ProjectCard = (data: ProjectData) => {
             </CardContent>
           </CardActionArea>
           <CardActions>
-          <NavLink to={`/projects/${data.projectId}/transaction`}  >
+          <NavLink to={`/projects/${data.projectId}/transactions`}  >
             <Button variant='outlined' size='small' color='primary'>
               Back
             </Button>
