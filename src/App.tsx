@@ -49,7 +49,6 @@ function App() {
                 <AutoDismissAlert key={msgAlert.id} {...msgAlert} />
               ))}
               <Routes>
-                <Route path='/fundingcard' element={<ProjectFundingInfo />} />
                 <Route path='/' element={<Homepage />} />
                 <Route
                   path='/signup'

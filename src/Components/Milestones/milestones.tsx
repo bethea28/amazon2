@@ -18,16 +18,16 @@ export default function Milestones(){
 
     /*Builds Milestone Object Array for be*/
     const [milestones, setMilestones] = useState<MilestoneType[]>(Array(1).fill({
-        name: '',
-        description: '',
+        name: 'Fill in Milestone Name',
+        description: 'Fill in Milestone Description',
         amount: 0,
       }));
     
     /*sets state for milestone array based on user input from select dropdown */
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMilestones(Array(Number(event.target.value)).fill({
-            name: '',
-            description: '',
+            name: 'Fill in Milestone Name',
+            description: 'Fill in Milestone Description',
             amount: 0,
           }))
     };

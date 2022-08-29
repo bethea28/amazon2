@@ -19,22 +19,28 @@ export default function ProjectFundingInfo(){
       //set backers
       const [totalBackers, setTotalBackers] = useState(0);
 
-      const [milestones, setMilestones] = useState<MilestoneType[]>([]);
+      const [milestones, setMilestones] = useState<MilestoneType[]>(Array(1).fill({
+        name: 'OG Funders',
+        description: 'Thank you for the support!',
+        amount: targetFunding,
+      }));
   
       //get totalfunded amount and project target funding amount form backend
       useEffect(() => {
         const fetchData = async () => {
-          await ProjectFundingInfoService.getProjectFundingInfo(projectId).then((response) => {
-          setProgress(response.data.totalFunding);
-          setTotalBackers(response.data.totalTransactions);
-        }) 
-        await ProjectService.getProjectById(projectId).then((response) => {
-        setTargetFunding(response.data.targetFundingAmount);
-        setMilestones(response.data.milestones);
-    }) 
-      }
-      fetchData();
-      }, []);
+          const response1 = await ProjectFundingInfoService.getProjectFundingInfo(projectId);
+          if (response1.data) {
+          setProgress(response1.data.totalFunding);
+          setTotalBackers(response1.data.totalTransactions);
+        }
+        const response2 = await ProjectService.getProjectById(projectId);
+        if (response2.data){
+        setTargetFunding(response2.data.targetFundingAmount);
+          if (response2.data.milestones){
+              setMilestones(response2.data.milestones);
+            }
+      }}
+      fetchData();}, []);
       
     return(
     <Box>
