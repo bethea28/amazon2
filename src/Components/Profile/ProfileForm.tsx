@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import UserData, { Interests } from '../../types/User'
 import UserContext from '../../context/user/UserContext'
 
@@ -100,6 +101,11 @@ export default function ProfileForm() {
     event.target.defaultChecked = !event.target.defaultChecked
   }
 
+  const backBtnStyle = {
+    color: "#212121",
+    textTransform: "none",
+};
+
   if (userId !== sessionId) {
     return (
       <PageNotFound />
@@ -108,7 +114,7 @@ export default function ProfileForm() {
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
-      <Paper elevation={3} style={{ padding: 20, minWidth: 350 }}>
+      <Paper elevation={3} style={{ padding: 20, minWidth: 350, backgroundColor: "#E9F3FF"}}>
         <Grid margin={2}>
           <Typography variant='h5'>
             Edit Profile
@@ -135,6 +141,7 @@ export default function ProfileForm() {
                 fullWidth
                 error={errors["name"] !== undefined}
                 helperText={errors.name ? errors.name.message : null}
+                sx={{ backgroundColor: "white"}}
               />
               
             )}
@@ -150,6 +157,7 @@ export default function ProfileForm() {
                 margin='dense'
                 defaultValue={userProfile.bio}
                 fullWidth
+                sx={{ backgroundColor: "white"}}
               />
             )}
           </Grid>
@@ -181,13 +189,13 @@ export default function ProfileForm() {
               </FormGroup>
             </Card>
           </Grid>
-          <Grid item alignSelf='center'>
-            <Button variant='outlined' onClick={toProfile}>
-              Back to Profile
-            </Button>
-            <Button variant='contained' onClick={onSubmit} style={{ marginLeft: 15 }}>
-              Save Changes
-            </Button>
+          <Grid item container justifyContent="space-between" pt={3} alignItems="center">
+              <Button sx={backBtnStyle} onClick={toProfile} startIcon={<KeyboardArrowLeftIcon/>}>
+                Go Back
+              </Button>
+              <Button variant='contained' onClick={onSubmit}>
+                Save Changes
+              </Button>
           </Grid>
         </Grid>
       </Paper>
