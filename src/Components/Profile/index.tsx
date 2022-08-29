@@ -71,7 +71,7 @@ export default function Profile() {
                 alt='User Avatar'
                 sx={{ width: 100, height: 100}}
               />
-              <Link to={`/avatarUpload`} style={{fontSize: '12px'}} className="internalLinks">Edit avatar</Link>
+              {canEdit && <Link to={`/avatarUpload`} style={{fontSize: '12px'}} className="internalLinks">Edit avatar</Link>}
             </Grid>
             <Grid marginLeft={3}>
               <Typography variant='body1'>
