@@ -65,10 +65,13 @@ const updateProject = async (projectId: string, data: ProjectData) => {
   }
 };
 
-const updateProjectMilestone = async (projectId: any, data: ProjectMilestonesData) => {
+const updateProjectMilestone = async (projectId: any, data: ProjectMilestonesData | undefined) => {
   try {
-    return await axiosInstance.patch<any>(`/projects/${projectId}/milestones`, data);
-  } catch(error){
+    return await axiosInstance.patch<any>(`/projects/${projectId}/milestones`, data,  {
+      headers: {
+        Authorization: `Bearer ${getTheCookie("accessToken")}`
+      }
+  })} catch(error){
     throw error;
   }
 }

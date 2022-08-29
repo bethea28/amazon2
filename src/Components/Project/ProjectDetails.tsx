@@ -68,19 +68,13 @@ const ProjectDetails = () => {
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        Target Funding Amount
-                                        {currentProject && currentProject.targetFundingAmount}
+                                        <ProjectFundingInfo></ProjectFundingInfo>
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Date
                                         {currentProject && currentProject.targetFundingDate.toString()}
-                                    </Typography>
-                                </CardContent>
-                                <CardContent>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        <ProjectFundingInfo></ProjectFundingInfo>
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>

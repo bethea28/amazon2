@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Box, Card, TextField } from '@mui/material';
+import { FormControl, Card, TextField, Box, MenuItem } from '@mui/material';
 import ProjectService from '../../services/ProjectService';
 import {ProjectMilestonesData} from '../../types/Milestone';
 import Milestone from './milestone';
 import { MilestoneType } from '../../types/Milestone';
-
-const projectId = "04b92dac-4c7d-473a-86d7-b8c15e39e1d2";
+import { useNavigate, useParams } from 'react-router-dom';
 
 /*Milestone User Input and Patch Call to Add to BE database (Projects Table*/
 export default function Milestones(){
 
+    const { projectId } = useParams();
+
+    const navigate = useNavigate()
+    
     const { handleSubmit } = useForm<ProjectMilestonesData>();
 
     /*Builds Milestone Object Array for be*/
@@ -40,16 +43,13 @@ export default function Milestones(){
     const onsubmit = async (data: ProjectMilestonesData) => {
         alert('You have submitted');
         data.milestones = milestones;
-       return await ProjectService.updateProjectMilestone(projectId, data);
+        return await ProjectService.updateProjectMilestone(projectId, data).then((response) =>  navigate(`/projects/${projectId}`));
     }
 
     return(
-        <Box  component="form"
-        sx={{
+        <Box sx={{
             '& .MuiTextField-root': { m: 1, width: '25ch' },
-          }}
-          noValidate
-          autoComplete="off">
+          }}>
         <Card>
             <FormControl>
                 <TextField
@@ -63,6 +63,7 @@ export default function Milestones(){
                     <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem>
                 </TextField>
+              </FormControl>
         <form onSubmit={handleSubmit(onsubmit)}>
         <label> Milestones</label>
         {milestones.map((milestone, index) => {
@@ -76,7 +77,6 @@ export default function Milestones(){
                             />)})}
         <input type="submit" value="Submit" />
         </form>
-        </FormControl>
         </Card>
         </Box>
     );

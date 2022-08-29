@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProjectFundingInfoService from '../../services/ProjectFundingInfoService';
@@ -7,10 +7,6 @@ import { MilestoneType } from '../../types/Milestone';
 import FundingProgressInputView from './fundingProgressbar';
 
 export default function ProjectFundingInfo(){
-
-    //NEED TO GET PROJECT ID FROM PARAMs
-    //let projectIdTransaction = "hello"; //To do: React Context -> get project Id
-    //let projectIdProject = "a87c7825-a0ab-4c98-aad1-8224216b6b03";
 
     const { projectId } = useParams();
     
@@ -23,7 +19,7 @@ export default function ProjectFundingInfo(){
       //set backers
       const [totalBackers, setTotalBackers] = useState(0);
 
-      const [milestones, setMilestones] = useState<MilestoneType[]>();
+      const [milestones, setMilestones] = useState<MilestoneType[]>([]);
   
       //get totalfunded amount and project target funding amount form backend
       useEffect(() => {
@@ -35,15 +31,12 @@ export default function ProjectFundingInfo(){
         await ProjectService.getProjectById(projectId).then((response) => {
         setTargetFunding(response.data.targetFundingAmount);
         setMilestones(response.data.milestones);
-        console.log(response.data.milestones);
     }) 
       }
       fetchData();
       }, []);
-    
       
     return(
-
     <Box>
         <FundingProgressInputView targetFunding = {targetFunding} currentFundedAmount = {progress}/>
         <Typography>
@@ -53,6 +46,12 @@ export default function ProjectFundingInfo(){
         <Typography> 
             <Box sx={{ fontWeight: 'bold'}}>{totalBackers}</Box>
             <Box sx={{ fontWeight: 'light', typography: 'body2'}}>backers</Box>
+        </Typography>
+        <Typography> 
+            <Box sx={{ fontWeight: 'bold'}}> Project Milestones </Box>
+            {milestones.map((milestone, index) => {
+            return (<Box sx={{ fontWeight: 'light', typography: 'body2'}}> name: {milestone.name}</Box>)
+            })}
         </Typography>
     </Box>
     )
