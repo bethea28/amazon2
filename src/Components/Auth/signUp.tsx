@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import {
   TextField,
@@ -29,6 +29,13 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
   const { loginUser } = useContext(UserContext)
 
   const [formError, setFormError] = useState<boolean>(false)
+
+  const helperTextStyle = {
+    backgroundColor: '#E9F3FF',
+    margin: '0', 
+    paddingLeft: '10px', 
+    paddingTop: '5px'
+  }
 
   const {
     register,
@@ -77,7 +84,7 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
-      <Paper elevation={3} style={{ padding: 20 }}>
+      <Paper elevation={3} style={{ padding: 20, backgroundColor: "#E9F3FF" }}>
         <Grid margin={2} width={350}>
           <Typography variant='h4' align='left' margin='dense'>
             Sign Up
@@ -102,6 +109,8 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
               fullWidth
               error={errors["userName"] !== undefined}
               helperText={errors.userName ? errors.userName.message : null}
+              sx={{ backgroundColor: "white"}}
+              FormHelperTextProps={{ style: helperTextStyle }}
             />
             <TextField
               {...register('password', {
@@ -125,14 +134,20 @@ const SignUp = ({ msgAlert }: SignUpProps) => {
               fullWidth
               error={errors["password"] !== undefined}
               helperText={errors.password ? errors.password.message : null}
+              sx={{ backgroundColor: "white" }}
+              FormHelperTextProps={{ style: helperTextStyle }}
             />
-            <Grid item alignSelf='center' margin={1}>
+            <Grid item alignSelf='center' margin={2}>
               <Button type='submit' variant='contained' color='primary'>
-                Submit
+                Register
               </Button>
             </Grid>
           </Grid>
         </form>
+        <Grid textAlign='center' pt={3}>
+          <Typography variant='body2'>Already have an account? <Link to={`/signin`} className="internalLinks">Sign in</Link>
+          </Typography>
+        </Grid>
       </Paper>
     </Container>
   )

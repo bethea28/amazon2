@@ -26,6 +26,7 @@ import About from "./Components/Footer/About";
 import PageNotFound from "./Components/PageNotFound";
 import MyProjects from "./Components/Profile/MyProjects";
 import Milestones from "./Components/Milestones/milestones";
+import ProjectFundingInfo from "./Components/ProjectFundingInfo/fundingCard";
 
 function App() {
   const [msgAlerts, setMsgAlerts] = useState<
@@ -47,7 +48,6 @@ function App() {
               {msgAlerts.map((msgAlert) => (
                 <AutoDismissAlert key={msgAlert.id} {...msgAlert} />
               ))}
-
               <Routes>
                 <Route path='/' element={<Homepage />} />
                 <Route
@@ -76,8 +76,8 @@ function App() {
                   path='/users/:userId/projects'
                   element={<MyProjects />}
                 />
-                <Route path='/projects/:projectId/transaction' element={<TransactionForm />} />
-                <Route path='/milestones' element={<Milestones />} />
+                <Route path='/projects/:projectId/transactions' element={<TransactionForm />} />
+                <Route path='projects/:projectId/milestones' element={<Milestones />} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<PageNotFound />} />
               </Routes>

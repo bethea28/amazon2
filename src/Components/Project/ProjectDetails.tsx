@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
-import { useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import CommentForm from "../Comments/CommentForm";
 import ProjectComments from "../Comments/ProjectComments";
+import ProjectFundingInfo from "../ProjectFundingInfo/fundingCard";
 
 const ProjectDetails = () => {
 
@@ -65,14 +66,15 @@ const ProjectDetails = () => {
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
+                                    {currentProject && (<Link to={`/profile/${currentProject.userId}`}>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         By {currentProject && currentProject.username}
                                     </Typography>
+                                    </Link>)}
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        Target Funding Amount
-                                        {currentProject && currentProject.targetFundingAmount}
+                                        <ProjectFundingInfo></ProjectFundingInfo>
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
@@ -83,10 +85,12 @@ const ProjectDetails = () => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
+                            <NavLink to={`/projects/${projectId}/transactions`}  >
                                 <Button variant='outlined' size="small" color="primary">
                                     {/* funding component to be imported */}
                                     Back this project
                                 </Button>
+                            </NavLink>
                                 <Button type="submit" onClick={likeProject} variant='outlined' size="small">
                                     Like
                                 </Button>
