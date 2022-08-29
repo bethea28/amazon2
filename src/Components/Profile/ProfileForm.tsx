@@ -142,6 +142,7 @@ export default function ProfileForm() {
                 error={errors["name"] !== undefined}
                 helperText={errors.name ? errors.name.message : null}
                 sx={{ backgroundColor: "white"}}
+                FormHelperTextProps={{ style: { backgroundColor: '#E9F3FF', margin: '0', paddingLeft: '10px', paddingTop: '5px'}}}
               />
               
             )}
