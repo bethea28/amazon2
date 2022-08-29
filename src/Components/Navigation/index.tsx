@@ -15,6 +15,7 @@ import {
   Button  
 } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu";
+import LogoutIcon from '@mui/icons-material/Logout';
 import DiscoverNavBar from '../Discover/DiscoverNavBar'
 import UserContext from '../../context/user/UserContext'
 
@@ -70,8 +71,8 @@ export default function NavigationBar(props: Props) {
         <NavLink to={`/users/${sessionId}/projects`} className="navbar">
           My Projects
         </NavLink>
-        <Button variant="contained" onClick={logoutSessionUser}>
-          Logout
+        <Button variant="contained" onClick={logoutSessionUser} sx={{boxShadow: 'none', padding: '2px'}} title='Logout'>
+          <LogoutIcon />
         </Button>
       </>
     )

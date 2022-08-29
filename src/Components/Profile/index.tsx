@@ -57,7 +57,7 @@ export default function Profile() {
       <Paper elevation={3} style={{ padding: 20, minWidth: 400, backgroundColor: userBGColor }}>
         <Grid margin={2} sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant='h4' margin={2}>Profile</Typography>
-          {canEdit && <IconButton aria-label='edit' size='medium' >
+          {canEdit && <IconButton aria-label='edit' size='medium' title='Edit profile' >
             <Link to={`/profile/${userId}/edit`}>
               <EditIcon />
             </Link>
@@ -78,10 +78,10 @@ export default function Profile() {
               <Typography variant='body1'>
                 {userProfile && userProfile.name}
               </Typography>
-              <Typography variant='body1'>
+              <Typography variant='body2'>
                 {userProfile && userProfile.username}
               </Typography>
-              <Typography variant='body2' sx={{marginTop: 1}}>
+              <Typography variant='body2' sx={{marginTop: 1, opacity: '0.75'}}>
                 {userProfile && userProfile.bio}
               </Typography>
             </Grid>
@@ -97,7 +97,7 @@ export default function Profile() {
                 ]) {
                   if (isInterested) {
                     return (
-                      <ListItem dense key={field}>
+                      <ListItem dense key={field} sx={{opacity: '0.8'}}>
                         {field}
                       </ListItem>
                     )
@@ -107,9 +107,9 @@ export default function Profile() {
           </Grid>
 
           <Grid item>
-            <Typography variant='h6'>Projects Posted</Typography>
+            <Typography variant='h5'>Projects Posted</Typography>
             {userProjects && !userProjects.length && (
-              <Typography variant='body2'> No projects yet! </Typography>
+              <Typography variant='body2' sx={{opacity: '0.8'}}> No projects yet! </Typography>
             )}
             <List sx={{ fontSize: 14}}>
               {userProjects &&
@@ -127,7 +127,7 @@ export default function Profile() {
           </Grid>
 
           <Grid item>
-            <Typography variant='h6'>Projects Backed</Typography>
+            <Typography variant='h5'>Projects Backed</Typography>
             {backedProjects && !backedProjects.length && (
               <Typography variant='body2'> No backed projects yet! </Typography>
             )}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -61,9 +61,11 @@ const ProjectDetails = () => {
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
+                                    {currentProject && (<Link to={`/profile/${currentProject.userId}`}>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         By {currentProject && currentProject.username}
                                     </Typography>
+                                    </Link>)}
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
