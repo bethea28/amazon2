@@ -1,4 +1,5 @@
 import axiosInstance from '../apiConfig'
+import { ProjectMilestonesData } from '../types/Milestone';
 import ProjectData from "../types/Project"
 import { getTheCookie } from "../utils/cookies";
 
@@ -29,6 +30,14 @@ const getAllProjects = async () => {
   }
 };
 
+const getTrendingProjectsBasedOnLikeCount = async () => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>('projects/trending/likeCount');
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getProjectsByUser = async (userId: string | undefined) => {
   try {
     return await axiosInstance.get<Array<ProjectData>>(`/projects/users/${userId}`);
@@ -45,10 +54,9 @@ const getProjectsByCategory = async (projectCategory: string | undefined) => {
   }
 };
 
-
 const updateProject = async (projectId: string, data: ProjectData) => {
   try {
-    return await axiosInstance.put<any>(`/projects/${projectId}`, data, {
+    return await axiosInstance.put<ProjectData>(`/projects/${projectId}`, data, {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
       }
@@ -57,7 +65,15 @@ const updateProject = async (projectId: string, data: ProjectData) => {
   }
 };
 
-const removeProject = async (projectId: any) => {
+const updateProjectMilestone = async (projectId: any, data: ProjectMilestonesData) => {
+  try {
+    return await axiosInstance.patch<any>(`/projects/${projectId}/milestones`, data);
+  } catch(error){
+    throw error;
+  }
+}
+
+const removeProject = async (projectId: string) => {
   try {
     return await axiosInstance.delete<any>(`/projects/${projectId}`, {
       headers: {
@@ -76,13 +92,22 @@ const findProjectByName = async (name: string) => {
   }
 };
 
-const addLike = async (projectId: string, userId: string) => {
+const addLike = async (projectId: string) => {
   try {
-    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`, userId, {
+    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`, {}, {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
       }      
     });
+  } catch (error) {
+    throw error;
+  }
+};
+
+//*********Call to GET Newest Projects**** */
+const getNewProjects = async () => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>('/projects/newest');
   } catch (error) {
     throw error;
   }
@@ -97,7 +122,10 @@ const ProjectService = {
   updateProject,
   removeProject,
   findProjectByName,
-  addLike
+  updateProjectMilestone,
+  addLike,
+  getNewProjects,
+  getTrendingProjectsBasedOnLikeCount
 };
 
 export default ProjectService;

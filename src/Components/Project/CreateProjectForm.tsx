@@ -1,4 +1,4 @@
-import React, { useContext }  from 'react'
+import React, { useContext, useState }  from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -12,6 +12,7 @@ import {
   Container,
   Paper,
   Typography,
+  Alert
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import UserContext from '../../context/user/UserContext'
@@ -20,19 +21,34 @@ export default function ProjectForm() {
 
   const navigate = useNavigate()
 
-  const { register, handleSubmit, control } = useForm<ProjectData>()
+  const { register, handleSubmit, control, formState: { errors }, watch } = useForm<ProjectData>()
 
   const { user, sessionId } = useContext(UserContext)
+
+  const [warning, setWarning] = useState<string>("")
 
   /** handles the submission of general details for a project */
   const onSubmit = async (data: ProjectData) => {
 
-    if (user) {
-      data.userId = sessionId
-      data.username = user.username
-    }
+    try {
+      if (user) {
+        data.userId = sessionId
+        data.username = user.username
+      }
+      return await projectService.createProject(data).then(() => navigate(`/users/${data.userId}/projects`))
+      
+    } catch(error: any) {
 
-    return await projectService.createProject(data).then(() => navigate("/projects"))
+      if (error) {
+        if (error.response.status == 401) {
+          setWarning("You are not authorised. Please login to create a project")
+        }
+
+        else {
+          setWarning("Sorry, the server encountered an unexpected condition that prevented it from fulfilling the request")
+        }
+      }
+    }
   }
 
   return (
@@ -42,6 +58,7 @@ export default function ProjectForm() {
           Create New Project
         </Typography>
         <Grid container direction='column'>
+        {warning && <Alert severity="warning">{warning}</Alert>}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Typography variant='h6' align='left' margin='dense'>
               Project Name
@@ -51,14 +68,14 @@ export default function ProjectForm() {
                 variant='outlined'
                 size='small'
                 margin='dense'
-                {...register('projectName', { required: true })}
+                {...register('projectName', { required: 'Project Name is required' })}
               />
             </Grid>
             <Grid item>
               <Typography variant='h6' align='left' margin='dense'>
                 Select Category
               </Typography>
-              <select {...register('category', { required: true })}>
+              <select {...register('category', { required: 'Category is required' })}>
                 {categories.map((category) => (
                   <option value={category} key={category}>{category}</option>
                 ))}
@@ -71,7 +88,7 @@ export default function ProjectForm() {
               <TextField
                 variant='outlined'
                 margin='dense'
-                {...register('description', { required: true })}
+                {...register('description', { required: 'Description is required' })}
               />
             </Grid>
             <Typography variant='h6' align='left' margin='dense'>
@@ -80,13 +97,16 @@ export default function ProjectForm() {
             <Grid item>
               <TextField
                 margin='dense'
-                {...register('targetFundingAmount', { required: true })}
+                type='number'
+                InputProps={{ inputProps: { min: 10 } }}
+                {...register('targetFundingAmount', { required: 'Target funding amount is required' })}
               />
             </Grid>
             <Grid item>
               <Controller
                 name='targetFundingDate'
                 control={control}
+                rules={{ required: true }}
                 render={({ field }) => (
                   <DatePicker
                     onChange={(e) => field.onChange(e)}
@@ -95,6 +115,7 @@ export default function ProjectForm() {
                   />
                 )}
               />
+              {errors.targetFundingDate && <Typography fontSize={10} color='red'>Target Funding Date is required.</Typography>}
             </Grid>
             <Grid item>
               <Button type='submit' variant='contained' color='primary'>

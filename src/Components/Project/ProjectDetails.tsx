@@ -36,25 +36,20 @@ const ProjectDetails = () => {
     }, [projectId])
 
     const likeProject = async () => {
-
-        if (user) {
-            user.id = sessionId
-        }
-        
-        let response = await projectService.addLike(projectId!, sessionId!);
+        let response = await projectService.addLike(projectId!);
         setCurrentProject(response.data);
     };
-
+    
     return (
         <Container maxWidth="lg">
             <Grid container spacing={6} justifyItems={"center"}>
-                <Grid item>
+                {/* <Grid item>
                     <Paper style={{ padding: 20 }}>
                         {currentProject && currentProject.images.map(src =>
                             <img alt='project images' src={src} />
                         )}
                     </Paper>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                     <Paper style={{ padding: 20 }}>
                         <Card variant='outlined'>

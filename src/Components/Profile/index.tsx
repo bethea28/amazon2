@@ -17,36 +17,46 @@ import UserData from '../../types/User'
 import ProjectService from '../../services/ProjectService'
 import ProjectData from '../../types/Project'
 import UserContext from '../../context/user/UserContext'
+import TransactionType from '../../types/transactions'
+import TransactionService from '../../services/transactionService'
 
 export default function Profile() {
 
   const { userId } = useParams()
 
   const { sessionId } = useContext(UserContext)
-
   const canEdit: boolean = userId === sessionId;
 
   const [userProfile, setUserProfile] = useState<UserData>()
   const [userProjects, setUserProjects] = useState<Array<ProjectData> | []>()
+  const [backedProjects, setBackedProjects] = useState<Array<TransactionType> | []>()
 
   useEffect(() => {
     fetchUserAndProjects()
   }, [])
 
   const fetchUserAndProjects = async () => {
-    await UserService.getProfile(userId)
-      .then((response) => {setUserProfile(response.data)})
-      .then(() => ProjectService.getProjectsByUser(userId))
-      .then((response) => {setUserProjects(response.data)})
+    const userResponse = UserService.getProfile(userId)
+    const projectResponse = await ProjectService.getProjectsByUser(userId)
+    const backedProjectsResponse = await TransactionService.getProjectsBackedByUser(userId)
+
+    Promise.all([userResponse, projectResponse, backedProjectsResponse])
+      .then((values: any) => {
+        setUserProfile(values[0].data)
+        setUserProjects(values[1].data)
+        setBackedProjects(values[2].data)
+      })
   } 
 
-  const userBGColor = canEdit ? "rgb(235, 243, 254)" : "white";
+  const userBGColor: string = canEdit ? "#E9F3FF" : "white";
+
+  const userAvatar: string = (userProfile && userProfile.avatar) ? userProfile.avatar : 'https://picsum.photos/400/300'
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
       <Paper elevation={3} style={{ padding: 20, minWidth: 400, backgroundColor: userBGColor }}>
         <Grid margin={2} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant='h5'>Profile</Typography>
+          <Typography variant='h4' margin={2}>Profile</Typography>
           {canEdit && <IconButton aria-label='edit' size='medium' >
             <Link to={`/profile/${userId}/edit`}>
               <EditIcon />
@@ -55,11 +65,15 @@ export default function Profile() {
         </Grid>
         <Grid container spacing={2} margin={2} sx={{ display: 'flex', flexDirection:'column' }}>
           <Box sx={{ display: 'flex ' }}>
-            <Avatar
-              alt='user'
-              variant='square'
-              sx={{ width: 70, height: 70, alignSelf: 'center' }}
-            />
+            <Grid marginLeft={2} sx={{ alignSelf: 'center'}}>
+              <Avatar
+                variant='square'
+                src={userAvatar}
+                alt='User Avatar'
+                sx={{ width: 100, height: 100}}
+              />
+              <Link to={`/avatarUpload`} style={{fontSize: '12px'}} className="internalLinks">Edit avatar</Link>
+            </Grid>
             <Grid marginLeft={3}>
               <Typography variant='body1'>
                 {userProfile && userProfile.name}
@@ -114,11 +128,24 @@ export default function Profile() {
 
           <Grid item>
             <Typography variant='h6'>Projects Backed</Typography>
+            {backedProjects && !backedProjects.length && (
+              <Typography variant='body2'> No backed projects yet! </Typography>
+            )}
+            <List sx={{ fontSize: 14}}>
+              {backedProjects &&
+                backedProjects.length > 0 &&
+                backedProjects.map((transaction, idx) => {
+                  return (
+                    <ListItem dense key={idx}>
+                      <Link to={`/projects/${transaction.projectId}`} className="internalLinks">
+                        {transaction.projectId}
+                      </Link>
+                    </ListItem>
+                  )
+                })}
+            </List>
           </Grid>
 
-          <Grid item>
-            <Typography variant='h6'>Projects Liked</Typography>
-          </Grid>
         </Grid>
       </Paper>
     </Container>

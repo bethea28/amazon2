@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import {
@@ -7,11 +7,12 @@ import {
   Container,
   Paper,
   Typography,
-  Button
+  Button,
+  Alert
 } from '@mui/material'
 import { signIn } from '../../services/AuthService'
-import { Message } from '../core/messages'
-import { AutoDismissAlertProps } from '../core/AutoDismissAlert'
+import { Message } from '../../utils/Auth Alerts/messages'
+import { AutoDismissAlertProps } from '../../utils/Auth Alerts/AutoDismissAlert'
 import UserContext from '../../context/user/UserContext'
 import AuthData from '../../types/Auth'
 
@@ -25,9 +26,13 @@ const SignIn = ({ msgAlert }: SignInProps) => {
 
   const { loginUser } = useContext(UserContext)
 
+  const [formError, setFormError] = useState<boolean>(false)
+
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    formState: { errors },
+    watch
   } = useForm<AuthData>()
 
   const onSignIn = async (data: AuthData) => {
@@ -47,12 +52,18 @@ const SignIn = ({ msgAlert }: SignInProps) => {
       }
 
     } catch (error: unknown) {
+
+      setFormError(true)
       msgAlert({
         message: Message.Alert.SignIn.Failure,
         variant: 'error'
       })
     }
   }
+
+  useEffect(() => {
+    setFormError(false)
+  }, [watch('userName'), watch('password')])
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
@@ -62,6 +73,7 @@ const SignIn = ({ msgAlert }: SignInProps) => {
             Sign In
           </Typography>
         </Grid>
+        {formError && <Alert severity="error">{Message.Alert.SignIn.Failure}</Alert>}
         <form onSubmit={handleSubmit(onSignIn)}>
           <Grid container direction='column'>
             <TextField
@@ -74,6 +86,8 @@ const SignIn = ({ msgAlert }: SignInProps) => {
               size='small'
               margin='dense'
               fullWidth
+              error={errors["userName"] !== undefined}
+              helperText={errors.userName ? errors.userName.message : null}
             />
             <TextField
               {...register('password', {
@@ -86,6 +100,8 @@ const SignIn = ({ msgAlert }: SignInProps) => {
               size='small'
               margin='dense'
               fullWidth
+              error={errors["password"] !== undefined}
+              helperText={errors.password ? errors.password.message : null}
             />
             <Grid item alignSelf='center' margin={1}>
               <Button type='submit' variant='contained' color='primary'>
