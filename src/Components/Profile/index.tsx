@@ -29,7 +29,7 @@ export default function Profile() {
 
   const [userProfile, setUserProfile] = useState<UserData>()
   const [userProjects, setUserProjects] = useState<Array<ProjectData> | []>()
-  const [backedProjects, setBackedProjects] = useState<Array<TransactionType> | []>()
+  const [backedProjects, setBackedProjects] = useState<Array<ProjectData> | []>()
 
   useEffect(() => {
     fetchUserAndProjects()
@@ -134,11 +134,11 @@ export default function Profile() {
             <List sx={{ fontSize: 14}}>
               {backedProjects &&
                 backedProjects.length > 0 &&
-                backedProjects.map((transaction, idx) => {
+                backedProjects.map((project, idx) => {
                   return (
                     <ListItem dense key={idx}>
-                      <Link to={`/projects/${transaction.projectId}`} className="internalLinks">
-                        {transaction.projectId}
+                      <Link to={`/projects/${project.projectId}`} className="internalLinks">
+                        {project.projectName}
                       </Link>
                     </ListItem>
                   )

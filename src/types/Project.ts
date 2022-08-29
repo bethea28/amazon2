@@ -11,4 +11,5 @@ export default interface ProjectData {
   coverImage?: string;
   images: Array<string>;
   likedBy: Array<string>;
+  likedCount: number;
 }

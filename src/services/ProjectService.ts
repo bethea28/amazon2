@@ -30,6 +30,14 @@ const getAllProjects = async () => {
   }
 };
 
+const getTrendingProjectsBasedOnLikeCount = async () => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>('projects/trending/likeCount');
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getProjectsByUser = async (userId: string | undefined) => {
   try {
     return await axiosInstance.get<Array<ProjectData>>(`/projects/users/${userId}`);
@@ -45,7 +53,6 @@ const getProjectsByCategory = async (projectCategory: string | undefined) => {
     throw error;
   }
 };
-
 
 const updateProject = async (projectId: string, data: ProjectData) => {
   try {
@@ -87,7 +94,11 @@ const findProjectByName = async (name: string) => {
 
 const addLike = async (projectId: string) => {
   try {
-    return await axiosInstance.patch<ProjectData>(`/projects/${projectId}/likes`);
+    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`, {}, {
+      headers: {
+        Authorization: `Bearer ${getTheCookie("accessToken")}`
+      }      
+    });
   } catch (error) {
     throw error;
   }
@@ -113,7 +124,8 @@ const ProjectService = {
   findProjectByName,
   updateProjectMilestone,
   addLike,
-  getNewProjects
+  getNewProjects,
+  getTrendingProjectsBasedOnLikeCount
 };
 
 export default ProjectService;

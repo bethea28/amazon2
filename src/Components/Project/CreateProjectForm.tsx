@@ -34,9 +34,8 @@ export default function ProjectForm() {
       if (user) {
         data.userId = sessionId
         data.username = user.username
-
-        return await projectService.createProject(data).then(() => navigate(`/users/${data.userId}/projects`))
       }
+      return await projectService.createProject(data).then(() => navigate(`/users/${data.userId}/projects`))
       
     } catch(error: any) {
 
