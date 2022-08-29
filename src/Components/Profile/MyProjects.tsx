@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Typography, Grid } from '@mui/material'
 import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
-import TransactionService from '../../services/transactionService'
+import TransactionService from '../../services/TransactionService'
 import ProjectCard from '../Project/ProjectCard'
 import UserContext from '../../context/user/UserContext'
 

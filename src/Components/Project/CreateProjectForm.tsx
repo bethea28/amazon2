@@ -14,7 +14,7 @@ import {
   Typography,
   Alert
 } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import UserContext from '../../context/user/UserContext'
 
 export default function ProjectForm() {
@@ -35,8 +35,7 @@ export default function ProjectForm() {
         data.userId = sessionId
         data.username = user.username
       }
-      return await projectService.createProject(data).then(() => navigate(`/users/${data.userId}/projects`))
-      
+      return await projectService.createProject(data).then(() => navigate(`/projects/${data.projectId}/milestones`))
     } catch(error: any) {
 
       if (error) {

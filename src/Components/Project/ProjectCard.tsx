@@ -1,6 +1,6 @@
 import React from 'react'
 import ProjectData from '../../types/Project'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, NavLink } from 'react-router-dom'
 import {
   FavoriteBorderOutlined,
   MonetizationOnOutlined,
@@ -17,7 +17,13 @@ import {
   Paper
 } from '@mui/material'
 
+
 const ProjectCard = (data: ProjectData) => {
+  const navigate = useNavigate()
+
+  const toTransactions = async () => {
+    navigate(`/projects/${data.projectId}/transactions`)
+  }
 
   return (
     <Container maxWidth='xs'>
@@ -44,7 +50,7 @@ const ProjectCard = (data: ProjectData) => {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button variant='outlined' size='small' color='primary'>
+            <Button variant='outlined' size='small' color='primary' onClick={toTransactions}>
               Back
             </Button>
             <IconButton>

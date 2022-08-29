@@ -11,17 +11,17 @@ export default function Milestone(props: {
         <Box>
             <TextField
                 id="milestoneName"
-                label="Name your Milestone"
+                label="Name"
                 onChange = {e => props.onChange({ ...props.values, name: e.target.value })}
                 />
             <TextField
                 id="milestoneDescription"
-                label="Add a Description"
+                label="Description"
                 onChange = {e => props.onChange({ ...props.values, description: e.target.value })}
                 />
             <TextField
                 id="milestoneTargetAmount"
-                label="Add target amount for Milestone"
+                label="Target Amount"
                 type = "number"
                 onChange = {e => props.onChange({ ...props.values, amount: Number(e.target.value) })}
                 />
