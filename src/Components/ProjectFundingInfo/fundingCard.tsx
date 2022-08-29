@@ -29,15 +29,17 @@ export default function ProjectFundingInfo(){
       useEffect(() => {
         const fetchData = async () => {
           const response1 = await ProjectFundingInfoService.getProjectFundingInfo(projectId);
+          const {totalFunding, totalTransactions} = response1.data;
           if (response1.data) {
-          setProgress(response1.data.totalFunding);
-          setTotalBackers(response1.data.totalTransactions);
+          setProgress(totalFunding);
+          setTotalBackers(totalTransactions);
         }
         const response2 = await ProjectService.getProjectById(projectId);
+        const {targetFundingAmount, milestones} = response2.data;
         if (response2.data){
-        setTargetFunding(response2.data.targetFundingAmount);
-          if (response2.data.milestones){
-              setMilestones(response2.data.milestones);
+        setTargetFunding(targetFundingAmount);
+          if (milestones){
+              setMilestones(milestones);
             }
       }}
       fetchData();}, []);

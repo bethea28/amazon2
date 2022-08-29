@@ -15,5 +15,4 @@ export default interface ProjectData {
   likedBy: Array<string>;
   milestones: Array<MilestoneType>;
   likedCount: number;
-
 }
