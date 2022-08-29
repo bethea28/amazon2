@@ -28,7 +28,6 @@ import MyProjects from "./Components/Profile/MyProjects";
 import Milestones from "./Components/Milestones/milestones";
 import ProjectFundingInfo from "./Components/ProjectFundingInfo/fundingCard";
 
-
 function App() {
   const [msgAlerts, setMsgAlerts] = useState<
     (AutoDismissAlertProps & { id: string })[]

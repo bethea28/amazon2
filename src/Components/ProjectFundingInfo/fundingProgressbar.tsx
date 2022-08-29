@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import ProjectFundingInfoService from "../../services/ProjectFundingInfoService";
+import React from "react";
 import { Box, LinearProgress, LinearProgressProps, Typography } from '@mui/material';
-import ProjectService from "../../services/ProjectService";
 
 function FundingProgressBar(props: LinearProgressProps & { value: number }) {
     return (
@@ -19,17 +17,9 @@ function FundingProgressBar(props: LinearProgressProps & { value: number }) {
   }
 
 export default function FundingProgressInputView(props: {targetFunding: number} & {currentFundedAmount: number}){
-
-
     return(
         <Box sx={{ width: '100%' }}>
             <FundingProgressBar value={(props.currentFundedAmount/props.targetFunding) *100} />
         </Box>
     )
 };
-
-
-//THINGS TO DO: get ccorrect project id
-//remove .THEN in asyn await compare with others
-//put line 78 in variable??
-
