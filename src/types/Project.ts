@@ -12,3 +12,4 @@ export default interface ProjectData {
   images: Array<string>;
   likedBy: Array<string>;
   likedCount: number;
+}
