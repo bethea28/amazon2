@@ -13,15 +13,12 @@ import {
     Typography,
     Paper
 } from "@mui/material";
-// import UserContext from "../../context/user/UserContext";
 
 const ProjectDetails = () => {
 
     const [currentProject, setCurrentProject] = useState<ProjectData>();
 
     const { projectId } = useParams();
-
-    // const { user, sessionId } = useContext(UserContext);
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -36,7 +33,6 @@ const ProjectDetails = () => {
     }, [projectId])
 
     const likeProject = async () => {
-        
         let response = await projectService.addLike(projectId!);
         setCurrentProject(response.data);
     };
@@ -93,7 +89,7 @@ const ProjectDetails = () => {
                                     Like
                                 </Button>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    {currentProject && (currentProject.likedBy == null ? 0 : currentProject.likedBy.length)} likes
+                                    {currentProject && currentProject.likedCount} likes
                                 </Typography>
                             </CardActions>
                         </Card>
