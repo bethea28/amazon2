@@ -35,12 +35,13 @@ export default function ProjectFundingInfo(){
         await ProjectService.getProjectById(projectId).then((response) => {
         setTargetFunding(response.data.targetFundingAmount);
         setMilestones(response.data.milestones);
+        console.log(response.data.milestones);
     }) 
       }
       fetchData();
       }, []);
     
-      console.log(milestones);
+      
     return(
 
     <Box>
