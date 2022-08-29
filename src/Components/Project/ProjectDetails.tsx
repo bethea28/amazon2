@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
 import { useParams } from "react-router-dom";
@@ -17,6 +17,7 @@ import {
 const ProjectDetails = () => {
 
     const [currentProject, setCurrentProject] = useState<ProjectData>();
+
     const { projectId } = useParams();
 
     useEffect(() => {
@@ -32,9 +33,10 @@ const ProjectDetails = () => {
     }, [projectId])
 
     const likeProject = async () => {
-        return await projectService.addLike(projectId!);
+        let response = await projectService.addLike(projectId!);
+        setCurrentProject(response.data);
     };
-
+    
     return (
         <Container maxWidth="lg">
             <Grid container spacing={6} justifyItems={"center"}>
@@ -87,7 +89,7 @@ const ProjectDetails = () => {
                                     Like
                                 </Button>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    {currentProject && (currentProject.likedBy == null ? 0 : currentProject.likedBy.length)} likes
+                                    {currentProject && currentProject.likedCount} likes
                                 </Typography>
                             </CardActions>
                         </Card>
