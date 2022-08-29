@@ -1,8 +1,9 @@
 export default interface CommentData {
-  projectId: string;
   commentId: string;
+  projectId: string;
   userId: string;
   userName: string;
-  commentText: string;
-  creationDate: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -1,33 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Typography, Grid, TextField, Button } from '@mui/material'
-import CommentService from '../../services/CommentService'
+import commentService from '../../services/CommentService'
+import CommentData from '../../types/Comment';
+import { useNavigate } from 'react-router-dom'
+import UserContext from '../../context/user/UserContext'
 
-type FormData = {
-  commentText: string
-}
 
 const CommentForm = () => {
-  const [userComment, setUserComment] = useState<FormData>()
 
-  const projectId = 'project name'
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await CommentService(projectId).then((response) => {
-        setUserComment(response.data)
-      })
+  const { register, handleSubmit, control, formState: { errors }, watch } = useForm<CommentData>();
+
+
+  const { user, sessionId } = useContext(UserContext);
+
+  const [warning, setWarning] = useState<string>("");
+
+
+  const onSubmit = async (data: CommentData) => {
+
+    try {
+      if (user) {
+        data.userId = sessionId
+        data.username = user.username
+      }
+      return await commentService.saveComment(data).then(() => navigate(`/users/${data.userId}/projects`))
+    } catch (error) {
+      
     }
-    fetchData()
-  }, [])
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>()
-  const onSubmit = async (data: FormData) => {
-    // return await createComment(data);
   }
 
   return (

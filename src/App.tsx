@@ -65,7 +65,7 @@ function App() {
                 <Route path='/projects' element={<AllProjects />} />
                 <Route path='/projects/:projectId' element={<ProjectDetails />} />
                 <Route
-                  path='/projects/:projectId/:commentId'
+                  path='/createComment'
                   element={<CommentForm />}
                 />
                 <Route

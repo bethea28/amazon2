@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
 import { useParams } from "react-router-dom";
@@ -13,15 +13,12 @@ import {
     Typography,
     Paper
 } from "@mui/material";
-import UserContext from "../../context/user/UserContext";
 
 const ProjectDetails = () => {
 
     const [currentProject, setCurrentProject] = useState<ProjectData>();
 
     const { projectId } = useParams();
-
-    const { user, sessionId } = useContext(UserContext);
 
     useEffect(() => {
         const fetchProject = async () => {
