@@ -13,6 +13,7 @@ import {
     Typography,
     Paper
 } from "@mui/material";
+import ProjectFundingInfo from "../ProjectFundingInfo/fundingCard";
 
 const ProjectDetails = () => {
 
@@ -75,6 +76,11 @@ const ProjectDetails = () => {
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Date
                                         {currentProject && currentProject.targetFundingDate.toString()}
+                                    </Typography>
+                                </CardContent>
+                                <CardContent>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        <ProjectFundingInfo></ProjectFundingInfo>
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
