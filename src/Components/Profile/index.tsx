@@ -17,8 +17,8 @@ import UserData from '../../types/User'
 import ProjectService from '../../services/ProjectService'
 import ProjectData from '../../types/Project'
 import UserContext from '../../context/user/UserContext'
-import TransactionService from '../../services/TransactionService'
 import TransactionType from '../../types/Transactions'
+import TransactionService from '../../services/TransactionService'
 
 export default function Profile() {
 
