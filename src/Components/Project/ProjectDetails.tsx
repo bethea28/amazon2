@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
-import { useParams, Link } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -13,6 +13,7 @@ import {
     Typography,
     Paper
 } from "@mui/material";
+import ProjectFundingInfo from "../ProjectFundingInfo/fundingCard";
 
 const ProjectDetails = () => {
 
@@ -71,8 +72,7 @@ const ProjectDetails = () => {
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        Target Funding Amount
-                                        {currentProject && currentProject.targetFundingAmount}
+                                        <ProjectFundingInfo></ProjectFundingInfo>
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
@@ -83,10 +83,12 @@ const ProjectDetails = () => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
+                            <NavLink to={`/projects/${projectId}/transactions`}  >
                                 <Button variant='outlined' size="small" color="primary">
                                     {/* funding component to be imported */}
                                     Back this project
                                 </Button>
+                            </NavLink>
                                 <Button type="submit" onClick={likeProject} variant='outlined' size="small">
                                     Like
                                 </Button>
