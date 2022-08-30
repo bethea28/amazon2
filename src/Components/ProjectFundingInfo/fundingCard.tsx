@@ -58,7 +58,14 @@ export default function ProjectFundingInfo(){
         <Grid> 
             <Box sx={{ fontWeight: 'bold'}}> Project Milestones </Box>
             {milestones.map((milestone, index) => {
-            return (<Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> name: {milestone.name}</Box>)
+            return (
+              <React.Fragment key = {index}> 
+                <Box sx={{ fontWeight: 'bold'}}> Milestone {index}</Box>
+                <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> {milestone.name}</Box>
+                <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> {milestone.description}</Box>
+                <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index + 1}> Traget Amount: ${milestone.amount}</Box>
+              </React.Fragment>
+            )
             })}
         </Grid>
     </Box>
