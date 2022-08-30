@@ -43,24 +43,20 @@ const completeBtnStyle = {
 export const AdditionalImageIndex: FunctionComponent = () => {
     const navigate = useNavigate()
     const { projectId } = useParams()
-
     const [uploadedImage, setUploadedImage] = useState<string>('');
     const [warning, setWarning] = useState<string>()
     const [s3Url, setS3Url] = useState<string>()
-
     const { sessionId } = useContext(UserContext)
 
     const onDrop = async (files: File[]) => {
-
         const file = files[0]
         const imageBlob = new Blob([file], { type: file.type });
-
         const fileType = file['type']
+        const uploadedS3URL = await uploadToS3(file);
         const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jpg']
 
         if (validImageTypes.includes(fileType)) {
             setUploadedImage(URL.createObjectURL(imageBlob));
-            const uploadedS3URL = await uploadToS3(file);
             setS3Url(uploadedS3URL)
         } else {
             setWarning("Please upload a valid file type")
