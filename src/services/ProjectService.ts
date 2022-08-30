@@ -1,15 +1,15 @@
-import axiosInstance from '../apiConfig'
+import axiosInstance from '../apiConfig';
 import { ProjectMilestonesData } from '../types/Milestone';
-import ProjectData from "../types/Project"
-import { getTheCookie } from "../utils/cookies";
+import ProjectData from '../types/Project';
+import { getTheCookie } from '../utils/cookies';
 
 const createProject = async (data: ProjectData) => {
   try {
     return await axiosInstance.post<ProjectData>('/projects', data, {
       headers: {
-        Authorization: `Bearer ${getTheCookie("accessToken")}`
-      }
-    })
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
+    });
   } catch (error) {
     throw error;
   }
@@ -59,9 +59,9 @@ const updateProject = async (projectId: string, data: ProjectData) => {
   try {
     return await axiosInstance.put<ProjectData>(`/projects/${projectId}`, data, {
       headers: {
-        Authorization: `Bearer ${getTheCookie("accessToken")}`
-      }
-    })
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
+    });
   } catch (error) {
     throw error;
   }
@@ -71,21 +71,21 @@ const updateProjectMilestone = async (projectId: any, data: ProjectMilestonesDat
   try {
     return await axiosInstance.patch<any>(`/projects/${projectId}/milestones`, data, {
       headers: {
-        Authorization: `Bearer ${getTheCookie("accessToken")}`
-      }
-    })
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
+    });
   } catch (error) {
     throw error;
   }
-}
+};
 
 const removeProject = async (projectId: string) => {
   try {
     return await axiosInstance.delete<any>(`/projects/${projectId}`, {
       headers: {
-        Authorization: `Bearer ${getTheCookie("accessToken")}`
-      }
-    })
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
+    });
   } catch (error) {
     throw error;
   }
@@ -101,11 +101,15 @@ const findProjectByName = async (name: string) => {
 
 const addLike = async (projectId: string) => {
   try {
-    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`, {}, {
-      headers: {
-        Authorization: `Bearer ${getTheCookie("accessToken")}`
+    return await axiosInstance.patch<ProjectData>(
+      `projects/${projectId}/likes`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${getTheCookie('accessToken')}`,
+        },
       }
-    });
+    );
   } catch (error) {
     throw error;
   }
@@ -124,13 +128,25 @@ const getRecommendedProjects = async () => {
   try {
     return await axiosInstance.get<Array<ProjectData>>('/projects/recommended', {
       headers: {
-        Authorization: `Bearer ${getTheCookie("accessToken")}`
-      }      
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
     });
   } catch (error) {
     throw error;
   }
 };
+
+async function projectImages(projectId: string | undefined, images: string) {
+  try {
+    return await axiosInstance.patch<ProjectData>(`/projects/${projectId}/images`, images, {
+      headers: {
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+}
 
 const ProjectService = {
   createProject,
@@ -144,8 +160,9 @@ const ProjectService = {
   updateProjectMilestone,
   addLike,
   getNewProjects,
+  projectImages,
   getTrendingProjectsBasedOnLikeCount,
-  getRecommendedProjects
+  getRecommendedProjects,
 };
 
 export default ProjectService;

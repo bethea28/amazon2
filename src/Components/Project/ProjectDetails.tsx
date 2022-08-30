@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
 import { useParams, Link, useNavigate, NavLink } from "react-router-dom";
+import ImgCarousel from "../Project/ProjectImagesCarousel/index"
+
 import {
     Container,
     Grid,
@@ -81,6 +83,11 @@ const ProjectDetails = () => {
                                     <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                                         {currentProject && currentProject.projectName}
                                     </Typography>
+
+
+                                    {currentProject && <ImgCarousel {...currentProject} />}
+
+
                                     {canEdit && <IconButton aria-label='edit' size='medium' >
                                         <Link to={`/projects/${projectId}/edit`}>
                                             <EditIcon />

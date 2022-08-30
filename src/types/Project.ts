@@ -1,4 +1,4 @@
-import { MilestoneType } from "./Milestone";
+import { MilestoneType } from './Milestone';
 
 export default interface ProjectData {
   projectId?: string;
