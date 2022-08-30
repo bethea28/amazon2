@@ -1,42 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Typography, Grid, TextField, Button } from '@mui/material'
-import CommentService from '../../services/CommentService'
-
-type FormData = {
-  commentText: string
-}
+import commentService from '../../services/CommentService'
+import CommentData from '../../types/Comment';
+import { useNavigate, useParams } from 'react-router-dom'
+import UserContext from '../../context/user/UserContext';
 
 const CommentForm = () => {
-  const [userComment, setUserComment] = useState<FormData>()
 
-  const projectId = 'project name'
+  const { projectId } = useParams();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await CommentService(projectId).then((response) => {
-        setUserComment(response.data)
-      })
+  const navigate = useNavigate()
+
+  const { user, sessionId } = useContext(UserContext)
+
+  const { register, handleSubmit } = useForm<CommentData>();
+
+  const onSubmit = async (data: CommentData) => {
+
+    if (user) {
+      data.userId = sessionId;
+      data.userName = user.username;
+      data.projectId = projectId;
     }
-    fetchData()
-  }, [])
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>()
-  const onSubmit = async (data: FormData) => {
-    // return await createComment(data);
+    await commentService.saveComment(data).then(() => navigate(`/projects/${projectId}`))
   }
 
   return (
     <Grid
       container
-      spacing={0}
       justifyContent='center'
       alignItems='center'
-      paddingTop={20}
+      padding={2}
+      bgcolor='#E9F3FF'
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid item sx={{ width: 300 }} marginBottom={2}>
@@ -44,23 +40,19 @@ const CommentForm = () => {
             Leave a Comment
           </Typography>
         </Grid>
-
         <Grid item xs={6} md={20} marginBottom={2}>
           <TextField
-            {...register('commentText')}
-            sx={{ width: 300 }}
-            id='outlined-basic'
-            label='Comment'
             variant='outlined'
+            {...register('content')}
+            sx={{ width: 300, backgroundColor: 'background.paper' }}
           />
         </Grid>
-
         <Grid>
-          <Button variant='contained'>Post Comment</Button>
+          <Button type='submit' variant='contained'>Post Comment</Button>
         </Grid>
       </form>
     </Grid>
   )
 }
 
-export default CommentForm
+export default CommentForm;

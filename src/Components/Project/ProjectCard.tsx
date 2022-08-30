@@ -2,17 +2,10 @@ import React from 'react'
 import ProjectData from '../../types/Project'
 import { Link } from 'react-router-dom'
 import {
-  FavoriteBorderOutlined,
-  MonetizationOnOutlined,
-} from '@mui/icons-material'
-import {
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
-  Button,
   Typography,
-  IconButton,
   Container,
   Paper
 } from '@mui/material'
@@ -25,10 +18,8 @@ const ProjectCard = (data: ProjectData) => {
       <Paper>
         <Card variant='outlined'>
           <CardActionArea>
-            <Link to={`/projects/${data.projectId}`} style={{textDecoration: "none"}}>
-              {/* place holder */}
-              <img alt='project img' src='https://picsum.photos/400/300' />
-              {/* data.image */}
+            <Link to={`/projects/${data.projectId}`} style={{ textDecoration: "none" }}>
+              <img alt='project img' src="https://picsum.photos/400/300" />
               <CardContent>
                 <Typography gutterBottom variant='h5'>
                   {data.projectName}
@@ -44,19 +35,6 @@ const ProjectCard = (data: ProjectData) => {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button variant='outlined' size='small' color='primary'>
-              Back
-            </Button>
-            <IconButton>
-              {/* funding component to be imported */}
-              <MonetizationOnOutlined />
-            </IconButton>
-            <IconButton>
-              {/* like button component to be imported */}
-              <FavoriteBorderOutlined />
-            </IconButton>
-          </CardActions>
         </Card>
       </Paper>
     </Container>

@@ -1,4 +1,4 @@
-import React, { useContext, useState }  from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -14,18 +14,35 @@ import {
   Typography,
   Alert
 } from '@mui/material'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import UserContext from '../../context/user/UserContext'
 
 export default function ProjectForm() {
 
   const navigate = useNavigate()
 
+  const { projectId } = useParams();
+
   const { register, handleSubmit, control, formState: { errors }, watch } = useForm<ProjectData>()
 
   const { user, sessionId } = useContext(UserContext)
 
+  const [currentProject, setCurrentProject] = useState<ProjectData>();
+
   const [warning, setWarning] = useState<string>("")
+
+  useEffect(() => {
+    fetchProject();
+  });
+
+  const fetchProject = async () => {
+    if (projectId) {
+      const response = await projectService.getProjectById(projectId)
+      if (response.data) {
+        setCurrentProject(response.data)
+      }
+    }
+  };
 
   /** handles the submission of general details for a project */
   const onSubmit = async (data: ProjectData) => {
@@ -35,13 +52,16 @@ export default function ProjectForm() {
         data.userId = sessionId
         data.username = user.username
       }
-      return await projectService.createProject(data)
-      .then((response) => navigate(`/projects/${response.data.projectId}/milestones`))
-    } catch(error: any) {
-
+      if (projectId) {
+        return await projectService.updateProject(projectId, data)
+      } else {
+        return await projectService.createProject(data)
+          .then((response) => navigate(`/projects/${response.data.projectId}/milestones`))
+      }
+    } catch (error: any) {
       if (error) {
         if (error.response.status == 401) {
-          setWarning("You are not authorised. Please login to create a project")
+          setWarning("You are not authorised. Please login")
         }
 
         else {
@@ -58,18 +78,21 @@ export default function ProjectForm() {
           Create New Project
         </Typography>
         <Grid container direction='column'>
-        {warning && <Alert severity="warning">{warning}</Alert>}
+          {warning && <Alert severity="warning">{warning}</Alert>}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Typography variant='h6' align='left' margin='dense'>
               Project Name
             </Typography>
             <Grid item>
-              <TextField
-                variant='outlined'
-                size='small'
-                margin='dense'
-                {...register('projectName', { required: 'Project Name is required' })}
-              />
+              {currentProject && (
+                <TextField
+                  variant='outlined'
+                  size='small'
+                  margin='dense'
+                  defaultValue={currentProject.projectName}
+                  {...register('projectName', { required: 'Project Name is required' })}
+                />
+              )}
             </Grid>
             <Grid item>
               <Typography variant='h6' align='left' margin='dense'>
@@ -85,22 +108,28 @@ export default function ProjectForm() {
               Project Description
             </Typography>
             <Grid item>
-              <TextField
-                variant='outlined'
-                margin='dense'
-                {...register('description', { required: 'Description is required' })}
-              />
+              {currentProject && (
+                <TextField
+                  variant='outlined'
+                  margin='dense'
+                  defaultValue={currentProject && currentProject.description}
+                  {...register('description', { required: 'Description is required' })}
+                />
+              )}
             </Grid>
             <Typography variant='h6' align='left' margin='dense'>
               Target Fund
             </Typography>
             <Grid item>
-              <TextField
-                margin='dense'
-                type='number'
-                InputProps={{ inputProps: { min: 10 } }}
-                {...register('targetFundingAmount', { required: 'Target funding amount is required' })}
-              />
+              {currentProject && (
+                <TextField
+                  margin='dense'
+                  defaultValue={currentProject.targetFundingAmount}
+                  type='number'
+                  InputProps={{ inputProps: { min: 10 } }}
+                  {...register('targetFundingAmount', { required: 'Target funding amount is required' })}
+                />
+              )}
             </Grid>
             <Grid item>
               <Controller
@@ -111,7 +140,7 @@ export default function ProjectForm() {
                   <DatePicker
                     onChange={(e) => field.onChange(e)}
                     selected={field.value}
-                    placeholderText='Enter funding deadline'
+                    placeholderText={currentProject && currentProject.targetFundingDate.toString().split("T")[0]}
                   />
                 )}
               />

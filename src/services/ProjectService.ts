@@ -9,7 +9,8 @@ const createProject = async (data: ProjectData) => {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
       }
-  })} catch (error) {
+    })
+  } catch (error) {
     throw error;
   }
 };
@@ -60,18 +61,20 @@ const updateProject = async (projectId: string, data: ProjectData) => {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
       }
-  })} catch (error) {
+    })
+  } catch (error) {
     throw error;
   }
 };
 
 const updateProjectMilestone = async (projectId: any, data: ProjectMilestonesData | undefined) => {
   try {
-    return await axiosInstance.patch<any>(`/projects/${projectId}/milestones`, data,  {
+    return await axiosInstance.patch<any>(`/projects/${projectId}/milestones`, data, {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
       }
-  })} catch(error){
+    })
+  } catch (error) {
     throw error;
   }
 }
@@ -82,7 +85,8 @@ const removeProject = async (projectId: string) => {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
       }
-  })} catch (error) {
+    })
+  } catch (error) {
     throw error;
   }
 };
@@ -100,7 +104,7 @@ const addLike = async (projectId: string) => {
     return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`, {}, {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
-      }      
+      }
     });
   } catch (error) {
     throw error;
