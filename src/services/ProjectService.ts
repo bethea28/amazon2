@@ -116,6 +116,18 @@ const getNewProjects = async () => {
   }
 };
 
+const getRecommendedProjects = async () => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>('/projects/recommended', {
+      headers: {
+        Authorization: `Bearer ${getTheCookie("accessToken")}`
+      }      
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 const ProjectService = {
   createProject,
   getProjectById,
@@ -128,7 +140,8 @@ const ProjectService = {
   updateProjectMilestone,
   addLike,
   getNewProjects,
-  getTrendingProjectsBasedOnLikeCount
+  getTrendingProjectsBasedOnLikeCount,
+  getRecommendedProjects
 };
 
 export default ProjectService;
