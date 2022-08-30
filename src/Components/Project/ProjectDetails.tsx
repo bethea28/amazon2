@@ -82,7 +82,7 @@ const ProjectDetails = () => {
                                         {currentProject && currentProject.projectName}
                                     </Typography>
                                     {canEdit && <IconButton aria-label='edit' size='medium' >
-                                        <Link to={`/profile/${projectId}/edit`}>
+                                        <Link to={`/projects/${projectId}/edit`}>
                                             <EditIcon />
                                         </Link>
                                     </IconButton>}
