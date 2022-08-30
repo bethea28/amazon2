@@ -49,13 +49,11 @@ const UserProvider = ({ children }: any) => {
     }
 
     const logoutUser = async () => {
-        const removed = await removeTheCookie("accessToken")
-        if (removed) {
-            removeTheCookie("userId")
-            setSessionId(undefined)
-            setUser(undefined)
-            tokenInCookies()
-        }
+        await removeTheCookie("accessToken")
+        removeTheCookie("userId")
+        setSessionId(undefined)
+        setUser(undefined)
+        tokenInCookies()
     }
 
     return ( 

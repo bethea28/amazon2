@@ -52,7 +52,7 @@ export default function NavigationBar(props: Props) {
     const logoutSessionUser = async () => {
       await logoutUser()
       .then(() => {
-        navigate("/")
+        navigate("/signin")
       })
     }
 

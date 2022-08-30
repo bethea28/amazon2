@@ -33,7 +33,7 @@ export default function Profile() {
 
   useEffect(() => {
     fetchUserAndProjects()
-  }, [])
+  }, [userId])
 
   const fetchUserAndProjects = async () => {
     const userResponse = UserService.getProfile(userId)
