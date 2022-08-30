@@ -62,7 +62,6 @@ export const AdditionalImageIndex: FunctionComponent = () => {
             setUploadedImage(URL.createObjectURL(imageBlob));
             const uploadedS3URL = await uploadToS3(file);
             setS3Url(uploadedS3URL)
-            console.log('Uploaded image url..', uploadedS3URL);
         } else {
             setWarning("Please upload a valid file type")
         }
@@ -70,7 +69,6 @@ export const AdditionalImageIndex: FunctionComponent = () => {
 
     const uploadProjectImages = async () => {
         try {
-            console.log(s3Url)
             if (s3Url) {
                 await ProjectService.projectImages(projectId, s3Url);
                 toProject()
