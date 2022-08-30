@@ -28,7 +28,7 @@ const ProjectComments = () => {
             }
         }
         getComments();
-    }, []);
+    }, [projectId]);
 
     const deleteComment = async (comment: CommentData) => {
         await commentService.deleteComment(comment.commentId).then(() => navigate(`/projects/${projectId}`))

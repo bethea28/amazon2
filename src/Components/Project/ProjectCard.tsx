@@ -12,15 +12,15 @@ import {
 
 const ProjectCard = (data: ProjectData) => {
 
+  const image: string = (data.images[0]) ? data.images[0] : 'https://picsum.photos/200'
+
   return (
     <Container maxWidth='xs'>
       <Paper>
         <Card variant='outlined'>
           <CardActionArea>
-            <Link to={`/projects/${data.projectId}`} style={{textDecoration: "none"}}>
-              {/* place holder */}
-              <img alt='project img' src='https://picsum.photos/400/300' />
-              {/* <img alt='project img' src='${data.images[0]}' /> */}
+            <Link to={`/projects/${data.projectId}`} style={{ textDecoration: "none" }}>
+              <img alt='project img' src={image} />
               <CardContent>
                 <Typography gutterBottom variant='h5'>
                   {data.projectName}
