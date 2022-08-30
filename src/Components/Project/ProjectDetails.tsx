@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, NavLink } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -15,7 +15,8 @@ import {
     Divider,
     Chip,
     Box,
-    IconButton
+    IconButton,
+    Alert
 } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit'
 import CommentForm from "../Comments/CommentForm";
@@ -28,6 +29,7 @@ const ProjectDetails = () => {
     const navigate = useNavigate()
 
     const [currentProject, setCurrentProject] = useState<ProjectData>();
+
     const [warning, setWarning] = useState<string>()
 
     const { projectId } = useParams();
@@ -43,29 +45,26 @@ const ProjectDetails = () => {
     });
 
     const fetchProject = async () => {
-        if (projectId) {
-            await projectService.getProjectById(projectId)
-                .then(response => {
-                    setCurrentProject(response.data)
-                    setCanEdit(response.data.userId === sessionId)
-                })
+        const response = await projectService.getProjectById(projectId)
+        if (response.data) {
+            setCurrentProject(response.data)
+            setCanEdit(response.data.userId === sessionId)
         }
     };
 
     const likeProject = async () => {
         try {
             let response = await projectService.addLike(projectId!);
-            setCurrentProject(response.data) 
+            setCurrentProject(response.data)
         } catch (error: any) {
             setWarning("You have already liked this project")
-          }
-
+        }
     };
 
     const toTransactionForm = async () => {
         navigate(`/projects/${projectId}/transactions`)
     }
-    
+
     return (
         <Container>
             <Grid container spacing={12}>
@@ -119,22 +118,19 @@ const ProjectDetails = () => {
                             <CardActions>
                                 <NavLink to={`/projects/${projectId}/transactions`}  >
                                     <Button variant='outlined' size="small" color="primary">
-                                        {/* funding component to be imported */}
                                         Back this project
                                     </Button>
                                 </NavLink>
-                            {warning && <Alert severity="warning">{warning}</Alert>}
-                            {isLoggedIn && <CardActions>
-                                <Button variant='outlined' size="small" color="primary" onClick={toTransactionForm}>
-                                    Back this project
-                                </Button>
-                                <Button type="submit" onClick={likeProject} variant='outlined' size="small">
-                                    Like
-                                </Button>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    {currentProject && currentProject.likedCount} likes
-                                </Typography>
-                            </CardActions>}
+                                {warning && <Alert severity="warning">{warning}</Alert>}
+                                {isLoggedIn && <CardActions>
+                                    <Button type="submit" onClick={likeProject} variant='outlined' size="small">
+                                        Like
+                                    </Button>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {currentProject && currentProject.likedCount} likes
+                                    </Typography>
+                                </CardActions>}
+                            </CardActions>
                         </Card>
                     </Paper>
                 </Grid>

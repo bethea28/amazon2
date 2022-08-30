@@ -19,16 +19,15 @@ const ProjectComments = () => {
     const userAvatar: string = (user?.avatar) ? user.avatar : 'https://picsum.photos/200'
 
     useEffect(() => {
-        const getComments = async () => {
-            if (projectId) {
-                await commentService.getCommentsByProjectId(projectId)
-                    .then(response => {
-                        setProjectComments(response.data)
-                    })
-            }
+        getComments()
+    }, [projectId])
+
+    const getComments = async () => {
+        const response = await commentService.getCommentsByProjectId(projectId)
+        if (response.data) {
+            setProjectComments(response.data)
         }
-        getComments();
-    }, [projectId]);
+    }
 
     const deleteComment = async (comment: CommentData) => {
         await commentService.deleteComment(comment.commentId).then(() => navigate(`/projects/${projectId}`))

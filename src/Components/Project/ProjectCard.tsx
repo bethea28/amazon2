@@ -13,15 +13,13 @@ import {
 
 const ProjectCard = (data: ProjectData) => {
 
-  const image: string = (data.images[0]) ? data.images[0] : 'https://picsum.photos/200'
-
   return (
     <Container maxWidth='xs'>
       <Paper>
         <Card variant='outlined'>
           <CardActionArea>
             <Link to={`/projects/${data.projectId}`} style={{ textDecoration: "none" }}>
-              <img alt='project img' src={image} />
+              <img alt='project img' src="https://picsum.photos/400/300" />
               <CardContent>
                 <Typography gutterBottom variant='h5'>
                   {data.projectName}
