@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { FormControl, Card, TextField, Box, MenuItem, Typography, Paper, Container } from '@mui/material';
+import { FormControl, Card, TextField, Box, MenuItem, Typography, Paper, Container, Button } from '@mui/material';
 import ProjectService from '../../services/ProjectService';
 import {ProjectMilestonesData} from '../../types/Milestone';
 import Milestone from './milestone';
@@ -47,44 +47,45 @@ export default function Milestones(){
     }
 
     return(
-      <Container maxWidth='xs'>
-      <Paper elevation={3} style={{ padding: 20 }}>
-        <Box sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
-          }}>
-        <Card>
-            <FormControl>
+      <Container maxWidth='xl'>
+        <Paper elevation={10} style={{ padding: 40 }}>
+          <Box sx={{
+              '& .MuiTextField-root': { m: 1, width: '25ch' },
+            }}>
+            <FormControl fullWidth sx={{ m: 1 }} variant="filled">
               <Typography variant='h4' align='left' margin='dense'>
-                 Enter Project Milestones 
-                </Typography>
+                Select Number of Project Milestones 
+                </Typography >
+                <Typography variant='subtitle1' align ='left' margin='dense'>Milestones are checkpoints that highlight the successful completion of funding goals.</Typography>
                 <TextField
                 select
                 label = "select"
                 value = {milestones.length}
                 onChange ={handleChange}
-                helperText = "Please select the number of Funding Milestones for your Project."
                 >
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem>
                 </TextField>
               </FormControl>
-        <form onSubmit={handleSubmit(onsubmit)}>
-        <label> Milestones</label>
-        {milestones.map((milestone, index) => {
-                        const setMilestone = (newMilestone: MilestoneType) =>
-                        setSingleMilestone(newMilestone, index);
-                        return (
-                            <Milestone
-                              onChange={setMilestone}
-                              values={milestone}
-                              key={index}
-                            />)})}
-        <input type="submit" value="Submit" />
-        </form>
-        </Card>
-        </Box>
-        </Paper>
+            
+            <form onSubmit={handleSubmit(onsubmit)}>
+              <Typography variant='h5' align='left' margin='dense'>
+                      Enter Project Milestone Description
+              </Typography>
+              {milestones.map((milestone, index) => {
+                            const setMilestone = (newMilestone: MilestoneType) =>
+                            setSingleMilestone(newMilestone, index);
+                            return (
+                                <Milestone
+                                  onChange={setMilestone}
+                                  values={milestone}
+                                  key={index}
+                                />)})}
+            <Button type='submit' variant='contained' color='primary'>Submit</Button>
+            </form>
+            </Box>
+          </Paper>
         </Container>
     );
 }
