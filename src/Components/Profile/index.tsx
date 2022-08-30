@@ -53,7 +53,7 @@ export default function Profile() {
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
-      <Paper elevation={3} style={{ padding: 20, minWidth: 400, backgroundColor: userBGColor }}>
+      <Paper elevation={3} style={{ padding: 20,  backgroundColor: userBGColor, minWidth: 400 }}>
         <Grid margin={2} sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant='h4' margin={2}>Profile</Typography>
           {canEdit && <IconButton aria-label='edit' size='medium' title='Edit profile' >
@@ -73,7 +73,7 @@ export default function Profile() {
               />
               {canEdit && <Link to={`/avatarUpload`} style={{fontSize: '12px'}} className="internalLinks">Edit avatar</Link>}
             </Grid>
-            <Grid marginLeft={3}>
+            <Grid margin={3}>
               <Typography variant='body1'>
                 {userProfile && userProfile.name}
               </Typography>
