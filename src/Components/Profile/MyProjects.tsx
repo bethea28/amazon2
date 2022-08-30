@@ -34,8 +34,7 @@ export default function MyProjects() {
   }
 
   return (
-    
-    <Grid container justifyContent='center' alignItems='center' flexDirection='column'>
+    <Grid container justifyContent='center' alignItems='center' flexDirection='column' marginTop={3}>
       <Grid marginTop={2}>
         <Typography sx={{ fontWeight: "bold" }} variant='h3'>
           {header}

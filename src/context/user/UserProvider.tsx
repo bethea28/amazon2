@@ -49,7 +49,6 @@ const UserProvider = ({ children }: any) => {
     }
 
     const logoutUser = async () => {
-        console.log("You are logged out!")
         const removed = await removeTheCookie("accessToken")
         if (removed) {
             removeTheCookie("userId")

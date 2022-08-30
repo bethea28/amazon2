@@ -50,8 +50,10 @@ export default function NavigationBar(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
     const logoutSessionUser = async () => {
-      logoutUser()
-      navigate("/")
+      await logoutUser()
+      .then(() => {
+        navigate("/")
+      })
     }
 
   let sessionLinks;
@@ -61,14 +63,14 @@ export default function NavigationBar(props: Props) {
         <NavLink to='/createProject' className="navbar">
           Create Project
         </NavLink>
-        <NavLink to={`/profile/${sessionId}`} className="navbar">
-          Profile
-        </NavLink>
         <NavLink to={`/users/${sessionId}/projects`} className="navbar">
           My Projects
         </NavLink>
-        <Button variant="contained" onClick={logoutSessionUser} sx={{boxShadow: 'none', padding: '2px'}} title='Logout'>
-          <LogoutIcon />
+        <NavLink to={`/profile/${sessionId}`} className="navbar">
+          Profile
+        </NavLink>
+        <Button variant="contained" onClick={logoutSessionUser} sx={{boxShadow: 'none'}} title='Logout'>
+          Logout
         </Button>
       </>
     )
@@ -126,7 +128,7 @@ export default function NavigationBar(props: Props) {
             </Typography>
           </Box>
         </Toolbar>
-        <Divider />
+        <Divider color='white' />
       <DiscoverNavBar />
       </AppBar>
       <Box component='nav'>
