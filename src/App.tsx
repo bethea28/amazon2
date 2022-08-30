@@ -63,7 +63,6 @@ function App() {
                 <Route path='/createProject' element={<CreateProjectForm />} />
                 <Route path='/projects' element={<AllProjects />} />
                 <Route path='/projects/:projectId' element={<ProjectDetails />} />
-                <Route path='/projects/:projectId/edit' element={<CreateProjectForm />} />
                 <Route
                   path='/categories/:projectCategory'
                   element={<ProjectsByCategories />}

@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProjectFundingInfoService from '../../services/ProjectFundingInfoService';
@@ -47,20 +47,20 @@ export default function ProjectFundingInfo(){
     return(
     <Box>
         <FundingProgressInputView targetFunding = {targetFunding} currentFundedAmount = {progress}/>
-        <Typography>
+        <Grid>
             <Box sx={{ fontWeight: 'bold'}}>${progress}</Box>
             <Box sx={{ fontWeight: 'light', typography: 'body2'}}>pledged of ${targetFunding} goal</Box>
-        </Typography>
-        <Typography> 
+        </Grid>
+        <Grid> 
             <Box sx={{ fontWeight: 'bold'}}>{totalBackers}</Box>
             <Box sx={{ fontWeight: 'light', typography: 'body2'}}>backers</Box>
-        </Typography>
-        <Typography> 
+        </Grid>
+        <Grid> 
             <Box sx={{ fontWeight: 'bold'}}> Project Milestones </Box>
             {milestones.map((milestone, index) => {
-            return (<Box sx={{ fontWeight: 'light', typography: 'body2'}}> name: {milestone.name}</Box>)
+            return (<Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> name: {milestone.name}</Box>)
             })}
-        </Typography>
+        </Grid>
     </Box>
     )
 }
