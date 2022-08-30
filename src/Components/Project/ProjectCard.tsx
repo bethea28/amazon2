@@ -1,6 +1,6 @@
 import React from 'react'
 import ProjectData from '../../types/Project'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   FavoriteBorderOutlined,
   MonetizationOnOutlined,
@@ -16,6 +16,7 @@ import {
   Container,
   Paper
 } from '@mui/material'
+
 
 const ProjectCard = (data: ProjectData) => {
 
@@ -44,11 +45,9 @@ const ProjectCard = (data: ProjectData) => {
             </CardContent>
           </CardActionArea>
           <CardActions>
-          <NavLink to={`/projects/${data.projectId}/transactions`}  >
             <Button variant='outlined' size='small' color='primary'>
               Back
             </Button>
-          </NavLink>
             <IconButton>
               {/* funding component to be imported */}
               <MonetizationOnOutlined />

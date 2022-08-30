@@ -9,7 +9,8 @@ import {
   Box,
   IconButton,
   List,
-  ListItem
+  ListItem,
+  Divider
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import UserService from '../../services/UserService'
@@ -17,7 +18,6 @@ import UserData from '../../types/User'
 import ProjectService from '../../services/ProjectService'
 import ProjectData from '../../types/Project'
 import UserContext from '../../context/user/UserContext'
-import TransactionType from '../../types/Transactions'
 import TransactionService from '../../services/TransactionService'
 
 export default function Profile() {
@@ -29,11 +29,11 @@ export default function Profile() {
 
   const [userProfile, setUserProfile] = useState<UserData>()
   const [userProjects, setUserProjects] = useState<Array<ProjectData> | []>()
-  const [backedProjects, setBackedProjects] = useState<Array<TransactionType> | []>()
+  const [backedProjects, setBackedProjects] = useState<Array<ProjectData> | []>()
 
   useEffect(() => {
     fetchUserAndProjects()
-  }, [])
+  }, [userId])
 
   const fetchUserAndProjects = async () => {
     const userResponse = UserService.getProfile(userId)
@@ -54,10 +54,10 @@ export default function Profile() {
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
-      <Paper elevation={3} style={{ padding: 20, minWidth: 400, backgroundColor: userBGColor }}>
+      <Paper elevation={3} style={{ padding: 20,  backgroundColor: userBGColor, minWidth: 400 }}>
         <Grid margin={2} sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant='h4' margin={2}>Profile</Typography>
-          {canEdit && <IconButton aria-label='edit' size='medium' >
+          {canEdit && <IconButton aria-label='edit' size='medium' title='Edit profile' >
             <Link to={`/profile/${userId}/edit`}>
               <EditIcon />
             </Link>
@@ -72,9 +72,9 @@ export default function Profile() {
                 alt='User Avatar'
                 sx={{ width: 100, height: 100}}
               />
-              <Link to={`/avatarUpload`} style={{fontSize: '12px'}} className="internalLinks">Edit avatar</Link>
+              {canEdit && <Link to={`/avatarUpload`} style={{fontSize: '12px'}} className="internalLinks">Edit avatar</Link>}
             </Grid>
-            <Grid marginLeft={3}>
+            <Grid margin={3}>
               <Typography variant='body1'>
                 {userProfile && userProfile.name}
               </Typography>
@@ -88,7 +88,7 @@ export default function Profile() {
           </Box>
 
           <Grid item>
-            <Typography variant='h6'>Interests</Typography>
+            <Typography variant='caption' fontWeight={600} fontSize={14}>INTERESTS</Typography>
             <List sx={{ fontSize: 14}}>
               {userProfile &&
                 Object.entries(userProfile.interests).map(function ([
@@ -105,9 +105,8 @@ export default function Profile() {
                 })}
             </List>
           </Grid>
-
           <Grid item>
-            <Typography variant='h5'>Projects Posted</Typography>
+            <Typography variant='caption' fontWeight={600} fontSize={16}>PROJECTS POSTED</Typography>
             {userProjects && !userProjects.length && (
               <Typography variant='body2' sx={{opacity: '0.8'}}> No projects yet! </Typography>
             )}
@@ -127,18 +126,18 @@ export default function Profile() {
           </Grid>
 
           <Grid item>
-            <Typography variant='h5'>Projects Backed</Typography>
+            <Typography variant='caption' fontWeight={600} fontSize={16}>PROJECTS BACKED</Typography>
             {backedProjects && !backedProjects.length && (
-              <Typography variant='body2'> No backed projects yet! </Typography>
+              <Typography variant='body2' sx={{opacity: '0.8'}}> No backed projects yet! </Typography>
             )}
             <List sx={{ fontSize: 14}}>
               {backedProjects &&
                 backedProjects.length > 0 &&
-                backedProjects.map((transaction, idx) => {
+                backedProjects.map((project) => {
                   return (
-                    <ListItem dense key={idx}>
-                      <Link to={`/projects/${transaction.projectId}`} className="internalLinks">
-                        {transaction.projectId}
+                    <ListItem dense key={project.projectId}>
+                      <Link to={`/projects/${project.projectId}`} className="internalLinks">
+                        {project.projectName}
                       </Link>
                     </ListItem>
                   )

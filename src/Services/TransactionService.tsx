@@ -1,7 +1,7 @@
 import axiosInstance from "../apiConfig";
-import TransactionType from "../types/Transactions";
+import TransactionType from "../types/transactions";
 import { getTheCookie } from "../utils/cookies";
-
+import ProjectData from "../types/Project"
 
 /*
 * Handling the get request that is made by the client to get a transaction by transactionId
@@ -31,7 +31,7 @@ async function createTransaction(transactiondata: TransactionType) {
 */
 async function getProjectsBackedByUser(userId: string | undefined) {
     try {
-        return await axiosInstance.get<Array<TransactionType>>(`/transaction/users/${userId}`)
+        return await axiosInstance.get<Array<ProjectData>>(`/transaction/users/${userId}`)
     } catch (error) {
         throw error;
     }
