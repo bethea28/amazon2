@@ -63,7 +63,7 @@ export default function ProjectFundingInfo(){
                 <Box sx={{ fontWeight: 'bold'}}> Milestone {index}</Box>
                 <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> {milestone.name}</Box>
                 <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> {milestone.description}</Box>
-                <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index + 1}> Traget Amount: ${milestone.amount}</Box>
+                <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index + 1}> Target Amount: ${milestone.amount} </Box>
               </React.Fragment>
             )
             })}
