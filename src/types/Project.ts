@@ -1,3 +1,5 @@
+import { MilestoneType } from './Milestone';
+
 export default interface ProjectData {
   projectId?: string;
   userId?: string;
@@ -11,5 +13,6 @@ export default interface ProjectData {
   coverImage?: string;
   images: Array<string>;
   likedBy: Array<string>;
-  likeCount: number;
+  milestones: Array<MilestoneType>;
+  likedCount: number;
 }

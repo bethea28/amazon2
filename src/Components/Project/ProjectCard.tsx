@@ -17,6 +17,7 @@ import {
   Paper
 } from '@mui/material'
 
+
 const ProjectCard = (data: ProjectData) => {
 
   return (
