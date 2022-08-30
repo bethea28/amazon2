@@ -10,6 +10,7 @@ import {
   Paper
 } from '@mui/material'
 
+
 const ProjectCard = (data: ProjectData) => {
 
   const image: string = (data.images[0]) ? data.images[0] : 'https://picsum.photos/200'

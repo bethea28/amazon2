@@ -114,7 +114,7 @@ export default function ProfileForm() {
 
   return (
     <Container maxWidth='xs' style={{ margin: 20 }}>
-      <Paper elevation={3} style={{ padding: 20, minWidth: 350, backgroundColor: "#E9F3FF"}}>
+      <Paper elevation={3} style={{ padding: 20, minWidth: 400, backgroundColor: "#E9F3FF"}}>
         <Grid margin={2}>
           <Typography variant='h5'>
             Edit Profile

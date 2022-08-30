@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -21,17 +21,22 @@ import EditIcon from '@mui/icons-material/Edit'
 import CommentForm from "../Comments/CommentForm";
 import ProjectComments from "../Comments/ProjectComments";
 import ProjectFundingInfo from "../ProjectFundingInfo/fundingCard";
-import UserContext from "../../context/user/UserContext";
+import UserContext from '../../context/user/UserContext'
 
 const ProjectDetails = () => {
 
+    const navigate = useNavigate()
+
     const [currentProject, setCurrentProject] = useState<ProjectData>();
+    const [warning, setWarning] = useState<string>()
 
     const { projectId } = useParams();
 
     const { sessionId } = useContext(UserContext);
 
     const [canEdit, setCanEdit] = useState<boolean>();
+
+    const { isLoggedIn } = useContext(UserContext)
 
     useEffect(() => {
         fetchProject();
@@ -48,10 +53,19 @@ const ProjectDetails = () => {
     };
 
     const likeProject = async () => {
-        let response = await projectService.addLike(projectId!);
-        setCurrentProject(response.data);
+        try {
+            let response = await projectService.addLike(projectId!);
+            setCurrentProject(response.data) 
+        } catch (error: any) {
+            setWarning("You have already liked this project")
+          }
+
     };
 
+    const toTransactionForm = async () => {
+        navigate(`/projects/${projectId}/transactions`)
+    }
+    
     return (
         <Container>
             <Grid container spacing={12}>
@@ -91,6 +105,7 @@ const ProjectDetails = () => {
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         <ProjectFundingInfo />
                                     </Typography>
+                                    <ProjectFundingInfo />
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
@@ -108,13 +123,18 @@ const ProjectDetails = () => {
                                         Back this project
                                     </Button>
                                 </NavLink>
+                            {warning && <Alert severity="warning">{warning}</Alert>}
+                            {isLoggedIn && <CardActions>
+                                <Button variant='outlined' size="small" color="primary" onClick={toTransactionForm}>
+                                    Back this project
+                                </Button>
                                 <Button type="submit" onClick={likeProject} variant='outlined' size="small">
                                     Like
                                 </Button>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     {currentProject && currentProject.likedCount} likes
                                 </Typography>
-                            </CardActions>
+                            </CardActions>}
                         </Card>
                     </Paper>
                 </Grid>
