@@ -26,7 +26,7 @@ const updateComment = async (commentId: string, data: CommentData) => {
 
 const deleteComment = async (commentId: string) => {
   try {
-    return await axiosInstance.delete<any>(`/comments/${commentId}`, {
+    return await axiosInstance.delete<CommentData>(`/comments/${commentId}`, {
       headers: {
         Authorization: `Bearer ${getTheCookie("accessToken")}`
       }
@@ -43,9 +43,9 @@ const getCommentById = async (commentId: string) => {
   }
 };
 
-const getCommentsByProjectId = async (projectId: string) => {
+const getCommentsByProjectId = async (projectId: string | undefined) => {
   try {
-    return await axiosInstance.get<CommentData>(`/comments/projects/${projectId}`);
+    return await axiosInstance.get<Array<CommentData>>(`/comments/projects/${projectId}`);
   } catch (error) {
     throw error;
   }

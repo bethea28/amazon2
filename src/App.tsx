@@ -2,7 +2,6 @@ import React, { useState, Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserProvider from "./context/user/UserProvider";
 import NavigationBar from "./Components/Navigation";
-import CommentForm from "./Components/Comments/CommentForm";
 import Homepage from "./Components/Homepage";
 import Footer from "./Components/Footer";
 import ProjectImageIndex from "./Components/Project/CoverImageUpload/index";
@@ -64,10 +63,7 @@ function App() {
                 <Route path='/createProject' element={<CreateProjectForm />} />
                 <Route path='/projects' element={<AllProjects />} />
                 <Route path='/projects/:projectId' element={<ProjectDetails />} />
-                <Route
-                  path='/createComment'
-                  element={<CommentForm />}
-                />
+                <Route path='/projects/:projectId/edit' element={<CreateProjectForm />} />
                 <Route
                   path='/categories/:projectCategory'
                   element={<ProjectsByCategories />}

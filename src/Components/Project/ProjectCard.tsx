@@ -1,18 +1,11 @@
 import React from 'react'
 import ProjectData from '../../types/Project'
-import { Link, NavLink } from 'react-router-dom'
-import {
-  FavoriteBorderOutlined,
-  MonetizationOnOutlined,
-} from '@mui/icons-material'
+import { Link } from 'react-router-dom'
 import {
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
-  Button,
   Typography,
-  IconButton,
   Container,
   Paper
 } from '@mui/material'
@@ -27,7 +20,7 @@ const ProjectCard = (data: ProjectData) => {
             <Link to={`/projects/${data.projectId}`} style={{textDecoration: "none"}}>
               {/* place holder */}
               <img alt='project img' src='https://picsum.photos/400/300' />
-              {/* data.image */}
+              {/* <img alt='project img' src='${data.images[0]}' /> */}
               <CardContent>
                 <Typography gutterBottom variant='h5'>
                   {data.projectName}
@@ -43,21 +36,6 @@ const ProjectCard = (data: ProjectData) => {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-          <NavLink to={`/projects/${data.projectId}/transactions`}  >
-            <Button variant='outlined' size='small' color='primary'>
-              Back
-            </Button>
-          </NavLink>
-            <IconButton>
-              {/* funding component to be imported */}
-              <MonetizationOnOutlined />
-            </IconButton>
-            <IconButton>
-              {/* like button component to be imported */}
-              <FavoriteBorderOutlined />
-            </IconButton>
-          </CardActions>
         </Card>
       </Paper>
     </Container>

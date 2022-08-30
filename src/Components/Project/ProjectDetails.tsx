@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
 import { Link, NavLink, useParams } from "react-router-dom";
@@ -11,11 +11,17 @@ import {
     CardContent,
     Button,
     Typography,
-    Paper
+    Paper,
+    Divider,
+    Chip,
+    Box,
+    IconButton
 } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit'
 import CommentForm from "../Comments/CommentForm";
 import ProjectComments from "../Comments/ProjectComments";
 import ProjectFundingInfo from "../ProjectFundingInfo/fundingCard";
+import UserContext from "../../context/user/UserContext";
 
 const ProjectDetails = () => {
 
@@ -23,41 +29,50 @@ const ProjectDetails = () => {
 
     const { projectId } = useParams();
 
+    const { sessionId } = useContext(UserContext);
+
+    const [canEdit, setCanEdit] = useState<boolean>();
+
     useEffect(() => {
-        const fetchProject = async () => {
-            if (projectId) {
-                await projectService.getProjectById(projectId)
-                    .then(response => {
-                        setCurrentProject(response.data)
-                    })
-            }
-        }
         fetchProject();
-    }, [projectId])
+    });
+
+    const fetchProject = async () => {
+        if (projectId) {
+            await projectService.getProjectById(projectId)
+                .then(response => {
+                    setCurrentProject(response.data)
+                    setCanEdit(response.data.userId === sessionId)
+                })
+        }
+    };
 
     const likeProject = async () => {
         let response = await projectService.addLike(projectId!);
         setCurrentProject(response.data);
     };
-    
+
     return (
-        <Container maxWidth="lg">
-            <Grid container spacing={6} justifyItems={"center"}>
-                {/* <Grid item>
-                    <Paper style={{ padding: 20 }}>
-                        {currentProject && currentProject.images.map(src =>
-                            <img alt='project images' src={src} />
-                        )}
+        <Container>
+            <Grid container spacing={12}>
+                <Grid item xs={6}>
+                    <Paper>
+                        <img alt='project images' src='https://picsum.photos/400/300' />
                     </Paper>
-                </Grid> */}
-                <Grid item>
-                    <Paper style={{ padding: 20 }}>
+                </Grid>
+                <Grid item xs={6} paddingBottom={10}>
+                    <Paper style={{ padding: 10 }}>
                         <Card variant='outlined'>
                             <CardActionArea>
                                 <CardContent>
-                                    <Typography gutterBottom variant="h4">
+                                    <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                                         {currentProject && currentProject.projectName}
                                     </Typography>
+                                    {canEdit && <IconButton aria-label='edit' size='medium' >
+                                        <Link to={`/profile/${projectId}/edit`}>
+                                            <EditIcon />
+                                        </Link>
+                                    </IconButton>}
                                     <Typography gutterBottom variant='h5'>
                                         {currentProject && currentProject.category}
                                     </Typography>
@@ -67,30 +82,32 @@ const ProjectDetails = () => {
                                 </CardContent>
                                 <CardContent>
                                     {currentProject && (<Link to={`/profile/${currentProject.userId}`}>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        By {currentProject && currentProject.username}
-                                    </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            By {currentProject && currentProject.username}
+                                        </Typography>
                                     </Link>)}
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        <ProjectFundingInfo></ProjectFundingInfo>
+                                        <ProjectFundingInfo />
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         Target Funding Date
-                                        {currentProject && currentProject.targetFundingDate.toString()}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {currentProject && currentProject.targetFundingDate.toString().split("T", 1)}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                            <NavLink to={`/projects/${projectId}/transactions`}  >
-                                <Button variant='outlined' size="small" color="primary">
-                                    {/* funding component to be imported */}
-                                    Back this project
-                                </Button>
-                            </NavLink>
+                                <NavLink to={`/projects/${projectId}/transactions`}  >
+                                    <Button variant='outlined' size="small" color="primary">
+                                        {/* funding component to be imported */}
+                                        Back this project
+                                    </Button>
+                                </NavLink>
                                 <Button type="submit" onClick={likeProject} variant='outlined' size="small">
                                     Like
                                 </Button>
@@ -102,8 +119,20 @@ const ProjectDetails = () => {
                     </Paper>
                 </Grid>
             </Grid>
-            {<CommentForm />}
-            {<ProjectComments />}
+            <Divider component="li">
+                <Chip label="COMMENTS" />
+            </Divider>
+            <Box sx={{
+                width: 360,
+                m: 5
+            }} >
+                <Paper>
+                    {<CommentForm />}
+                </Paper>
+            </Box>
+            <Box paddingTop={5}>
+                {<ProjectComments />}
+            </Box>
         </Container>
     )
 }
