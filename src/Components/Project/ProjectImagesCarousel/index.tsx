@@ -4,7 +4,7 @@ import ProjectData from '../../../types/Project'
 import Carousel from 'react-material-ui-carousel';
 import Settings, { DefaultSettingsT, SettingsT } from '../../../utils/CarouselSettings/Settings';
 
-const ImgCarousel = (data: Array<String>) => {
+const ImgCarousel = (data: ProjectData) => {
 
   const settings = useState<SettingsT>(DefaultSettingsT);
 
@@ -15,11 +15,11 @@ const ImgCarousel = (data: Array<String>) => {
         <Carousel
           {...settings}>
           {data &&
-            data.length > 0 &&
-            data.map((imgSrc) => {
+            data.images.length > 0 &&
+            data.images.map((imgSrc) => {
               return (
                 <Grid marginBottom={2}>
-                  <img alt='project img' src='{imgSrc}' />
+                  <img alt='project img' src={imgSrc} />
                 </Grid>
               )
             })}
