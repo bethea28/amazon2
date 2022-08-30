@@ -70,8 +70,9 @@ export const AdditionalImageIndex: FunctionComponent = () => {
 
     const uploadProjectImages = async () => {
         try {
+            console.log(s3Url)
             if (s3Url) {
-                await ProjectService.projectImages(s3Url, projectId);
+                await ProjectService.projectImages(projectId, s3Url);
                 toProject()
             } else {
                 setWarning("Please select project images to upload")

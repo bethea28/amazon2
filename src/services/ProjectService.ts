@@ -112,7 +112,7 @@ const getNewProjects = async () => {
   }
 };
 
-async function projectImages(images: string | undefined, projectId: string | undefined) {
+async function projectImages(projectId: string | undefined, images: string) {
   try {
     return await axiosInstance.patch<ProjectData>(`/projects/${projectId}/images`, images, {
       headers: {

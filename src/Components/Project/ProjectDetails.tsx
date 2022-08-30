@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
 import { useParams } from "react-router-dom";
+import ImgCarousel from "../Project/ProjectImagesCarousel/index"
+import Carousel from 'react-material-ui-carousel';
+import Settings, { DefaultSettingsT, SettingsT } from '../../utils/CarouselSettings/Settings';
+
 import {
     Container,
     Grid,
@@ -18,6 +22,7 @@ const ProjectDetails = () => {
 
     const [currentProject, setCurrentProject] = useState<ProjectData>();
     const { projectId } = useParams();
+    const settings = useState<SettingsT>(DefaultSettingsT);
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -38,13 +43,6 @@ const ProjectDetails = () => {
     return (
         <Container maxWidth="lg">
             <Grid container spacing={6} justifyItems={"center"}>
-                {/* <Grid item>
-                    <Paper style={{ padding: 20 }}>
-                        {currentProject && currentProject.images.map(src =>
-                            <img alt='project images' src={src} />
-                        )}
-                    </Paper>
-                </Grid> */}
                 <Grid item>
                     <Paper style={{ padding: 20 }}>
                         <Card variant='outlined'>
@@ -53,6 +51,23 @@ const ProjectDetails = () => {
                                     <Typography gutterBottom variant="h4">
                                         {currentProject && currentProject.projectName}
                                     </Typography>
+
+                                    <Grid
+                                        style={{ marginTop: "50px", color: "#494949" }}>
+                                        <Carousel
+                                            {...settings}>
+                                            {currentProject &&
+                                                currentProject.images.length > 0 &&
+                                                currentProject.images.map((imgSrc) => {
+                                                    return (
+                                                        <Grid marginBottom={2}>
+                                                            <img alt='project img' src={imgSrc} />
+
+                                                        </Grid>
+                                                    )
+                                                })}
+                                        </Carousel>
+                                    </Grid>
                                     <Typography gutterBottom variant='h5'>
                                         {currentProject && currentProject.category}
                                     </Typography>
