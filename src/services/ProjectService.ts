@@ -14,7 +14,7 @@ const createProject = async (data: ProjectData) => {
   }
 };
 
-const getProjectById = async (projectId: string) => {
+const getProjectById = async (projectId: string | undefined) => {
   try {
     return await axiosInstance.get<ProjectData>(`/projects/${projectId}`);
   } catch (error) {
@@ -65,10 +65,13 @@ const updateProject = async (projectId: string, data: ProjectData) => {
   }
 };
 
-const updateProjectMilestone = async (projectId: any, data: ProjectMilestonesData) => {
+const updateProjectMilestone = async (projectId: any, data: ProjectMilestonesData | undefined) => {
   try {
-    return await axiosInstance.patch<any>(`/projects/${projectId}/milestones`, data);
-  } catch(error){
+    return await axiosInstance.patch<any>(`/projects/${projectId}/milestones`, data,  {
+      headers: {
+        Authorization: `Bearer ${getTheCookie("accessToken")}`
+      }
+  })} catch(error){
     throw error;
   }
 }
@@ -94,7 +97,11 @@ const findProjectByName = async (name: string) => {
 
 const addLike = async (projectId: string) => {
   try {
-    return await axiosInstance.patch<ProjectData>(`/projects/${projectId}/likes`);
+    return await axiosInstance.patch<ProjectData>(`projects/${projectId}/likes`, {}, {
+      headers: {
+        Authorization: `Bearer ${getTheCookie("accessToken")}`
+      }      
+    });
   } catch (error) {
     throw error;
   }

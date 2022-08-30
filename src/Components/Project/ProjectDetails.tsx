@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
     Container,
     Grid,
@@ -11,13 +11,22 @@ import {
     CardContent,
     Button,
     Typography,
-    Paper
+    Paper,
+    Alert
 } from "@mui/material";
+import ProjectFundingInfo from "../ProjectFundingInfo/fundingCard";
+import UserContext from '../../context/user/UserContext'
 
 const ProjectDetails = () => {
 
+    const navigate = useNavigate()
+
     const [currentProject, setCurrentProject] = useState<ProjectData>();
+    const [warning, setWarning] = useState<string>()
+
     const { projectId } = useParams();
+
+    const { isLoggedIn } = useContext(UserContext)
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -32,9 +41,19 @@ const ProjectDetails = () => {
     }, [projectId])
 
     const likeProject = async () => {
-        return await projectService.addLike(projectId!);
+        try {
+            let response = await projectService.addLike(projectId!);
+            setCurrentProject(response.data) 
+        } catch (error: any) {
+            setWarning("You have already liked this project")
+          }
+
     };
 
+    const toTransactionForm = async () => {
+        navigate(`/projects/${projectId}/transactions`)
+    }
+    
     return (
         <Container maxWidth="lg">
             <Grid container spacing={6} justifyItems={"center"}>
@@ -61,15 +80,16 @@ const ProjectDetails = () => {
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
+                                    {currentProject && (<Link to={`/profile/${currentProject.userId}`}>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         By {currentProject && currentProject.username}
                                     </Typography>
+                                    </Link>)}
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        Target Funding Amount
-                                        {currentProject && currentProject.targetFundingAmount}
                                     </Typography>
+                                    <ProjectFundingInfo />
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
@@ -78,18 +98,18 @@ const ProjectDetails = () => {
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
-                            <CardActions>
-                                <Button variant='outlined' size="small" color="primary">
-                                    {/* funding component to be imported */}
+                            {warning && <Alert severity="warning">{warning}</Alert>}
+                            {isLoggedIn && <CardActions>
+                                <Button variant='outlined' size="small" color="primary" onClick={toTransactionForm}>
                                     Back this project
                                 </Button>
                                 <Button type="submit" onClick={likeProject} variant='outlined' size="small">
                                     Like
                                 </Button>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    {currentProject && (currentProject.likedBy == null ? 0 : currentProject.likedBy.length)} likes
+                                    {currentProject && currentProject.likedCount} likes
                                 </Typography>
-                            </CardActions>
+                            </CardActions>}
                         </Card>
                     </Paper>
                 </Grid>
