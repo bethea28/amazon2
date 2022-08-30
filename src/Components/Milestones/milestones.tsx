@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { FormControl, Card, TextField, Box, MenuItem } from '@mui/material';
+import { FormControl, Card, TextField, Box, MenuItem, Typography, Paper, Container } from '@mui/material';
 import ProjectService from '../../services/ProjectService';
 import {ProjectMilestonesData} from '../../types/Milestone';
 import Milestone from './milestone';
@@ -47,11 +47,16 @@ export default function Milestones(){
     }
 
     return(
+      <Container maxWidth='xs'>
+      <Paper elevation={3} style={{ padding: 20 }}>
         <Box sx={{
             '& .MuiTextField-root': { m: 1, width: '25ch' },
           }}>
         <Card>
             <FormControl>
+              <Typography variant='h4' align='left' margin='dense'>
+                 Enter Project Milestones 
+                </Typography>
                 <TextField
                 select
                 label = "select"
@@ -79,5 +84,7 @@ export default function Milestones(){
         </form>
         </Card>
         </Box>
+        </Paper>
+        </Container>
     );
 }
