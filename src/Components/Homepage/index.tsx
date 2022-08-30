@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Grid, Typography } from "@mui/material";
-import ProjectCard from "../Project/ProjectCard";
 import { useNavigate } from "react-router-dom";
 import ProjectData from "../../types/Project";
 import ProjectService from "../../services/ProjectService";
-import Carousel from "react-material-ui-carousel";
 import NewProjects from "./NewProjects";
 import TrendingProjects from "./TrendingProjects";
-
+import RecommendedProjects from "./RecommendedProjects";
+import UserContext from '../../context/user/UserContext'
 
 
 const Homepage = () => {
   const navigate = useNavigate();
+
+  const { isLoggedIn } = useContext(UserContext)
 
   const exploreProjects = () => {
     navigate(`/projects`);
@@ -51,6 +52,9 @@ const Homepage = () => {
         </Grid>
       </Grid>
 
+      {isLoggedIn && <Grid>
+        <RecommendedProjects />
+      </Grid>}
       <Grid>
         <NewProjects />
       </Grid>

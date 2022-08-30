@@ -79,7 +79,7 @@ export default function Profile() {
                 {userProfile && userProfile.name}
               </Typography>
               <Typography variant='body2'>
-                {userProfile && userProfile.username}
+                @{userProfile && userProfile.username}
               </Typography>
               <Typography variant='body2' sx={{marginTop: 1, opacity: '0.75'}}>
                 {userProfile && userProfile.bio}

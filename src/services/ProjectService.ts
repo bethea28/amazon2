@@ -124,6 +124,18 @@ const getNewProjects = async () => {
   }
 };
 
+const getRecommendedProjects = async () => {
+  try {
+    return await axiosInstance.get<Array<ProjectData>>('/projects/recommended', {
+      headers: {
+        Authorization: `Bearer ${getTheCookie('accessToken')}`,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 async function projectImages(projectId: string | undefined, images: string) {
   try {
     return await axiosInstance.patch<ProjectData>(`/projects/${projectId}/images`, images, {
@@ -150,6 +162,7 @@ const ProjectService = {
   getNewProjects,
   projectImages,
   getTrendingProjectsBasedOnLikeCount,
+  getRecommendedProjects,
 };
 
 export default ProjectService;
