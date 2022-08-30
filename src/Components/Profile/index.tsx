@@ -9,7 +9,8 @@ import {
   Box,
   IconButton,
   List,
-  ListItem
+  ListItem,
+  Divider
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import UserService from '../../services/UserService'
@@ -87,7 +88,7 @@ export default function Profile() {
           </Box>
 
           <Grid item>
-            <Typography variant='h6'>Interests</Typography>
+            <Typography variant='caption' fontWeight={600} fontSize={14}>INTERESTS</Typography>
             <List sx={{ fontSize: 14}}>
               {userProfile &&
                 Object.entries(userProfile.interests).map(function ([
@@ -104,9 +105,8 @@ export default function Profile() {
                 })}
             </List>
           </Grid>
-
           <Grid item>
-            <Typography variant='h5'>Projects Posted</Typography>
+            <Typography variant='caption' fontWeight={600} fontSize={16}>PROJECTS POSTED</Typography>
             {userProjects && !userProjects.length && (
               <Typography variant='body2' sx={{opacity: '0.8'}}> No projects yet! </Typography>
             )}
@@ -126,7 +126,7 @@ export default function Profile() {
           </Grid>
 
           <Grid item>
-            <Typography variant='h5'>Projects Backed</Typography>
+            <Typography variant='caption' fontWeight={600} fontSize={16}>PROJECTS BACKED</Typography>
             {backedProjects && !backedProjects.length && (
               <Typography variant='body2' sx={{opacity: '0.8'}}> No backed projects yet! </Typography>
             )}
