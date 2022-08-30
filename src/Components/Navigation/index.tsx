@@ -126,6 +126,7 @@ export default function NavigationBar(props: Props) {
             </Typography>
           </Box>
         </Toolbar>
+        <Divider />
       <DiscoverNavBar />
       </AppBar>
       <Box component='nav'>

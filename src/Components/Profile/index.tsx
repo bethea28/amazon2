@@ -128,14 +128,14 @@ export default function Profile() {
           <Grid item>
             <Typography variant='h5'>Projects Backed</Typography>
             {backedProjects && !backedProjects.length && (
-              <Typography variant='body2'> No backed projects yet! </Typography>
+              <Typography variant='body2' sx={{opacity: '0.8'}}> No backed projects yet! </Typography>
             )}
             <List sx={{ fontSize: 14}}>
               {backedProjects &&
                 backedProjects.length > 0 &&
-                backedProjects.map((project, idx) => {
+                backedProjects.map((project) => {
                   return (
-                    <ListItem dense key={idx}>
+                    <ListItem dense key={project.projectId}>
                       <Link to={`/projects/${project.projectId}`} className="internalLinks">
                         {project.projectName}
                       </Link>

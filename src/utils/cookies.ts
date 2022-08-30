@@ -8,8 +8,9 @@ const getTheCookie = (cookieName: string) => {
     return getCookie(cookieName)
 }
 
-const removeTheCookie = (cookieName: string) => {
+const removeTheCookie = async (cookieName: string) => {
     removeCookie(cookieName, {path: ""})
+    return true
 }
 
 
