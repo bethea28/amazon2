@@ -1,4 +1,4 @@
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProjectFundingInfoService from '../../services/ProjectFundingInfoService';
@@ -42,7 +42,7 @@ export default function ProjectFundingInfo(){
               setMilestones(milestones);
             }
       }}
-      fetchData();}, []);
+      fetchData();}, [projectId]);
       
     return(
     <Box>
@@ -62,7 +62,7 @@ export default function ProjectFundingInfo(){
             <Box sx={{ typography: 'body1' }}> Project Goals </Box>
             {milestones.map((milestone, index) => {
             return (
-              <React.Fragment key = {index}> 
+              <React.Fragment key={index}> 
                 <Box sx={{ fontWeight: 'bold'}}> Milestone </Box>
                 <Box sx={{ fontWeight: 'light', typography: 'body2'}} > {milestone.name}</Box>
                 <Box sx={{ fontWeight: 'light', typography: 'body2'}} > {milestone.description}</Box>
