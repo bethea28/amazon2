@@ -56,6 +56,10 @@ const ProjectDetails = () => {
         navigate(`/projects/${projectId}/transactions`)
     }
 
+    const toImageUpload = async () => {
+        navigate(`/projects/${projectId}/imagesUpload`)
+    }
+
     return (
         <Container>
             <Grid container justifyContent="center" paddingBottom={2} paddingTop={2}>
@@ -64,6 +68,12 @@ const ProjectDetails = () => {
                     {currentProject && currentProject.images && <ImgCarousel {...currentProject} />}
                 </Grid>
             </Grid>
+            {canEdit &&
+                <Grid item display='flex' justifyContent='center' marginBottom={3}>
+                    <Button variant='outlined' size="small" color="primary" onClick={toImageUpload}>
+                        Add Images
+                    </Button>
+                </Grid>}
             <Divider component="li">
                 <Chip label="Project Details" />
             </Divider>
