@@ -84,11 +84,7 @@ const ProjectDetails = () => {
                         <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                             {currentProject && currentProject.projectName}
                         </Typography>
-                        {canEdit && <IconButton aria-label='edit' size='medium' >
-                            <Link to={`/projects/${projectId}/edit`}>
-                                <EditIcon />
-                            </Link>
-                        </IconButton>}
+
                         <Typography gutterBottom variant='h5'>
                             {currentProject && currentProject.category}
                         </Typography>
@@ -100,6 +96,11 @@ const ProjectDetails = () => {
                                 By {currentProject && currentProject.username}
                             </Typography>
                         </Link>)}
+                        {canEdit && <IconButton aria-label='edit' size='medium' >
+                            <Link to={`/projects/${projectId}/edit`}>
+                                <EditIcon />
+                            </Link>
+                        </IconButton>}
                     </Grid>
                 </Paper>
                 <Paper elevation={0}>

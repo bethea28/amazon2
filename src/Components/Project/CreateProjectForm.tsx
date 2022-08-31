@@ -160,7 +160,7 @@ export default function ProjectForm() {
             <Button sx={backBtnStyle} onClick={toProfile} startIcon={<KeyboardArrowLeftIcon />}>
               Go Back
             </Button>
-            <Button type='submit' variant='contained' color='primary' onSubmit={handleSubmit(onSubmit)}>
+            <Button type='submit' variant='contained' color='primary' onClick={handleSubmit(onSubmit)}>
               Submit
             </Button>
           </Grid>
