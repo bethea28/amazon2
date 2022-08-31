@@ -73,7 +73,7 @@ export const AdditionalImageIndex: FunctionComponent = () => {
             }
         } catch (error: any) {
             if (error) {
-                if (error.response.status == 401) {
+                if (error.response.status === 401) {
                     setWarning("You are not authorized. Please login to upload images.")
                 } else {
                     setWarning("Sorry, the server encountered an unexpected condition that prevented it from fulfilling the request")

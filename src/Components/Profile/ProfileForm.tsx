@@ -67,7 +67,7 @@ export default function ProfileForm() {
       })
     } catch (error: any) {
       if (error) {
-        if (error.response.status == 401) {
+        if (error.response.status === 401) {
           setWarning("You are not authorised")
         }
 

@@ -14,7 +14,7 @@ import {
   Typography,
   Alert
 } from '@mui/material'
-import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import UserContext from '../../context/user/UserContext'
 
 export default function ProjectForm() {
@@ -23,7 +23,7 @@ export default function ProjectForm() {
 
   const { projectId } = useParams();
 
-  const { register, handleSubmit, control, formState: { errors }, watch } = useForm<ProjectData>()
+  const { register, handleSubmit, control } = useForm<ProjectData>()
 
   const { user, sessionId } = useContext(UserContext)
 
@@ -60,7 +60,7 @@ export default function ProjectForm() {
       }
     } catch (error: any) {
       if (error) {
-        if (error.response.status == 401) {
+        if (error.response.status === 401) {
           setWarning("You are not authorised. Please login")
         }
 
@@ -144,7 +144,6 @@ export default function ProjectForm() {
                   />
                 )}
               />
-              {errors.targetFundingDate && <Typography fontSize={10} color='red'>Target Funding Date is required.</Typography>}
             </Grid>
             <Grid item>
               <Button type='submit' variant='contained' color='primary'>
