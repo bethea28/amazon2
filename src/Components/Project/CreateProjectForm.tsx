@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ProjectData from '../../types/Project'
 import projectService from '../../services/ProjectService'
 import { categories } from '../../types/Categories'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import {
   TextField,
   Button,
@@ -16,6 +17,7 @@ import {
 } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import UserContext from '../../context/user/UserContext'
+import { width } from '@mui/system'
 
 export default function ProjectForm() {
 
@@ -30,6 +32,15 @@ export default function ProjectForm() {
   const [currentProject, setCurrentProject] = useState<ProjectData>();
 
   const [warning, setWarning] = useState<string>("")
+
+  const toProfile = () => {
+    navigate(`/projects/${projectId}`)
+  }
+
+  const backBtnStyle = {
+    color: "#212121",
+    textTransform: "none",
+  };
 
   useEffect(() => {
     fetchProject();
@@ -54,6 +65,7 @@ export default function ProjectForm() {
       }
       if (projectId) {
         return await projectService.updateProject(projectId, data)
+          .then((response) => navigate(`/projects/${response.data.projectId}`))
       } else {
         return await projectService.createProject(data)
           .then((response) => navigate(`/projects/${response.data.projectId}/milestones`))
@@ -72,85 +84,86 @@ export default function ProjectForm() {
   }
 
   return (
-    <Container maxWidth='xs'>
-      <Paper elevation={3} style={{ padding: 20 }}>
-        <Typography variant='h4' align='left' margin='dense'>
-          Create New Project
-        </Typography>
+    <Container maxWidth='xs' style={{ margin: 20 }}>
+      <Paper elevation={3} style={{ padding: 20, minWidth: 400, backgroundColor: "#E9F3FF" }}>
+        <Grid marginBottom={2}>
+          {projectId ?
+            <Typography variant='h5'>
+              Edit Project
+            </Typography> :
+            <Typography variant='h5'>
+              Create New Project
+            </Typography>}
+        </Grid>
         <Grid container direction='column'>
           {warning && <Alert severity="warning">{warning}</Alert>}
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography variant='h6' align='left' margin='dense'>
-              Project Name
-            </Typography>
-            <Grid item>
-              {currentProject && (
-                <TextField
-                  variant='outlined'
-                  size='small'
-                  margin='dense'
-                  defaultValue={currentProject.projectName}
-                  {...register('projectName', { required: 'Project Name is required' })}
+          <Grid item>
+            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Project Name</Typography>
+            <TextField
+              {...register('projectName', { required: 'Project Name is required' })}
+              variant='outlined'
+              size='small'
+              margin='dense'
+              defaultValue={currentProject?.projectName}
+              fullWidth
+              sx={{ backgroundColor: "white" }}
+            />
+          </Grid>
+          <Grid item>
+            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Description</Typography>
+            <TextField
+              variant='outlined'
+              margin='dense'
+              fullWidth
+              sx={{ backgroundColor: "white" }}
+              defaultValue={currentProject?.description}
+              {...register('description', { required: 'Description is required' })}
+            />
+          </Grid>
+          <Grid item container>
+            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Target Funding Amount</Typography>
+            <TextField
+              size='small'
+              margin='dense'
+              fullWidth
+              sx={{ backgroundColor: "white" }}
+              defaultValue={currentProject?.targetFundingAmount}
+              type='number'
+              InputProps={{ inputProps: { min: 10 } }}
+              {...register('targetFundingAmount', { required: 'Target funding amount is required' })}
+            />
+          </Grid>
+          <Grid item>
+            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Select Category</Typography>
+            <select {...register('category', { required: 'Category is required' })}>
+              {categories.map((category) => (
+                <option value={category} key={category}>{category}</option>
+              ))}
+            </select>
+          </Grid>
+          <Grid item paddingTop={2}>
+            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Target Funding Date</Typography>
+            <Controller
+              name='targetFundingDate'
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <DatePicker
+                  onChange={(e) => field.onChange(e)}
+                  selected={field.value}
+                  placeholderText={currentProject?.targetFundingDate.toString().split("T")[0]}
                 />
               )}
-            </Grid>
-            <Grid item>
-              <Typography variant='h6' align='left' margin='dense'>
-                Select Category
-              </Typography>
-              <select {...register('category', { required: 'Category is required' })}>
-                {categories.map((category) => (
-                  <option value={category} key={category}>{category}</option>
-                ))}
-              </select>
-            </Grid>
-            <Typography variant='h6' align='left' margin='dense'>
-              Project Description
-            </Typography>
-            <Grid item>
-              {currentProject && (
-                <TextField
-                  variant='outlined'
-                  margin='dense'
-                  defaultValue={currentProject && currentProject.description}
-                  {...register('description', { required: 'Description is required' })}
-                />
-              )}
-            </Grid>
-            <Typography variant='h6' align='left' margin='dense'>
-              Target Fund
-            </Typography>
-            <Grid item>
-              {currentProject && (
-                <TextField
-                  margin='dense'
-                  defaultValue={currentProject.targetFundingAmount}
-                  type='number'
-                  InputProps={{ inputProps: { min: 10 } }}
-                  {...register('targetFundingAmount', { required: 'Target funding amount is required' })}
-                />
-              )}
-            </Grid>
-            <Grid item>
-              <Controller
-                name='targetFundingDate'
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <DatePicker
-                    onChange={(e) => field.onChange(e)}
-                    selected={field.value}
-                    placeholderText={currentProject && currentProject.targetFundingDate.toString().split("T")[0]}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item>
-              <Button type='submit' variant='contained' color='primary'>
-                Submit
-              </Button>
-            </Grid>
-          </form>
+            />
+          </Grid>
+          <Grid item container justifyContent="space-between" pt={3} alignItems="center">
+            <Button sx={backBtnStyle} onClick={toProfile} startIcon={<KeyboardArrowLeftIcon />}>
+              Go Back
+            </Button>
+            <Button type='submit' variant='contained' color='primary' onSubmit={handleSubmit(onSubmit)}>
+              Submit
+            </Button>
+          </Grid>
         </Grid>
       </Paper>
     </Container>
