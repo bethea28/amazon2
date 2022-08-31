@@ -4,7 +4,6 @@ import { Grid, Typography, Box, Button, Alert } from "@mui/material";
 import { useDropzone } from 'react-dropzone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { uploadToS3 } from "../../../services/UploadService";
-import { UpdatetoDDB } from "../../../services/UploadtoDynaoDBService";
 import UserService from "../../../services/UserService";
 import UserContext from '../../../context/user/UserContext'
 
@@ -78,7 +77,7 @@ export const RegisterImageIndex: FunctionComponent = () => {
             }
         } catch (error: any) {
             if (error) {
-                if (error.response.status == 401) {
+                if (error.response.status === 401) {
                     setWarning("You are not authorized. Please login to upload avatar.")
                 } else {
                     setWarning("Sorry, the server encountered an unexpected condition that prevented it from fulfilling the request")

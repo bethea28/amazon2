@@ -16,9 +16,9 @@ const ImgCarousel = (data: ProjectData) => {
           {...settings}>
           {data &&
             data.images.length > 0 &&
-            data.images.map((imgSrc) => {
+            data.images.map((imgSrc, idx) => {
               return (
-                <Grid marginBottom={2}>
+                <Grid marginBottom={2} key={idx}>
                   <img alt='project img' src={imgSrc} />
                 </Grid>
               )
