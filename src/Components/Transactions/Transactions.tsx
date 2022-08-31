@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import {
   Grid,
   Button,
@@ -18,12 +18,15 @@ import { useForm, Controller, useFormContext } from 'react-hook-form'
 import UserContext from '../../context/user/UserContext'
 import { PaymentInput } from '../../types/Transactions'
 import TransactionService from '../../services/TransactionService'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 
 export default function TrasactionForm() {
   //PM to be added: projectIdInput: string
 
   const { projectId } = useParams()
+
+  const navigate = useNavigate()
 
   //CONTROL: pop up dialog
   const { control, handleSubmit, formState: { errors } } = useForm<PaymentInput>()
@@ -61,6 +64,15 @@ export default function TrasactionForm() {
       return "Invalid expiry credit card date format"
     }
   }
+
+  const toProject = () => {
+    navigate(`/projects/${projectId}`)
+  }
+
+  const backBtnStyle = {
+    color: "#212121",
+    textTransform: "none",
+};
 
   return (
     <Grid
@@ -187,9 +199,14 @@ export default function TrasactionForm() {
               />
             </CardContent>
             <CardActions>
-              <Button type='submit' size='small'>
+              <Grid item container justifyContent="space-between" pt={3} alignItems="center">
+                <Button sx={backBtnStyle} onClick={toProject} startIcon={<KeyboardArrowLeftIcon/>}>
+                  Go Back
+                </Button>
+                <Button type='submit' size='small'>
                 Submit
               </Button>
+            </Grid>
             </CardActions>
           </form>
           <Dialog open={open} onClose={handleClose}>
