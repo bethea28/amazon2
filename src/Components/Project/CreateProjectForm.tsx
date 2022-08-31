@@ -25,7 +25,7 @@ export default function ProjectForm() {
 
   const { projectId } = useParams();
 
-  const { register, handleSubmit, control } = useForm<ProjectData>()
+  const { register, handleSubmit, control, formState: { errors } } = useForm<ProjectData>()
 
   const { user, sessionId } = useContext(UserContext)
 
@@ -33,7 +33,7 @@ export default function ProjectForm() {
 
   const [warning, setWarning] = useState<string>("")
 
-  const toProfile = () => {
+  const toProject = () => {
     navigate(`/projects/${projectId}`)
   }
 
@@ -147,6 +147,7 @@ export default function ProjectForm() {
                 />
               )}
             />
+            {errors.targetFundingDate && <Typography fontSize={10} color='red'>Target Funding Date is required.</Typography>}
           </Grid>
           <Grid item container justifyContent="space-between" pt={3} alignItems="center">
             <Button type='submit' variant='contained' color='primary' onClick={handleSubmit(onSubmit)}>
