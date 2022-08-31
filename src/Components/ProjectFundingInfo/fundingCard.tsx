@@ -1,4 +1,4 @@
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProjectFundingInfoService from '../../services/ProjectFundingInfoService';
@@ -42,25 +42,36 @@ export default function ProjectFundingInfo(){
               setMilestones(milestones);
             }
       }}
-      fetchData();}, []);
+      fetchData();}, [projectId]);
       
     return(
     <Box>
-        <FundingProgressInputView targetFunding = {targetFunding} currentFundedAmount = {progress}/>
-        <Grid>
+      <Grid container direction={"column"} spacing={2}>
+        <Grid item>
+          <FundingProgressInputView targetFunding = {targetFunding} currentFundedAmount = {progress}/>
+        </Grid>
+        <Grid item>
             <Box sx={{ fontWeight: 'bold'}}>${progress}</Box>
             <Box sx={{ fontWeight: 'light', typography: 'body2'}}>pledged of ${targetFunding} goal</Box>
         </Grid>
-        <Grid> 
+        <Grid item> 
             <Box sx={{ fontWeight: 'bold'}}>{totalBackers}</Box>
             <Box sx={{ fontWeight: 'light', typography: 'body2'}}>backers</Box>
-        </Grid>
-        <Grid> 
-            <Box sx={{ fontWeight: 'bold'}}> Project Milestones </Box>
+        </Grid >
+        <Grid item> 
+            <Box sx={{ typography: 'body1' }}> Project Goals </Box>
             {milestones.map((milestone, index) => {
-            return (<Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> name: {milestone.name}</Box>)
+            return (
+              <React.Fragment key={index}> 
+                <Box sx={{ fontWeight: 'bold'}}> Milestone </Box>
+                <Box sx={{ fontWeight: 'light', typography: 'body2'}} > {milestone.name}</Box>
+                <Box sx={{ fontWeight: 'light', typography: 'body2'}} > {milestone.description}</Box>
+                <Box sx={{ fontWeight: 'light', typography: 'body2'}} > Target Amount: ${milestone.amount} </Box>
+              </React.Fragment>
+            )
             })}
         </Grid>
+       </Grid>
     </Box>
     )
 }

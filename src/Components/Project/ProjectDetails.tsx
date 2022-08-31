@@ -44,7 +44,7 @@ const ProjectDetails = () => {
 
     useEffect(() => {
         fetchProject();
-    });
+    }, [projectId]);
 
     const fetchProject = async () => {
         const response = await projectService.getProjectById(projectId)
