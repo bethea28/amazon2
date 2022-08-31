@@ -63,13 +63,8 @@ export default function ProjectForm() {
         data.userId = sessionId
         data.username = user.username
       }
-      if (projectId) {
-        return await projectService.updateProject(projectId, data)
-          .then((response) => navigate(`/projects/${response.data.projectId}`))
-      } else {
-        return await projectService.createProject(data)
-          .then((response) => navigate(`/projects/${response.data.projectId}/milestones`))
-      }
+      return await projectService.createProject(data)
+        .then((response) => navigate(`/projects/${response.data.projectId}/milestones`))
     } catch (error: any) {
       if (error) {
         if (error.response.status === 401) {
@@ -104,7 +99,6 @@ export default function ProjectForm() {
               variant='outlined'
               size='small'
               margin='dense'
-              defaultValue={currentProject?.projectName}
               fullWidth
               sx={{ backgroundColor: "white" }}
             />
@@ -116,7 +110,6 @@ export default function ProjectForm() {
               margin='dense'
               fullWidth
               sx={{ backgroundColor: "white" }}
-              defaultValue={currentProject?.description}
               {...register('description', { required: 'Description is required' })}
             />
           </Grid>
@@ -127,7 +120,6 @@ export default function ProjectForm() {
               margin='dense'
               fullWidth
               sx={{ backgroundColor: "white" }}
-              defaultValue={currentProject?.targetFundingAmount}
               type='number'
               InputProps={{ inputProps: { min: 10 } }}
               {...register('targetFundingAmount', { required: 'Target funding amount is required' })}
@@ -151,15 +143,12 @@ export default function ProjectForm() {
                 <DatePicker
                   onChange={(e) => field.onChange(e)}
                   selected={field.value}
-                  placeholderText={currentProject?.targetFundingDate.toString().split("T")[0]}
+                  placeholderText="Select funding deadline"
                 />
               )}
             />
           </Grid>
           <Grid item container justifyContent="space-between" pt={3} alignItems="center">
-            <Button sx={backBtnStyle} onClick={toProfile} startIcon={<KeyboardArrowLeftIcon />}>
-              Go Back
-            </Button>
             <Button type='submit' variant='contained' color='primary' onClick={handleSubmit(onSubmit)}>
               Submit
             </Button>
