@@ -8,7 +8,6 @@ import {
   CardContent,
   Paper,
   Typography,
-  Input,
   Alert,
   AlertTitle,
   Dialog,
@@ -16,9 +15,9 @@ import {
 } from '@mui/material'
 import { useForm, Controller, useFormContext } from 'react-hook-form'
 import UserContext from '../../context/user/UserContext'
-import { PaymentInput } from '../../types/Transactions'
 import TransactionService from '../../services/TransactionService'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import { PaymentInput } from '../../types/Transactions'
 
 
 export default function TrasactionForm() {
