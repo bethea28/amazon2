@@ -25,7 +25,7 @@ export default function EditProjectForm() {
 
     const { projectId } = useParams();
 
-    const { register, handleSubmit, control } = useForm<ProjectData>()
+    const { register, handleSubmit, control, formState: { errors } } = useForm<ProjectData>()
 
     const { user, sessionId } = useContext(UserContext)
 
@@ -154,6 +154,7 @@ export default function EditProjectForm() {
                                 />
                             )}
                         />
+                        {errors.targetFundingDate && <Typography fontSize={10} color='red'>Target Funding Date is required.</Typography>}
                     </Grid>
                     <Grid item container justifyContent="space-between" pt={3} alignItems="center">
                         <Button sx={backBtnStyle} onClick={toProjectDetail} startIcon={<KeyboardArrowLeftIcon />}>
