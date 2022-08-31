@@ -36,7 +36,7 @@ const Homepage = () => {
         </Grid>
       </Grid>
       {isLoggedIn && <Grid item container display='flex' justifyContent='center'>
-        <Grid xs>
+        <Grid item xs>
           <RecommendedProjects />
         </Grid>
       </Grid>}

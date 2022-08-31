@@ -3,14 +3,16 @@ import { useForm } from 'react-hook-form'
 import { Grid, TextField, Button } from '@mui/material'
 import commentService from '../../services/CommentService'
 import CommentData from '../../types/Comment';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import UserContext from '../../context/user/UserContext';
 
-const CommentForm = () => {
+interface setStateProps {
+  setIsLoaded: React.Dispatch<React.SetStateAction<boolean | undefined>>
+}
+
+const CommentForm = ({setIsLoaded}: setStateProps) => {
 
   const { projectId } = useParams();
-
-  const navigate = useNavigate()
 
   const { user, sessionId } = useContext(UserContext)
 
@@ -23,7 +25,7 @@ const CommentForm = () => {
       data.userName = user.username;
       data.projectId = projectId;
     }
-    await commentService.saveComment(data).then(() => navigate(`/projects/${projectId}`))
+    await commentService.saveComment(data).then(() => setIsLoaded(true))
   }
 
   return (

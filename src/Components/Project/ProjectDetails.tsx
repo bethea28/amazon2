@@ -12,31 +12,24 @@ import {
     Paper,
     Divider,
     Chip,
-    Box,
     IconButton,
     Alert
 } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit'
-import CommentForm from "../Comments/CommentForm";
-import ProjectComments from "../Comments/ProjectComments";
 import ProjectFundingInfo from "../ProjectFundingInfo/fundingCard";
 import UserContext from '../../context/user/UserContext'
+import CommentsSection from "../Comments/CommentsSection";
 
 const ProjectDetails = () => {
 
     const navigate = useNavigate()
 
     const [currentProject, setCurrentProject] = useState<ProjectData>();
-
     const [warning, setWarning] = useState<string>()
-
-    const { projectId } = useParams();
-
-    const { sessionId } = useContext(UserContext);
-
     const [canEdit, setCanEdit] = useState<boolean>();
 
-    const { isLoggedIn } = useContext(UserContext)
+    const { projectId } = useParams();
+    const { sessionId, isLoggedIn } = useContext(UserContext);
 
     useEffect(() => {
         fetchProject();
@@ -87,11 +80,12 @@ const ProjectDetails = () => {
                         <Typography gutterBottom variant='h6'>
                             {currentProject && currentProject.description}
                         </Typography>
-                        {currentProject && (<Link to={`/profile/${currentProject.userId}`}>
+                        {currentProject && (
                             <Typography variant="body2" color="textSecondary" component="p">
-                                By {currentProject && currentProject.username}
-                            </Typography>
-                        </Link>)}
+                                By <Link to={`/profile/${currentProject.userId}`}>
+                                    {currentProject && currentProject.username}
+                                </Link>
+                            </Typography>)}
                         {canEdit && <IconButton aria-label='edit' size='medium' >
                             <Link to={`/projects/${projectId}/edit`}>
                                 <EditIcon />
@@ -120,30 +114,17 @@ const ProjectDetails = () => {
                             {currentProject && currentProject.likedCount} likes
                         </Typography>
                     </Grid>
-                    <Grid item>
+                    {isLoggedIn && <Grid item>
                         <Button variant='outlined' size="small" color="primary" onClick={toTransactionForm}>
                             Back this project
                         </Button>
-                    </Grid>
+                    </Grid>}
                 </Grid>
             </Grid>
             <Divider component="li">
                 <Chip label="Comments" />
             </Divider>
-            <Grid container justifyContent="space-between">
-                <Grid item xs={4} paddingTop={2}>
-                    <Box width={220} >
-                        <Paper>
-                            {<CommentForm />}
-                        </Paper>
-                    </Box>
-                </Grid>
-                <Grid item xs={7}>
-                    <Box paddingTop={2}>
-                        {<ProjectComments />}
-                    </Box>
-                </Grid>
-            </Grid>
+            <CommentsSection />
         </Container>
     )
 }
