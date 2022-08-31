@@ -25,7 +25,7 @@ const TrendingProjects = () => {
     <Box>
 
       <Grid marginTop={16} marginBottom={2}>
-        <Typography sx={{ fontWeight: "bold" }} variant='h6'>
+        <Typography sx={{ fontWeight: "bold" }} variant='h6' textAlign='center'>
           TRENDING PROJECTS
         </Typography>
       </Grid>

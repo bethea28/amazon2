@@ -19,6 +19,11 @@
     color: #1976d2;
 }
 
+.internalLinks:visited {
+    text-decoration: none;
+    color: #1976d2;
+}
+
 .internalLinks:hover {
     opacity: 0.75
 }

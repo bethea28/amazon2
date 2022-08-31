@@ -17,9 +17,8 @@ const Homepage = () => {
   };
   
   return (
-    <>
-      <Grid
-        container
+    <Grid container display='flex' justifyContent='center' alignItems="center">
+      <Grid item container
         spacing={0}
         justifyContent="center"
         alignItems="center"
@@ -36,18 +35,20 @@ const Homepage = () => {
           </Button>
         </Grid>
       </Grid>
-
-      {isLoggedIn && <Grid>
-        <RecommendedProjects />
+      {isLoggedIn && <Grid item container display='flex' justifyContent='center'>
+        <Grid item xs>
+          <RecommendedProjects />
+        </Grid>
       </Grid>}
-      <Grid>
-        <NewProjects />
+      <Grid item container display='flex' justifyContent='space-between' spacing={15}>
+        <Grid item xs>
+          <NewProjects />
+        </Grid>
+        <Grid item xs>
+          <TrendingProjects />
+        </Grid>
       </Grid>
-      <Grid>
-        <TrendingProjects />
-      </Grid>
-
-    </>
+    </Grid>
   );
 };
 

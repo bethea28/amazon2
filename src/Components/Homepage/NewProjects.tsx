@@ -26,7 +26,7 @@ const NewProjects = () => {
     <Box>
 
       <Grid marginTop={16} marginBottom={2}>
-        <Typography sx={{ fontWeight: "bold" }} variant='h6'>
+        <Typography sx={{ fontWeight: "bold" }} variant='h6' textAlign='center'>
           THE LATEST
         </Typography>
       </Grid>
