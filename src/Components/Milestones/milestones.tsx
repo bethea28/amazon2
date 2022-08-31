@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { FormControl, Card, TextField, Box, MenuItem, Typography, Paper, Container, Button } from '@mui/material';
+import { FormControl, TextField, Box, MenuItem, Typography, Paper, Container, Button } from '@mui/material';
 import ProjectService from '../../services/ProjectService';
 import {ProjectMilestonesData} from '../../types/Milestone';
 import Milestone from './milestone';

@@ -6,17 +6,15 @@ import {
   Card,
   CardActions,
   CardContent,
-  Paper,
   Typography,
-  Input,
   Alert,
   AlertTitle,
   Dialog,
   TextField,
 } from '@mui/material'
-import { useForm, Controller, useFormContext } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import UserContext from '../../context/user/UserContext'
-import { PaymentInput } from '../../types/Transactions'
+import { PaymentInput } from '../../types/transactions'
 import TransactionService from '../../services/TransactionService'
 
 

@@ -44,7 +44,7 @@ const ProjectDetails = () => {
 
     useEffect(() => {
         fetchProject();
-    });
+    }, [projectId]);
 
     const fetchProject = async () => {
         const response = await projectService.getProjectById(projectId)
@@ -107,9 +107,7 @@ const ProjectDetails = () => {
                                     </Link>)}
                                 </CardContent>
                                 <CardContent>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        <ProjectFundingInfo />
-                                    </Typography>
+                                    <ProjectFundingInfo />
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
