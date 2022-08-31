@@ -38,7 +38,7 @@ export default function ProjectsByCategories() {
       {categoryProjects &&
         categoryProjects.length > 0 &&
         categoryProjects.map((project) => (
-            <Grid key={project.projectId}>
+            <Grid key={project.projectId} margin={3}>
               <ProjectCard {...project} />
             </Grid>
           )

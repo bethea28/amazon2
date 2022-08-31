@@ -60,6 +60,8 @@ const ProjectDetails = () => {
         navigate(`/projects/${projectId}/imagesUpload`)
     }
 
+    const likeCount: number = currentProject?.likedCount ? currentProject.likedCount : 0
+
     return (
         <Container>
             <Grid container justifyContent="center" paddingBottom={2} paddingTop={2}>
@@ -77,7 +79,7 @@ const ProjectDetails = () => {
             <Divider component="li">
                 <Chip label="Project Details" />
             </Divider>
-            <Grid container justifyContent="space-between" spacing={12} paddingTop={14} paddingBottom={3}>
+            <Grid container justifyContent="space-evenly" spacing={12} paddingTop={14} paddingBottom={3}>
                 <Paper elevation={0}>
                     <Grid item xs={12} paddingTop={2} paddingBottom={10} paddingLeft={2} paddingRight={2}>
                         <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
@@ -87,7 +89,7 @@ const ProjectDetails = () => {
                         <Typography gutterBottom variant='h5'>
                             {currentProject && currentProject.category}
                         </Typography>
-                        <Typography gutterBottom variant='h6'>
+                        <Typography gutterBottom variant='h6' width='500px'>
                             {currentProject && currentProject.description}
                         </Typography>
                         {currentProject && (
@@ -114,15 +116,15 @@ const ProjectDetails = () => {
                         </Typography>
                     </Grid>
                 </Paper>
-                <Grid container justifyContent="space-between">
-                    <Grid item>
-                        {warning && <Alert severity="warning">{warning}</Alert>}
+                <Grid container justifyContent="center" spacing={3}>
+                    {warning && <Alert severity="warning">{warning}</Alert>}
+                    <Grid item display='flex' alignItems='center'>
+                        <Typography variant="body2" color="textSecondary" component="p" marginRight={5}>
+                            {likeCount} likes
+                        </Typography>
                         {isLoggedIn && <Button type="submit" onClick={likeProject} variant='outlined' size="small">
                             Like
                         </Button>}
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {currentProject && currentProject.likedCount} likes
-                        </Typography>
                     </Grid>
                     {isLoggedIn && <Grid item>
                         <Button variant='outlined' size="small" color="primary" onClick={toTransactionForm}>

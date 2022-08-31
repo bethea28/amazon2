@@ -38,7 +38,7 @@ const CommentForm = ({setIsLoaded}: setStateProps) => {
         <Grid item marginBottom={2} marginTop={2}>
           <TextField
             variant='outlined'
-            {...register('content')}
+            {...register('content', { required: 'Content is required' })}
             sx={{ width: 200, backgroundColor: 'background.paper' }}
           />
         </Grid>
