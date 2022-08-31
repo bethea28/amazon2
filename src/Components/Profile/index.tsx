@@ -9,8 +9,7 @@ import {
   Box,
   IconButton,
   List,
-  ListItem,
-  Divider
+  ListItem
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import UserService from '../../services/UserService'

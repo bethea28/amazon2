@@ -11,7 +11,6 @@ import {
   Button  
 } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu";
-import LogoutIcon from '@mui/icons-material/Logout';
 import DiscoverNavBar from '../Discover/DiscoverNavBar'
 import UserContext from '../../context/user/UserContext'
 

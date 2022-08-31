@@ -1,10 +1,9 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Grid, Typography, Box, Button, Alert } from "@mui/material";
 import { useDropzone } from 'react-dropzone'
 import { uploadToS3 } from "../../../services/UploadService";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { useNavigate, useParams } from "react-router-dom";
-import UserContext from "../../../context/user/UserContext";
 import ProjectService from "../../../services/ProjectService";
 
 const dialogStyle = {
@@ -46,7 +45,6 @@ export const AdditionalImageIndex: FunctionComponent = () => {
     const [uploadedImage, setUploadedImage] = useState<string>('');
     const [warning, setWarning] = useState<string>()
     const [s3Url, setS3Url] = useState<string>()
-    const { sessionId } = useContext(UserContext)
 
     const onDrop = async (files: File[]) => {
         const file = files[0]

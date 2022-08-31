@@ -1,4 +1,3 @@
-import axios from "axios";
 import axiosInstance from "../apiConfig";
 import ProjectFundingInfoType from "../types/ProjectFundingInfo";
 

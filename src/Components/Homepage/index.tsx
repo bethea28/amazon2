@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import ProjectData from "../../types/Project";
-import ProjectService from "../../services/ProjectService";
 import NewProjects from "./NewProjects";
 import TrendingProjects from "./TrendingProjects";
 import RecommendedProjects from "./RecommendedProjects";
@@ -17,19 +15,6 @@ const Homepage = () => {
   const exploreProjects = () => {
     navigate(`/projects`);
   };
-
-  const [allProjects, setAllProjects] = useState<Array<ProjectData> | []>();
-
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
-  const fetchProjects = async () => {
-    await ProjectService.getAllProjects().then((response) => {
-      setAllProjects(response.data);
-    });
-  };
-
   
   return (
     <>

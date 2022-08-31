@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Grid, Typography, Box } from "@mui/material";
+import React, { useState } from 'react'
+import { Grid, Box } from "@mui/material";
 import ProjectData from '../../../types/Project'
 import Carousel from 'react-material-ui-carousel';
-import Settings, { DefaultSettingsT, SettingsT } from '../../../utils/CarouselSettings/Settings';
+import { DefaultSettingsT, SettingsT } from '../../../utils/CarouselSettings/Settings';
 
 const ImgCarousel = (data: ProjectData) => {
 

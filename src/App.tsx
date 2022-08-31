@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserProvider from "./context/user/UserProvider";
 import NavigationBar from "./Components/Navigation";
@@ -24,7 +24,6 @@ import About from "./Components/Footer/About";
 import PageNotFound from "./Components/PageNotFound";
 import MyProjects from "./Components/Profile/MyProjects";
 import Milestones from "./Components/Milestones/milestones";
-import ProjectFundingInfo from "./Components/ProjectFundingInfo/fundingCard";
 import EditProjectForm from "./Components/Project/EditProjectForm";
 
 function App() {

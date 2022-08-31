@@ -7,10 +7,6 @@ import ImgCarousel from "../Project/ProjectImagesCarousel/index"
 import {
     Container,
     Grid,
-    Card,
-    CardActionArea,
-    CardActions,
-    CardContent,
     Button,
     Typography,
     Paper,

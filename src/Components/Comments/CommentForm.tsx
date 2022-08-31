@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { Typography, Grid, TextField, Button } from '@mui/material'
+import { Grid, TextField, Button } from '@mui/material'
 import commentService from '../../services/CommentService'
 import CommentData from '../../types/Comment';
 import { useNavigate, useParams } from 'react-router-dom'
