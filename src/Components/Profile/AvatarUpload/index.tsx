@@ -4,7 +4,6 @@ import { Grid, Typography, Box, Button, Alert } from "@mui/material";
 import { useDropzone } from 'react-dropzone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { uploadToS3 } from "../../../services/UploadService";
-import { UpdatetoDDB } from "../../../services/UploadtoDynaoDBService";
 import UserService from "../../../services/UserService";
 import UserContext from '../../../context/user/UserContext'
 
@@ -57,7 +56,7 @@ export const RegisterImageIndex: FunctionComponent = () => {
 
         const fileType = file['type']
         const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jpg']
-    
+
         if (validImageTypes.includes(fileType)) {
             setUploadedImage(URL.createObjectURL(imageBlob));
             const uploadedS3URL = await uploadToS3(file);
@@ -68,7 +67,7 @@ export const RegisterImageIndex: FunctionComponent = () => {
         }
     }
 
-    const uploadUserAvatar = async() => {
+    const uploadUserAvatar = async () => {
         try {
             if (s3Url) {
                 await UserService.updateAvatar(s3Url, sessionId);
@@ -78,13 +77,13 @@ export const RegisterImageIndex: FunctionComponent = () => {
             }
         } catch (error: any) {
             if (error) {
-                if (error.response.status == 401) {
-                    setWarning("You are not authorised. Please login to upload avatar.")
+                if (error.response.status === 401) {
+                    setWarning("You are not authorized. Please login to upload avatar.")
                 } else {
                     setWarning("Sorry, the server encountered an unexpected condition that prevented it from fulfilling the request")
                 }
             }
-          }
+        }
     }
 
     const toProfile = () => {
@@ -97,7 +96,7 @@ export const RegisterImageIndex: FunctionComponent = () => {
 
     useEffect(() => {
         setWarning("")
-      }, [uploadedImage])
+    }, [uploadedImage])
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
@@ -144,7 +143,7 @@ export const RegisterImageIndex: FunctionComponent = () => {
                     <Grid item xs={12}>
                         <Grid container justifyContent="space-between" pt={6} alignItems="center">
                             <Grid item>
-                                <Button sx={backBtnStyle} onClick={toProfile} startIcon={<KeyboardArrowLeftIcon/>}>
+                                <Button sx={backBtnStyle} onClick={toProfile} startIcon={<KeyboardArrowLeftIcon />}>
                                     Go Back
                                 </Button>
                             </Grid>

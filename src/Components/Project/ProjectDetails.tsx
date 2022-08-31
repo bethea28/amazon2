@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
-import { useParams, Link, useNavigate, NavLink } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import ImgCarousel from "../Project/ProjectImagesCarousel/index"
+
 import {
     Container,
     Grid,
@@ -68,9 +70,11 @@ const ProjectDetails = () => {
     return (
         <Container>
             <Grid container spacing={12}>
+            
                 <Grid item xs={6}>
                     <Paper>
-                        <img alt='project images' src='https://picsum.photos/400/300' />
+                    {currentProject && !currentProject.images && <img alt='project images' src='https://picsum.photos/400/300' />}
+                    {currentProject && currentProject.images && <ImgCarousel {...currentProject} />}
                     </Paper>
                 </Grid>
                 <Grid item xs={6} paddingBottom={10}>
@@ -81,6 +85,8 @@ const ProjectDetails = () => {
                                     <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                                         {currentProject && currentProject.projectName}
                                     </Typography>
+
+
                                     {canEdit && <IconButton aria-label='edit' size='medium' >
                                         <Link to={`/projects/${projectId}/edit`}>
                                             <EditIcon />
@@ -115,20 +121,18 @@ const ProjectDetails = () => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <NavLink to={`/projects/${projectId}/transactions`}  >
-                                    <Button variant='outlined' size="small" color="primary">
-                                        Back this project
-                                    </Button>
-                                </NavLink>
+                                <Button variant='outlined' size="small" color="primary" onClick={toTransactionForm}>
+                                    Back this project
+                                </Button>
                                 {warning && <Alert severity="warning">{warning}</Alert>}
-                                {isLoggedIn && <CardActions>
-                                    <Button type="submit" onClick={likeProject} variant='outlined' size="small">
+                                <CardActions>
+                                {isLoggedIn && <Button type="submit" onClick={likeProject} variant='outlined' size="small">
                                         Like
-                                    </Button>
+                                    </Button>}
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         {currentProject && currentProject.likedCount} likes
                                     </Typography>
-                                </CardActions>}
+                                </CardActions>
                             </CardActions>
                         </Card>
                     </Paper>

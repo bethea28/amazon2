@@ -7,6 +7,7 @@ export const UpdatetoDDB = (data: any = null): any => {
   AWS.config.update({
     accessKeyId: REACT_APP_AWS_ACCESS_KEY,
     secretAccessKey: REACT_APP_AWS_SECRET_KEY,
+    region: REACT_APP_AWS_REGION,
   });
   var docClient = new AWS.DynamoDB.DocumentClient();
   console.log('Importing into DynamoDB. Please wait.');
