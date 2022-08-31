@@ -30,25 +30,18 @@ const CommentForm = () => {
     <Grid
       container
       justifyContent='center'
-      alignItems='center'
-      padding={2}
       bgcolor='#E9F3FF'
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid item sx={{ width: 300 }} marginBottom={2}>
-          <Typography variant='h6' component='h5'>
-            Leave a Comment
-          </Typography>
-        </Grid>
-        <Grid item xs={6} md={20} marginBottom={2}>
+        <Grid item marginBottom={2} marginTop={2}>
           <TextField
             variant='outlined'
             {...register('content')}
-            sx={{ width: 300, backgroundColor: 'background.paper' }}
+            sx={{ width: 200, backgroundColor: 'background.paper' }}
           />
         </Grid>
-        <Grid>
-          <Button type='submit' variant='contained'>Post Comment</Button>
+        <Grid marginBottom={2}>
+          <Button type='submit' variant='contained'>Comment</Button>
         </Grid>
       </form>
     </Grid>

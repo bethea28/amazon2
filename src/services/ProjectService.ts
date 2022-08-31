@@ -55,9 +55,9 @@ const getProjectsByCategory = async (projectCategory: string | undefined) => {
   }
 };
 
-const updateProject = async (projectId: string, data: ProjectData) => {
+const updateProject = async (projectId: any, data: ProjectData) => {
   try {
-    return await axiosInstance.put<ProjectData>(`/projects/${projectId}`, data, {
+    return await axiosInstance.patch<ProjectData>(`/projects/${projectId}`, data, {
       headers: {
         Authorization: `Bearer ${getTheCookie('accessToken')}`,
       },

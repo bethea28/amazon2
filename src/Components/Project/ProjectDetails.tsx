@@ -69,87 +69,85 @@ const ProjectDetails = () => {
 
     return (
         <Container>
-            <Grid container spacing={12}>
-            
-                <Grid item xs={6}>
-                    <Paper>
+            <Grid container justifyContent="center" paddingBottom={2} paddingTop={2}>
+                <Grid item>
                     {currentProject && !currentProject.images && <img alt='project images' src='https://picsum.photos/400/300' />}
                     {currentProject && currentProject.images && <ImgCarousel {...currentProject} />}
-                    </Paper>
-                </Grid>
-                <Grid item xs={6} paddingBottom={10}>
-                    <Paper style={{ padding: 10 }}>
-                        <Card variant='outlined'>
-                            <CardActionArea>
-                                <CardContent>
-                                    <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                                        {currentProject && currentProject.projectName}
-                                    </Typography>
-
-
-                                    {canEdit && <IconButton aria-label='edit' size='medium' >
-                                        <Link to={`/projects/${projectId}/edit`}>
-                                            <EditIcon />
-                                        </Link>
-                                    </IconButton>}
-                                    <Typography gutterBottom variant='h5'>
-                                        {currentProject && currentProject.category}
-                                    </Typography>
-                                    <Typography gutterBottom variant='h6'>
-                                        {currentProject && currentProject.description}
-                                    </Typography>
-                                </CardContent>
-                                <CardContent>
-                                    {currentProject && (<Link to={`/profile/${currentProject.userId}`}>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            By {currentProject && currentProject.username}
-                                        </Typography>
-                                    </Link>)}
-                                </CardContent>
-                                <CardContent>
-                                    <ProjectFundingInfo />
-                                </CardContent>
-                                <CardContent>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Target Funding Date
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {currentProject && currentProject.targetFundingDate.toString().split("T", 1)}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button variant='outlined' size="small" color="primary" onClick={toTransactionForm}>
-                                    Back this project
-                                </Button>
-                                {warning && <Alert severity="warning">{warning}</Alert>}
-                                <CardActions>
-                                {isLoggedIn && <Button type="submit" onClick={likeProject} variant='outlined' size="small">
-                                        Like
-                                    </Button>}
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {currentProject && currentProject.likedCount} likes
-                                    </Typography>
-                                </CardActions>
-                            </CardActions>
-                        </Card>
-                    </Paper>
                 </Grid>
             </Grid>
             <Divider component="li">
-                <Chip label="COMMENTS" />
+                <Chip label="Project Details" />
             </Divider>
-            <Box sx={{
-                width: 360,
-                m: 5
-            }} >
-                <Paper>
-                    {<CommentForm />}
+            <Grid container justifyContent="space-between" spacing={12} paddingTop={14} paddingBottom={3}>
+                <Paper elevation={0}>
+                    <Grid item xs={12} paddingTop={2} paddingBottom={10} paddingLeft={2} paddingRight={2}>
+                        <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                            {currentProject && currentProject.projectName}
+                        </Typography>
+
+                        <Typography gutterBottom variant='h5'>
+                            {currentProject && currentProject.category}
+                        </Typography>
+                        <Typography gutterBottom variant='h6'>
+                            {currentProject && currentProject.description}
+                        </Typography>
+                        {currentProject && (<Link to={`/profile/${currentProject.userId}`}>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                By {currentProject && currentProject.username}
+                            </Typography>
+                        </Link>)}
+                        {canEdit && <IconButton aria-label='edit' size='medium' >
+                            <Link to={`/projects/${projectId}/edit`}>
+                                <EditIcon />
+                            </Link>
+                        </IconButton>}
+                    </Grid>
                 </Paper>
-            </Box>
-            <Box paddingTop={5}>
-                {<ProjectComments />}
-            </Box>
+                <Paper elevation={0}>
+                    <Grid item xs={12} paddingTop={2} paddingBottom={10} paddingLeft={2} paddingRight={2}>
+                        <ProjectFundingInfo />
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            Target Funding Date
+                        </Typography>
+                        <Typography variant="body2">
+                            {currentProject && currentProject.targetFundingDate.toString().split("T", 1)}
+                        </Typography>
+                    </Grid>
+                </Paper>
+                <Grid container justifyContent="space-between">
+                    <Grid item>
+                        {warning && <Alert severity="warning">{warning}</Alert>}
+                        {isLoggedIn && <Button type="submit" onClick={likeProject} variant='outlined' size="small">
+                            Like
+                        </Button>}
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {currentProject && currentProject.likedCount} likes
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Button variant='outlined' size="small" color="primary" onClick={toTransactionForm}>
+                            Back this project
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Divider component="li">
+                <Chip label="Comments" />
+            </Divider>
+            <Grid container justifyContent="space-between">
+                <Grid item xs={4} paddingTop={2}>
+                    <Box width={220} >
+                        <Paper>
+                            {<CommentForm />}
+                        </Paper>
+                    </Box>
+                </Grid>
+                <Grid item xs={7}>
+                    <Box paddingTop={2}>
+                        {<ProjectComments />}
+                    </Box>
+                </Grid>
+            </Grid>
         </Container>
     )
 }

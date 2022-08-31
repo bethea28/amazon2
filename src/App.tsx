@@ -25,6 +25,7 @@ import PageNotFound from "./Components/PageNotFound";
 import MyProjects from "./Components/Profile/MyProjects";
 import Milestones from "./Components/Milestones/milestones";
 import ProjectFundingInfo from "./Components/ProjectFundingInfo/fundingCard";
+import EditProjectForm from "./Components/Project/EditProjectForm";
 
 function App() {
   const [msgAlerts, setMsgAlerts] = useState<
@@ -60,7 +61,7 @@ function App() {
                 <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/profile/:userId/edit' element={<ProfileForm />} />
                 <Route path='/createProject' element={<CreateProjectForm />} />
-                <Route path='/projects/:projectId/edit' element={<CreateProjectForm />} />
+                <Route path='/projects/:projectId/edit' element={<EditProjectForm />} />
                 <Route path='/projects' element={<AllProjects />} />
                 <Route path='/projects/:projectId' element={<ProjectDetails />} />
                 <Route path='/projects/:projectId/imagesUpload' element={<AdditionalImageIndex />} />
