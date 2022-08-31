@@ -104,7 +104,6 @@ const ProjectDetails = () => {
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         <ProjectFundingInfo />
                                     </Typography>
-                                    <ProjectFundingInfo />
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">

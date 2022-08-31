@@ -46,21 +46,24 @@ export default function ProjectFundingInfo(){
       
     return(
     <Box>
-        <FundingProgressInputView targetFunding = {targetFunding} currentFundedAmount = {progress}/>
-        <Grid>
+      <Grid container direction={"column"} spacing={2}>
+        <Grid item>
+          <FundingProgressInputView targetFunding = {targetFunding} currentFundedAmount = {progress}/>
+        </Grid>
+        <Grid item>
             <Box sx={{ fontWeight: 'bold'}}>${progress}</Box>
             <Box sx={{ fontWeight: 'light', typography: 'body2'}}>pledged of ${targetFunding} goal</Box>
         </Grid>
-        <Grid> 
+        <Grid item> 
             <Box sx={{ fontWeight: 'bold'}}>{totalBackers}</Box>
             <Box sx={{ fontWeight: 'light', typography: 'body2'}}>backers</Box>
-        </Grid>
-        <Grid> 
-            <Box sx={{ fontWeight: 'bold'}}> Project Milestones </Box>
+        </Grid >
+        <Grid item> 
+            <Box sx={{ typography: 'body1' }}> Project Goals </Box>
             {milestones.map((milestone, index) => {
             return (
               <React.Fragment key = {index}> 
-                <Box sx={{ fontWeight: 'bold'}}> Milestone {index}</Box>
+                <Box sx={{ fontWeight: 'bold'}}> Milestone {index + 1}</Box>
                 <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> {milestone.name}</Box>
                 <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> {milestone.description}</Box>
                 <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index + 1}> Target Amount: ${milestone.amount} </Box>
@@ -68,6 +71,7 @@ export default function ProjectFundingInfo(){
             )
             })}
         </Grid>
+       </Grid>
     </Box>
     )
 }

@@ -102,7 +102,7 @@ export default function TrasactionForm() {
                 
               />
               <Typography variant='h6' component='div' marginTop='15px'>
-                Card Information
+                Payment Information
               </Typography>
               <Controller
                 render={({ field }) => (
