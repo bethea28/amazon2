@@ -70,12 +70,13 @@ const ProjectDetails = () => {
     return (
         <Container>
             <Grid container spacing={12}>
-            {currentProject && !currentProject.images && 
+            
                 <Grid item xs={6}>
                     <Paper>
-                        <img alt='project images' src='https://picsum.photos/400/300' />
+                    {currentProject && !currentProject.images && <img alt='project images' src='https://picsum.photos/400/300' />}
+                    {currentProject && currentProject.images && <ImgCarousel {...currentProject} />}
                     </Paper>
-                </Grid>}
+                </Grid>
                 <Grid item xs={6} paddingBottom={10}>
                     <Paper style={{ padding: 10 }}>
                         <Card variant='outlined'>
@@ -85,7 +86,6 @@ const ProjectDetails = () => {
                                         {currentProject && currentProject.projectName}
                                     </Typography>
 
-                                    {currentProject && currentProject.images && <ImgCarousel {...currentProject} />}
 
                                     {canEdit && <IconButton aria-label='edit' size='medium' >
                                         <Link to={`/projects/${projectId}/edit`}>
