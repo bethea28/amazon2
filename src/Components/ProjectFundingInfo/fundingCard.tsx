@@ -63,10 +63,10 @@ export default function ProjectFundingInfo(){
             {milestones.map((milestone, index) => {
             return (
               <React.Fragment key = {index}> 
-                <Box sx={{ fontWeight: 'bold'}}> Milestone {index + 1}</Box>
-                <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> {milestone.name}</Box>
-                <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index}> {milestone.description}</Box>
-                <Box sx={{ fontWeight: 'light', typography: 'body2'}} key={index + 1}> Target Amount: ${milestone.amount} </Box>
+                <Box sx={{ fontWeight: 'bold'}}> Milestone </Box>
+                <Box sx={{ fontWeight: 'light', typography: 'body2'}} > {milestone.name}</Box>
+                <Box sx={{ fontWeight: 'light', typography: 'body2'}} > {milestone.description}</Box>
+                <Box sx={{ fontWeight: 'light', typography: 'body2'}} > Target Amount: ${milestone.amount} </Box>
               </React.Fragment>
             )
             })}
