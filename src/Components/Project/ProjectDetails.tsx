@@ -107,7 +107,9 @@ const ProjectDetails = () => {
                                     </Link>)}
                                 </CardContent>
                                 <CardContent>
-                                    <ProjectFundingInfo />
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        <ProjectFundingInfo />
+                                    </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <Typography variant="body2" color="textSecondary" component="p">
