@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import ProjectData from '../../types/Project';
 import projectService from "../../services/ProjectService";
-import { useParams, Link, useNavigate, NavLink } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import ImgCarousel from "../Project/ProjectImagesCarousel/index"
 
 import {
@@ -70,11 +70,12 @@ const ProjectDetails = () => {
     return (
         <Container>
             <Grid container spacing={12}>
+            {currentProject && !currentProject.images && 
                 <Grid item xs={6}>
                     <Paper>
                         <img alt='project images' src='https://picsum.photos/400/300' />
                     </Paper>
-                </Grid>
+                </Grid>}
                 <Grid item xs={6} paddingBottom={10}>
                     <Paper style={{ padding: 10 }}>
                         <Card variant='outlined'>
@@ -84,9 +85,7 @@ const ProjectDetails = () => {
                                         {currentProject && currentProject.projectName}
                                     </Typography>
 
-
-                                    {currentProject && <ImgCarousel {...currentProject} />}
-
+                                    {currentProject && currentProject.images && <ImgCarousel {...currentProject} />}
 
                                     {canEdit && <IconButton aria-label='edit' size='medium' >
                                         <Link to={`/projects/${projectId}/edit`}>
@@ -108,9 +107,6 @@ const ProjectDetails = () => {
                                     </Link>)}
                                 </CardContent>
                                 <CardContent>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        <ProjectFundingInfo />
-                                    </Typography>
                                     <ProjectFundingInfo />
                                 </CardContent>
                                 <CardContent>
@@ -123,20 +119,18 @@ const ProjectDetails = () => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <NavLink to={`/projects/${projectId}/transactions`}  >
-                                    <Button variant='outlined' size="small" color="primary">
-                                        Back this project
-                                    </Button>
-                                </NavLink>
+                                <Button variant='outlined' size="small" color="primary" onClick={toTransactionForm}>
+                                    Back this project
+                                </Button>
                                 {warning && <Alert severity="warning">{warning}</Alert>}
-                                {isLoggedIn && <CardActions>
-                                    <Button type="submit" onClick={likeProject} variant='outlined' size="small">
+                                <CardActions>
+                                {isLoggedIn && <Button type="submit" onClick={likeProject} variant='outlined' size="small">
                                         Like
-                                    </Button>
+                                    </Button>}
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         {currentProject && currentProject.likedCount} likes
                                     </Typography>
-                                </CardActions>}
+                                </CardActions>
                             </CardActions>
                         </Card>
                     </Paper>
