@@ -50,9 +50,9 @@ export default function NavigationBar(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
     const logoutSessionUser = async () => {
-      await logoutUser()
-      navigate("/signin")
-
+      await logoutUser().then(() => {
+        navigate("/signin")
+      })
     }
 
   let sessionLinks;
