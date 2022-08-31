@@ -82,9 +82,17 @@ const ProjectDetails = () => {
             <Grid container justifyContent="space-evenly" spacing={12} paddingTop={14} paddingBottom={3}>
                 <Paper elevation={0}>
                     <Grid item xs={12} paddingTop={2} paddingBottom={10} paddingLeft={2} paddingRight={2}>
-                        <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                            {currentProject && currentProject.projectName}
-                        </Typography>
+                        <Grid display='flex' justifyContent='space-between'>
+                            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                                {currentProject && currentProject.projectName}
+                            </Typography>
+
+                            {canEdit && <IconButton aria-label='edit' size='medium' >
+                                <Link to={`/projects/${projectId}/edit`}>
+                                    <EditIcon />
+                                </Link>
+                            </IconButton>}
+                        </Grid>
 
                         <Typography gutterBottom variant='h5'>
                             {currentProject && currentProject.category}
@@ -98,11 +106,7 @@ const ProjectDetails = () => {
                                     {currentProject && currentProject.username}
                                 </Link>
                             </Typography>)}
-                        {canEdit && <IconButton aria-label='edit' size='medium' >
-                            <Link to={`/projects/${projectId}/edit`}>
-                                <EditIcon />
-                            </Link>
-                        </IconButton>}
+
                     </Grid>
                 </Paper>
                 <Paper elevation={0}>
