@@ -16,7 +16,7 @@ import { useForm, Controller } from 'react-hook-form'
 import UserContext from '../../context/user/UserContext'
 import TransactionService from '../../services/TransactionService'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { PaymentInput } from '../../types/Transactions'
+import { PaymentInput } from '../../types/transactions'
 
 
 export default function TrasactionForm() {

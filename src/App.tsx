@@ -25,6 +25,7 @@ import PageNotFound from "./Components/PageNotFound";
 import MyProjects from "./Components/Profile/MyProjects";
 import Milestones from "./Components/Milestones/milestones";
 import EditProjectForm from "./Components/Project/EditProjectForm";
+import Rules from "./Components/Footer/Rules";
 
 function App() {
   const [msgAlerts, setMsgAlerts] = useState<
@@ -75,6 +76,7 @@ function App() {
                 <Route path='/projects/:projectId/transactions' element={<TransactionForm />} />
                 <Route path='projects/:projectId/milestones' element={<Milestones />} />
                 <Route path='/about' element={<About />} />
+                <Route path='/rules' element={<Rules />} />
                 <Route path='*' element={<PageNotFound />} />
               </Routes>
             </header>

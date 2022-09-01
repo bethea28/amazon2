@@ -64,7 +64,7 @@ export default function Footer() {
           <Box>
             <Link to='/createProject' style={{ textDecoration: "none" }}>
               <Typography variant='body2' mb={0.5} color='#FFFFFF'>
-                Create a New Project
+                Create Project
               </Typography>
             </Link>
           </Box>
@@ -83,16 +83,16 @@ export default function Footer() {
             </Typography>
           </Box>
           <Box>
-            <Link to='/shipping' style={{ textDecoration: "none" }}>
+            <Link to='/rules' style={{ textDecoration: "none" }}>
               <Typography variant='body2' mb={0.5} color='#FFFFFF'>
-                Shipping
+                Our Rules
               </Typography>
             </Link>
           </Box>
           <Box>
-            <Link to='/customer-service' style={{ textDecoration: "none" }}>
+            <Link to='/help' style={{ textDecoration: "none" }}>
               <Typography variant='body2' mb={0.5} color='#FFFFFF'>
-                Customer Service
+                Help Center
               </Typography>
             </Link>
           </Box>

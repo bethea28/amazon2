@@ -1,5 +1,5 @@
 import axiosInstance from "../apiConfig";
-import TransactionType from "../types/Transactions";
+import TransactionType from "../types/transactions";
 import { getTheCookie } from "../utils/cookies";
 import ProjectData from "../types/Project"
 
