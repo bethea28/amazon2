@@ -13,7 +13,11 @@ import {
   Container,
   Paper,
   Typography,
-  Alert
+  Alert,
+  FormControl,
+  Select,
+  MenuItem,
+  SelectChangeEvent
 } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import UserContext from '../../context/user/UserContext'
@@ -32,6 +36,12 @@ export default function ProjectForm() {
   const [currentProject, setCurrentProject] = useState<ProjectData>();
 
   const [warning, setWarning] = useState<string>("")
+
+  const [category, setCategory] = useState<string>("");
+
+  const handleChange = (e: SelectChangeEvent) => {
+    setCategory(e.target.value as string);
+  }
 
   const toProject = () => {
     navigate(`/projects/${projectId}`)
@@ -128,12 +138,24 @@ export default function ProjectForm() {
           </Grid>
           <Grid item>
             <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Select Category</Typography>
-            <select {...register('category', { required: 'Category is required' })}>
-              <option value='' disabled selected >Select a category</option>
-              {categories.map((category) => (
-                <option value={category} key={category}>{category}</option>
-              ))}
-            </select>
+            <FormControl fullWidth>
+              <Select
+                {...register('category', { required: 'Category is required' })}
+                sx={{ backgroundColor: "white" }}
+                labelId='demo-simple-select-label'
+                id='demo-simple-select'
+                value={category}
+                label="Category"
+                onChange={handleChange}
+              >
+                {categories.map((category) => (
+                  <MenuItem
+                    value={category}
+                    key={category}
+                  >{category}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item paddingTop={2}>
             <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Target Funding Date</Typography>
