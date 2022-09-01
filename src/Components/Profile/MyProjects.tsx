@@ -49,7 +49,7 @@ export default function MyProjects() {
       {userProjects &&
         userProjects.length > 0 &&
         userProjects.map((project) => (
-            <Grid key={project.projectId}>
+            <Grid key={project.projectId} margin={3}>
               <ProjectCard {...project} />
             </Grid>
           )
@@ -69,7 +69,7 @@ export default function MyProjects() {
       {backedProjects &&
         backedProjects.length > 0 &&
         backedProjects.map((project) => (
-            <Grid key={project.projectId}>
+            <Grid key={project.projectId} margin={3}>
               <ProjectCard {...project} />
             </Grid>
           )

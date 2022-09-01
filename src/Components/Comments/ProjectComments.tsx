@@ -15,11 +15,11 @@ const ProjectComments = ({setIsLoaded, isLoaded}: setStateProps) => {
 
     const { projectId } = useParams();
 
-    const { sessionId } = useContext(UserContext);
+    const { user, sessionId } = useContext(UserContext);
 
     const [projectComments, setProjectComments] = useState<Array<CommentData> | []>();
 
-    const userAvatar: string = 'https://picsum.photos/200'
+    const userAvatar: string = (user?.avatar) ? user.avatar : 'https://picsum.photos/200'
 
     useEffect(() => {
         getComments()

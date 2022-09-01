@@ -25,7 +25,7 @@ export default function EditProjectForm() {
 
     const { projectId } = useParams();
 
-    const { register, handleSubmit, control } = useForm<ProjectData>()
+    const { register, handleSubmit, control, formState: { errors } } = useForm<ProjectData>()
 
     const { user, sessionId } = useContext(UserContext)
 
@@ -113,6 +113,7 @@ export default function EditProjectForm() {
                                 variant='outlined'
                                 margin='dense'
                                 fullWidth
+                                multiline
                                 sx={{ backgroundColor: "white" }}
                                 {...register('description', { required: 'Description is required' })}
                                 defaultValue={currentProject?.description}
@@ -135,6 +136,7 @@ export default function EditProjectForm() {
                     <Grid item>
                         <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Select Category</Typography>
                         <select {...register('category', { required: 'Category is required' })}>
+                            <option value='' disabled selected>Select a category</option>
                             {categories.map((category) => (
                                 <option value={category} key={category}>{category}</option>
                             ))}
@@ -154,6 +156,7 @@ export default function EditProjectForm() {
                                 />
                             )}
                         />
+                        {errors.targetFundingDate && <Typography fontSize={10} color='red'>Target Funding Date is required.</Typography>}
                     </Grid>
                     <Grid item container justifyContent="space-between" pt={3} alignItems="center">
                         <Button sx={backBtnStyle} onClick={toProjectDetail} startIcon={<KeyboardArrowLeftIcon />}>

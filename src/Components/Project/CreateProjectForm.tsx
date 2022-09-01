@@ -25,7 +25,7 @@ export default function ProjectForm() {
 
   const { projectId } = useParams();
 
-  const { register, handleSubmit, control } = useForm<ProjectData>()
+  const { register, handleSubmit, control, formState: { errors } } = useForm<ProjectData>()
 
   const { user, sessionId } = useContext(UserContext)
 
@@ -33,7 +33,7 @@ export default function ProjectForm() {
 
   const [warning, setWarning] = useState<string>("")
 
-  const toProfile = () => {
+  const toProject = () => {
     navigate(`/projects/${projectId}`)
   }
 
@@ -109,6 +109,7 @@ export default function ProjectForm() {
               variant='outlined'
               margin='dense'
               fullWidth
+              multiline
               sx={{ backgroundColor: "white" }}
               {...register('description', { required: 'Description is required' })}
             />
@@ -128,6 +129,7 @@ export default function ProjectForm() {
           <Grid item>
             <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Select Category</Typography>
             <select {...register('category', { required: 'Category is required' })}>
+              <option value='' disabled selected >Select a category</option>
               {categories.map((category) => (
                 <option value={category} key={category}>{category}</option>
               ))}
@@ -147,6 +149,7 @@ export default function ProjectForm() {
                 />
               )}
             />
+            {errors.targetFundingDate && <Typography fontSize={10} color='red'>Target Funding Date is required.</Typography>}
           </Grid>
           <Grid item container justifyContent="space-between" pt={3} alignItems="center">
             <Button type='submit' variant='contained' color='primary' onClick={handleSubmit(onSubmit)}>
