@@ -24,30 +24,25 @@ const NewProjects = () => {
 
   return (
     <Box>
-
-      <Grid marginTop={16} marginBottom={2}>
+      <Grid marginTop={10} marginBottom={2}>
         <Typography sx={{ fontWeight: "bold" }} variant='h6' textAlign='center'>
           THE LATEST
         </Typography>
       </Grid>
 
-      <Grid
-        style={{ marginTop: "50px", color: "#494949" }}
-      >
+      <Grid style={{ marginTop: "50px", color: "#494949" }}>
         <Carousel
           {...settings}>
           {newProjects &&
             newProjects.length > 0 &&
             newProjects.map((project) => {
               return (
-
                 <Grid key={project.projectId} marginBottom={2}>
                   <ProjectCard {...project} />
                 </Grid>
               )
             })}
         </Carousel>
-
       </Grid>
     </Box>
   )

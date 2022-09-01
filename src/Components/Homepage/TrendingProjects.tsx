@@ -23,30 +23,25 @@ const TrendingProjects = () => {
 
   return (
     <Box>
-
-      <Grid marginTop={16} marginBottom={2}>
+      <Grid marginTop={10} marginBottom={2}>
         <Typography sx={{ fontWeight: "bold" }} variant='h6' textAlign='center'>
           TRENDING PROJECTS
         </Typography>
       </Grid>
 
-      <Grid
-        style={{ marginTop: "50px", color: "#494949" }}
-      >
+      <Grid style={{ marginTop: "50px", color: "#494949" }}>
         <Carousel
           {...settings}>
           {trendingProjects &&
             trendingProjects.length > 0 &&
             trendingProjects.map((project) => {
               return (
-
                 <Grid key={project.projectId} marginBottom={2}>
                   <ProjectCard {...project} />
                 </Grid>
               )
             })}
         </Carousel>
-
       </Grid>
     </Box>
   )
