@@ -48,13 +48,12 @@ export default function ProjectFundingInfo(){
         const {targetFundingAmount, milestones, targetFundingDate} = response2.data;
         if (response2.data){
         setTargetFunding(targetFundingAmount);
-        setTargetDate(targetFundingDate);
+        setTargetDate(new Date((targetFundingDate.toString())));
           if (milestones){
               setMilestones(milestones);
             }
       }}
       fetchData();}, [projectId]);
-      
     return(
     <Box>
       <Grid container direction={"column"} spacing={2}>
@@ -62,8 +61,8 @@ export default function ProjectFundingInfo(){
           <FundingProgressInputView targetFunding = {targetFunding} currentFundedAmount = {progress}/>
         </Grid>
         <Grid item>
-            <Box sx={{ fontWeight: 'bold'}}>{Math.floor(Math.abs((currentDate.getTime() - targetDate.getTime()) / oneDay))}</Box>
-            <Box sx={{ fontWeight: 'light', typography: 'body2'}}>pledged of ${targetFunding} goal</Box>
+            <Box sx={{ fontWeight: 'bold'}}>{Math.floor(Math.abs(((currentDate.getTime()) - targetDate.getTime())/ oneDay))}</Box>
+            <Box sx={{ fontWeight: 'light', typography: 'body2'}}>days to go </Box>
         </Grid>
         <Grid item>
             <Box sx={{ fontWeight: 'bold'}}>${progress}</Box>
