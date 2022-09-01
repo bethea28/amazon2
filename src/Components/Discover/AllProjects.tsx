@@ -29,7 +29,7 @@ export default function AllProjects() {
         allProjects.length > 0 &&
         allProjects.map((project) => {
           return (
-            <Grid key={project.projectId} marginBottom={2}>
+            <Grid key={project.projectId} margin={3}>
               <ProjectCard {...project} />
             </Grid>
           )
