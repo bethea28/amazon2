@@ -113,6 +113,7 @@ export default function EditProjectForm() {
                                 variant='outlined'
                                 margin='dense'
                                 fullWidth
+                                multiline
                                 sx={{ backgroundColor: "white" }}
                                 {...register('description', { required: 'Description is required' })}
                                 defaultValue={currentProject?.description}

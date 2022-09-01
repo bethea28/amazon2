@@ -109,6 +109,7 @@ export default function ProjectForm() {
               variant='outlined'
               margin='dense'
               fullWidth
+              multiline
               sx={{ backgroundColor: "white" }}
               {...register('description', { required: 'Description is required' })}
             />
