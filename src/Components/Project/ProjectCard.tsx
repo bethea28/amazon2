@@ -7,7 +7,8 @@ import {
   CardContent,
   Typography,
   Container,
-  Paper
+  Paper, 
+  Grid
 } from '@mui/material'
 
 
@@ -22,7 +23,9 @@ const ProjectCard = (data: ProjectData) => {
         <Card variant='outlined'>
           <CardActionArea>
             <Link to={`/projects/${data.projectId}`} style={{ textDecoration: "none" }}>
+              <Grid display='flex' justifyContent='center' flexDirection='column'>
               <img alt='project img' src={projectCoverImage} style={{height: '400px'}}/>
+              </Grid>
               <CardContent>
                 <Typography gutterBottom variant='h5'>
                   {data.projectName}
