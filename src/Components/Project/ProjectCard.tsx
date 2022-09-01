@@ -11,7 +11,10 @@ import {
 } from '@mui/material'
 
 
+
 const ProjectCard = (data: ProjectData) => {
+
+  const projectCoverImage: string = (data.images && (data?.images.length > 0)) ? data?.images[0] : 'https://picsum.photos/400/300'
 
   return (
     <Container maxWidth='xs'>
@@ -19,7 +22,7 @@ const ProjectCard = (data: ProjectData) => {
         <Card variant='outlined'>
           <CardActionArea>
             <Link to={`/projects/${data.projectId}`} style={{ textDecoration: "none" }}>
-              <img alt='project img' src="https://picsum.photos/400/300" />
+              <img alt='project img' src={projectCoverImage} style={{height: '400px'}}/>
               <CardContent>
                 <Typography gutterBottom variant='h5'>
                   {data.projectName}

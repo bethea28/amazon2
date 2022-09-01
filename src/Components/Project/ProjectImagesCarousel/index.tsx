@@ -11,15 +11,15 @@ const ImgCarousel = (data: ProjectData) => {
   return (
     <Box>
       <Grid
-        style={{ marginTop: "50px", color: "#494949" }}>
+        style={{ marginTop: "50px", color: "#494949", width:'500px'}}>
         <Carousel
           {...settings}>
           {data &&
             data.images.length > 0 &&
             data.images.map((imgSrc, idx) => {
               return (
-                <Grid marginBottom={2} key={idx}>
-                  <img alt='project img' src={imgSrc} />
+                <Grid marginBottom={2} key={idx} display='flex' alignItems='center' justifyContent='center'>
+                  <img alt='project img' src={imgSrc}  />
                 </Grid>
               )
             })}

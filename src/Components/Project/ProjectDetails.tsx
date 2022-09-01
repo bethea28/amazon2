@@ -110,14 +110,16 @@ const ProjectDetails = () => {
                     </Grid>
                 </Paper>
                 <Paper elevation={0}>
-                    <Grid item xs={12} paddingTop={2} paddingBottom={10} paddingLeft={2} paddingRight={2}>
+                    <Grid item xs={12} padding={2} paddingBottom={10} paddingLeft={2} paddingRight={2}>
                         <ProjectFundingInfo />
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            Target Funding Date
-                        </Typography>
-                        <Typography variant="body2">
-                            {currentProject && currentProject.targetFundingDate.toString().split("T", 1)}
-                        </Typography>
+                        <Grid marginTop={2}>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                Target Funding Date:
+                            </Typography>
+                            <Typography variant="body2">
+                                {currentProject && currentProject.targetFundingDate.toString().split("T", 1)}
+                            </Typography>
+                        </Grid>
                     </Grid>
                 </Paper>
                 <Grid container justifyContent="center" spacing={3}>
