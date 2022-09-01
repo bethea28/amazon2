@@ -114,11 +114,11 @@ return (
 
                 </Grid>
             </Paper>
-            <Paper elevation={0}>
+            <Paper elevation={2}>
                 <Grid item xs={12} padding={2} paddingBottom={10} paddingLeft={2} paddingRight={2}>
                     <ProjectFundingInfo />
                     <Grid marginTop={2}>
-                        <Typography variant="body2">
+                        <Typography variant="body2" sx={{ fontStyle: 'italic' }}>
                             All funds will be released on: {currentProject && currentProject.targetFundingDate.toString().split("T", 1)}
                         </Typography>
                     </Grid>

@@ -73,7 +73,7 @@ export default function ProjectFundingInfo(){
             <Box sx={{ fontWeight: 'light', typography: 'body2'}}>backers</Box>
         </Grid >
         <Grid item> 
-            <Box sx={{ fontWeight: 'bold', typography: 'body1' }}> Project Goals </Box>
+            <Box sx={{ fontWeight: 'bold'}}> Project Goals </Box>
             {milestones.map((milestone, index) => {
             return (
               <React.Fragment key={index}> 
