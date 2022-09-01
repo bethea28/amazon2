@@ -8,6 +8,7 @@ import UserContext from '../../context/user/UserContext'
 
 
 const Homepage = () => {
+  
   const navigate = useNavigate();
 
   const { isLoggedIn } = useContext(UserContext)

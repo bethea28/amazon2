@@ -9,7 +9,6 @@ import { DefaultSettingsT, SettingsT } from '../../utils/CarouselSettings/Settin
 const TrendingProjects = () => {
 
   const [settings, setSettings] = useState<SettingsT>(DefaultSettingsT);
-
   const [trendingProjects, setTrendingProjects] = useState<Array<ProjectData> | []>()
 
   useEffect(() => {
@@ -28,7 +27,6 @@ const TrendingProjects = () => {
           TRENDING PROJECTS
         </Typography>
       </Grid>
-
       <Grid style={{ marginTop: "50px", color: "#494949" }}>
         <Carousel
           {...settings}>

@@ -9,7 +9,6 @@ import { DefaultSettingsT, SettingsT } from '../../utils/CarouselSettings/Settin
 const RecommendedProjects = () => {
 
     const [settings, setSettings] = useState<SettingsT>(DefaultSettingsT);
-
     const [recomProjects, setRecomProjects] = useState<Array<ProjectData> | []>()
 
     useEffect(() => {

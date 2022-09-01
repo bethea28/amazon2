@@ -5,10 +5,10 @@ import ProjectData from '../../types/Project'
 import ProjectService from '../../services/ProjectService'
 import Carousel from 'react-material-ui-carousel';
 import { DefaultSettingsT, SettingsT } from '../../utils/CarouselSettings/Settings'
+
 const NewProjects = () => {
 
   const [settings, setSettings] = useState<SettingsT>(DefaultSettingsT);
-
   const [newProjects, setNewProjects] = useState<Array<ProjectData> | []>()
 
   useEffect(() => {
@@ -20,8 +20,6 @@ const NewProjects = () => {
     setNewProjects(response.data)
   }
 
-
-
   return (
     <Box>
       <Grid marginTop={10} marginBottom={2}>
@@ -29,7 +27,6 @@ const NewProjects = () => {
           THE LATEST
         </Typography>
       </Grid>
-
       <Grid style={{ marginTop: "50px", color: "#494949" }}>
         <Carousel
           {...settings}>
