@@ -19,7 +19,7 @@ const ImgCarousel = (data: ProjectData) => {
             data.images.map((imgSrc, idx) => {
               return (
                 <Grid marginBottom={2} key={idx} display='flex' alignItems='center' justifyContent='center'>
-                  <img alt='project img' src={imgSrc}  />
+                  <img alt='project img' src={imgSrc} style={{height: '500px'}}  />
                 </Grid>
               )
             })}
