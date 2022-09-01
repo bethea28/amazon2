@@ -136,6 +136,7 @@ export default function EditProjectForm() {
                     <Grid item>
                         <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Select Category</Typography>
                         <select {...register('category', { required: 'Category is required' })}>
+                            <option value='' disabled selected>Select a category</option>
                             {categories.map((category) => (
                                 <option value={category} key={category}>{category}</option>
                             ))}
