@@ -12,7 +12,7 @@ export default function Footer() {
         color: "#FFFFFF",
         align: "center",
       }}
-      mt={20}
+      mt={17}
     >
       <Grid container spacing={5}>
         <Grid item xs={12} sm={4}>

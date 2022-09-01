@@ -9,7 +9,6 @@ import { DefaultSettingsT, SettingsT } from '../../utils/CarouselSettings/Settin
 const RecommendedProjects = () => {
 
     const [settings, setSettings] = useState<SettingsT>(DefaultSettingsT);
-
     const [recomProjects, setRecomProjects] = useState<Array<ProjectData> | []>()
 
     useEffect(() => {
@@ -23,7 +22,7 @@ const RecommendedProjects = () => {
 
     return (
         <Box>
-            <Grid marginTop={16} marginBottom={2}>
+            <Grid marginTop={10} marginBottom={2}>
                 <Typography sx={{ fontWeight: "bold" }} variant='h6' textAlign='center'>
                     RECOMMENDED
                 </Typography>
