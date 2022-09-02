@@ -8,7 +8,7 @@ import {
   Typography,
   Drawer,
   IconButton,
-  Button  
+  Button
 } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu";
 import DiscoverNavBar from '../Discover/DiscoverNavBar'
@@ -26,7 +26,7 @@ const drawerWidth = 240;
 
 export default function NavigationBar(props: Props) {
 
-  const {sessionId, logoutUser, isLoggedIn } = React.useContext(UserContext)
+  const { sessionId, logoutUser, isLoggedIn } = React.useContext(UserContext)
   const navigate = useNavigate()
 
   const { window } = props;
@@ -48,11 +48,11 @@ export default function NavigationBar(props: Props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-    const logoutSessionUser = async () => {
-      await logoutUser().then(() => {
-        navigate("/signin")
-      })
-    }
+  const logoutSessionUser = async () => {
+    await logoutUser().then(() => {
+      navigate("/signin")
+    })
+  }
 
   let sessionLinks;
   if (isLoggedIn) {
@@ -67,7 +67,7 @@ export default function NavigationBar(props: Props) {
         <NavLink to={`/profile/${sessionId}`} className="navbar">
           Profile
         </NavLink>
-        <Button variant="contained" onClick={logoutSessionUser} sx={{boxShadow: 'none'}} title='Logout'>
+        <Button variant="contained" onClick={logoutSessionUser} sx={{ boxShadow: 'none' }} title='Logout'>
           Logout
         </Button>
       </>
@@ -87,7 +87,7 @@ export default function NavigationBar(props: Props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar component='nav' position='absolute'>
+      <AppBar component='nav' position='fixed'>
         <Toolbar>
           <IconButton
             color='inherit'
@@ -122,12 +122,12 @@ export default function NavigationBar(props: Props) {
                 Discover
               </NavLink>
               {sessionLinks}
-              
+
             </Typography>
           </Box>
         </Toolbar>
         <Divider color='white' />
-      <DiscoverNavBar />
+        <DiscoverNavBar />
       </AppBar>
       <Box component='nav'>
         <Drawer

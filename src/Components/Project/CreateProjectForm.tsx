@@ -5,7 +5,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ProjectData from '../../types/Project'
 import projectService from '../../services/ProjectService'
 import { categories } from '../../types/Categories'
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import {
   TextField,
   Button,
@@ -21,7 +20,6 @@ import {
 } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import UserContext from '../../context/user/UserContext'
-import { width } from '@mui/system'
 
 export default function ProjectForm() {
 
@@ -43,14 +41,9 @@ export default function ProjectForm() {
     setCategory(e.target.value as string);
   }
 
-  const toProject = () => {
-    navigate(`/projects/${projectId}`)
+  const toHome = () => {
+    navigate(`/`);
   }
-
-  const backBtnStyle = {
-    color: "#212121",
-    textTransform: "none",
-  };
 
   useEffect(() => {
     fetchProject();
@@ -100,10 +93,10 @@ export default function ProjectForm() {
               Create New Project
             </Typography>}
         </Grid>
-        <Grid container direction='column'>
+        <Grid container direction='column' spacing={3} >
           {warning && <Alert severity="warning">{warning}</Alert>}
           <Grid item>
-            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Project Name</Typography>
+            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Project Name*</Typography>
             <TextField
               {...register('projectName', { required: 'Project Name is required' })}
               variant='outlined'
@@ -116,10 +109,12 @@ export default function ProjectForm() {
           <Grid item>
             <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Description</Typography>
             <TextField
-              variant='outlined'
-              margin='dense'
-              fullWidth
+              id="outlined-multiline-static"
               multiline
+              rows={4}
+              variant='outlined'
+              fullWidth
+              margin='dense'
               sx={{ backgroundColor: "white" }}
               {...register('description', { required: 'Description is required' })}
             />
@@ -158,7 +153,7 @@ export default function ProjectForm() {
             </FormControl>
           </Grid>
           <Grid item paddingTop={2}>
-            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Target Funding Date</Typography>
+            <Typography variant='body2' sx={{ color: 'rgb(133, 133, 133)' }}>Target Funding Date*</Typography>
             <Controller
               name='targetFundingDate'
               control={control}
@@ -174,6 +169,9 @@ export default function ProjectForm() {
             {errors.targetFundingDate && <Typography fontSize={10} color='red'>Target Funding Date is required.</Typography>}
           </Grid>
           <Grid item container justifyContent="space-between" pt={3} alignItems="center">
+            <Button variant='contained' color='error' onClick={toHome}>
+              Cancel
+            </Button>
             <Button type='submit' variant='contained' color='primary' onClick={handleSubmit(onSubmit)}>
               Submit
             </Button>
