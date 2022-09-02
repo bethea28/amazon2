@@ -1,17 +1,21 @@
 import React from 'react'
 import ProjectData from '../../types/Project'
 import { Link } from 'react-router-dom'
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Box, positions } from '@mui/system';
 import {
   Card,
   CardActionArea,
   CardContent,
   Typography,
   Container,
-  Paper, 
-  Grid
+  Paper,
+  Grid,
+  makeStyles,
+  CardMedia,
+  IconButton,
+  CardActions
 } from '@mui/material'
-
-
 
 const ProjectCard = (data: ProjectData) => {
 
@@ -23,9 +27,15 @@ const ProjectCard = (data: ProjectData) => {
         <Card variant='outlined'>
           <CardActionArea>
             <Link to={`/projects/${data.projectId}`} style={{ textDecoration: "none" }}>
-              <Grid display='flex' justifyContent='center' flexDirection='column'>
+              <CardMedia
+                component="img"
+                height="300"
+                image={projectCoverImage}
+                alt="project cover image"
+              />
+              {/* <Grid display='flex' justifyContent='center' flexDirection='column'>
               <img alt='project img' src={projectCoverImage} style={{height: '400px'}}/>
-              </Grid>
+              </Grid> */}
               <CardContent>
                 <Typography gutterBottom variant='h5'>
                   {data.projectName}
@@ -35,11 +45,18 @@ const ProjectCard = (data: ProjectData) => {
                 </Typography>
               </CardContent>
             </Link>
-            <CardContent>
+            <CardActions disableSpacing>
               <Typography variant='body2' color='textSecondary' component='p'>
                 By {data.username}
               </Typography>
-            </CardContent>
+              <IconButton sx={{ position: 'absolute', right: '20%' }} aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+              <Typography
+                sx={{ position: 'absolute', right: '10%' }}
+                variant='body2' color='textSecondary' component='p'
+              >{data.likedCount} likes</Typography>
+            </CardActions>
           </CardActionArea>
         </Card>
       </Paper>

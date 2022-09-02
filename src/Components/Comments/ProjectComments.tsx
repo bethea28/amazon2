@@ -9,9 +9,9 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 interface setStateProps {
     isLoaded: boolean | undefined
     setIsLoaded: React.Dispatch<React.SetStateAction<boolean | undefined>>
-  }
+}
 
-const ProjectComments = ({setIsLoaded, isLoaded}: setStateProps) => {
+const ProjectComments = ({ setIsLoaded, isLoaded }: setStateProps) => {
 
     const { projectId } = useParams();
 
@@ -19,7 +19,7 @@ const ProjectComments = ({setIsLoaded, isLoaded}: setStateProps) => {
 
     const [projectComments, setProjectComments] = useState<Array<CommentData> | []>();
 
-    const userAvatar: string = (user?.avatar) ? user.avatar : 'https://picsum.photos/200'
+    let userAvatar = user && user.avatar;
 
     useEffect(() => {
         getComments()
@@ -44,18 +44,18 @@ const ProjectComments = ({setIsLoaded, isLoaded}: setStateProps) => {
                         <Paper key={comment.commentId} variant='outlined' square>
                             <ListItem alignItems='flex-start'>
                                 <ListItemAvatar>
-                                    <Avatar alt='Remy Sharp' src={userAvatar} />
+                                    <Avatar alt="User's photo" src={comment.userName === user?.username ? userAvatar : 'https://picsum.photos/200'} />
                                 </ListItemAvatar>
                                 <ListItemText primary={comment.content}
                                     secondary={
                                         <Link to={`/profile/${comment.userId}`} className='internalLinks'>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            fontSize='13px'
-                                        >
-                                            {comment.userName}
-                                        </Typography>
+                                            <Typography
+                                                sx={{ display: 'inline' }}
+                                                component="span"
+                                                fontSize='13px'
+                                            >
+                                                {comment.userName}
+                                            </Typography>
                                         </Link>
                                     }
                                 />

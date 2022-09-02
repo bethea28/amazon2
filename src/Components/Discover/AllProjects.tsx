@@ -14,26 +14,26 @@ export default function AllProjects() {
 
   const fetchProjects = async () => {
     await ProjectService.getAllProjects()
-    .then((response) => {setAllProjects(response.data)})
+      .then((response) => { setAllProjects(response.data) })
   }
 
   return (
     <Grid container justifyContent='center' alignItems='center' flexDirection='column'>
       <Grid marginTop={2}>
         <Typography sx={{ fontWeight: "bold" }} variant='h3'>
-          All Projects
+          Explore {allProjects && allProjects.length} projects
         </Typography>
       </Grid>
       <Grid container justifyContent='center' alignItems='center' marginTop={2}>
-      {allProjects &&
-        allProjects.length > 0 &&
-        allProjects.map((project) => {
-          return (
-            <Grid key={project.projectId} margin={3}>
-              <ProjectCard {...project} />
-            </Grid>
-          )
-        })}
+        {allProjects &&
+          allProjects.length > 0 &&
+          allProjects.map((project) => {
+            return (
+              <Grid key={project.projectId} margin={3}>
+                <ProjectCard {...project} />
+              </Grid>
+            )
+          })}
       </Grid>
     </Grid>
   )
